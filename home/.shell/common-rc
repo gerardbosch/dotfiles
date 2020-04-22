@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#
+# Common RC file for bash/zsh
+#
+
+for file in ~/.shell/*sh; do
+    source "$file"
+done
+
+# TODO DROP already in .profile
+# homeshick command
+#source "${CASTLES}/homeshick/homeshick.sh"
