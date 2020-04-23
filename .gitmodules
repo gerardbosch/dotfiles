@@ -1,8 +1,4 @@
-# Ignoring all means that superproject, i.e. dotfiles castle, will not
-# be aware of submodule's changes: will ignore them.
-
 [submodule "bash-it"]
 	path = bash-it
 	url = https://github.com/Bash-it/bash-it.git
-	ignore = all
-	update = merge
+	ignore = dirty
