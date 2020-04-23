@@ -1,0 +1,27 @@
+[include]
+	path = ~/.gitconfig-local
+
+[core]
+	filemode = false
+	eol = lf
+	autocrlf = false
+
+# Ending slash (/) makes it to work recursively like (/**)
+[includeIf "gitdir:~/repos/"]
+	path = ~/repos/.gitconfig
+[includeIf "gitdir:~/personal-repos/"]
+	path = ~/personal-repos/.gitconfig
+
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	lg1 = log --pretty=oneline
+	cl = clone --config core.filemode=false
+	# cleanup already **fully** merged branches (git branch -d)
+	brcleanup = "!git branch --merged | egrep -v '(^\\*|^\\s*master$|^\\s*develop$|^\\s*dev$)' | xargs -n1 -r git branch -d"
+	submodule-pull = submodule update --init --remote
+	submodule-update-rec = submodule update --init --recursive
+	

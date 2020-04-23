@@ -8,7 +8,7 @@ bootstrap the dotfiles using Homeshick dotfile manager. It will do the following
 * Clone Homeshick to the right place in your home
 * Bootstrap this dotfiles castle
 
-```
+```shell
 sh -c "$(curl github.io/gerardbosch/dotfiles/bootstrap.sh)"
 ```
 
@@ -60,32 +60,41 @@ here.
 
 # Adding new submodules
 
-You can add to your dotfiles other projects that you want bring always with you
-(like shell frameworks), use a submodule for that:
+You can add to your dotfiles other projects that you want to bring always with
+you (like shell frameworks). Use a submodule for that:
 
-```
+```shell
 homeshick cd dotfiles
 git submodule add --depth=1 URL
-git config -f .gitmodules submodule.SUBMODULE_NAME.ignore all
-git config -f .gitmodules submodule.SUBMODULE_NAME.update merge
+git config -f .gitmodules submodule.SUBMODULE_NAME.ignore dirty
 cd ./home && ln -s ../SUBMODULE_NAME LINK_NAME
 ```
+
+* When you add a submodule, submodule's nested submodules (if any) are not
+initialized, so they remain empty. If you want/need to populate it:<br>
+`git submodule-update-rec --depth=1`     # my own Git alias
 
 # Update submodules
 
 Some of the submodules like `oh-my-zsh` may update themselves automatically. But 
 you can manually update one, or all submodules at once:
 
+```shell
+# Pull all submodules from its remotes
+git submodule-pull --depth=1   # my Git alias for `git submodule update --init --remote`
+git add . && git commit -m "Update all submodules from its remotes."
 ```
-# A good idea is to update the dotfiles castle first:
-homeshick pull dotfiles
+Now, superproject's records store the last commit of each submodule.
 
+* In case the pulling of the submodule introduced a new submodule inside, the
+  latter won't be initialized yet, and you will require an additional step after the
+  commit:<br>`git submodule-update-rec --depth=1`     # my own Git alias
+
+* *Note: You could be interested in doing the following before* `submodule-update-rec`:
+```shell
 # (Just in case) sync submodule metadata (URL): Updates all SUBMODULE/.git/config
 #   according to .gitmodules (remote URL could change, but not usually happen)
 git submodule sync --quiet --recursive
-
-# Pull all submodules from its remotes
-git submodule update --init --remote
 ```
 
 # Extra
