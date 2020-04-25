@@ -9,7 +9,7 @@ bootstrap the dotfiles using Homeshick dotfile manager. It will do the following
 * Bootstrap this dotfiles castle
 
 ```shell
-sh -c "$(curl https://gerardbosch.github.io/dotfiles/bootstrap.sh)"
+sh -c "$(curl -fsSL https://gerardbosch.github.io/dotfiles/bootstrap.sh)"
 ```
 
 You will be prompted for linking the newly downloaded dotfiles and mostly sure

@@ -20,6 +20,10 @@ if [ -n "$BASH_VERSION" ]; then
     [ -f ~/.bashrc ] && source ~/.bashrc
 fi
 
+# Make less more friendly for non-text input files, see lesspipe(1)
+# will be able to read: tars, images, etc.
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
