@@ -17,21 +17,18 @@ you will be prompted for overwriting some of the files like `.bashrc`, etc. You
 can make a backup first if you want or answer no and link them later with
 `homeshick link dotfiles`.
 
-This repository uses Git submodules to host its dependencies (oh-my-zsh,
-bash-it,...)
+This repository uses Git submodules to host its dependencies.
 
 THAT'S ALL! 😎
 
 
 # What's included
 
-My main personal 'dotfiles' castle, including some shell frameworks like
-Oh-my-zsh.
+My main personal 'dotfiles' castle, including some shell frameworks, Zsh configs, Zsh plugin
+manager, etc.
 
 Dependencies shipped as Git submodules:
 
-* oh-my-zsh (Awesome Zsh community framework)
-* Powerlevel-10k (p10k - A popular theme for Zsh)
 * bash-it (A ripoff oh-my-zsh for the Bash shell)
 
 # Why and how?
@@ -76,8 +73,8 @@ initialized, so they remain empty. If you want/need to populate it:<br>
 
 # Update submodules
 
-Some of the submodules like `oh-my-zsh` may update themselves automatically. But 
-you can manually update one, or all submodules at once:
+Some of the submodules like may update themselves automatically. But you can manually update one,
+or all submodules at once:
 
 ```shell
 # Pull all submodules from its remotes

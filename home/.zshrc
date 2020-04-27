@@ -10,6 +10,9 @@ fi
 ADOTDIR=~/.cache/zsh-antigen
 #------------------------------
 
+# Source completions
+source ~/.zsh/completions.zsh
+
 # Load Antigen - the ZSH package manager (https://github.com/zsh-users/antigen)
 source ~/.zsh/antigen.zsh
 # and Antigen run commands
