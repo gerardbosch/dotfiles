@@ -1,5 +1,4 @@
 [core]
-	filemode = false
 	eol = lf
 	autocrlf = false
 
