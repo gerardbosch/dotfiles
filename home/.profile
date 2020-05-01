@@ -33,13 +33,19 @@ export LC_MESSAGES="en_GB.UTF-8"
 export LC_CTYPE="en_GB.UTF-8"
 export LC_COLLATE="en_GB.UTF-8"
 
-# Redefine some keyboard mapping: slash / plus / dead_circumflex
-xmodmap -e 'keycode 16 = 7 dead_circumflex slash braceleft seveneighths'
-xmodmap -e 'keycode 35 = slash asterisk plus asterisk bracketright dead_macron'
-xmodmap -e 'keycode 34 = dead_grave plus dead_grave dead_circumflex bracketleft dead_abovering'
-xmodmap -e 'keycode 47 = colon Ntilde ntilde Ntilde asciitilde dead_doubleacute'
-xmodmap -e 'keycode 60 = period ntilde period colon periodcentered division periodcentered division'
+# Common shell (bash/zsh) stuff
+source ~/.shell/common-rc
 
+# Redefine some keyboard mapping: slash / plus / dead_circumflex
+if [ -x ""$(command -v xmodmap)"" ]; then
+  xmodmap -e 'keycode 16 = 7 dead_circumflex slash braceleft seveneighths'
+  xmodmap -e 'keycode 35 = slash asterisk plus asterisk bracketright dead_macron'
+  xmodmap -e 'keycode 34 = dead_grave plus dead_grave dead_circumflex bracketleft dead_abovering'
+  xmodmap -e 'keycode 47 = colon Ntilde ntilde Ntilde asciitilde dead_doubleacute'
+  xmodmap -e 'keycode 60 = period ntilde period colon periodcentered division periodcentered division'
+fi
+
+# Homebrew / Linuxbrew
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # homeshick command

@@ -73,8 +73,5 @@ export SCM_CHECK=true
 source "$BASH_IT"/bash_it.sh
 
 
-# Load common shell (bash/zsh) script
-source ~/.shell/common-rc
-
 # Homeshick completions
 source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
