@@ -18,3 +18,6 @@ alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
 
 # Git
 alias cg='cd $(git rev-parse --show-toplevel)'
+
+# Misc
+alias hs='homeshick'
