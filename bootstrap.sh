@@ -22,6 +22,6 @@ echo
 echo "You can check if Zsh is installed running: ${ul}zsh --version${eul}"
 echo 'If its not, you can install it with your package manager, e.g. apt'
 echo
-echo "Then you can change the login shell to Zsh 🚀🚀: ${ul}chsh -s $(which zsh)${eul}"
+echo "Then you can change the login shell to Zsh 🚀🚀: ${ul}chsh -s "'$(which zsh)'"${eul}"
 echo 'Log out and log back in to enjoy ❤️  your new shell; or run zsh from within bash.'
 echo
