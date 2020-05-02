@@ -10,6 +10,9 @@ fi
 ADOTDIR=~/.cache/zsh-antigen
 #------------------------------
 
+# Source Zsh specific aliases
+source ~/.zsh/aliases.zsh
+
 # Source completions
 source ~/.zsh/completions.zsh
 
