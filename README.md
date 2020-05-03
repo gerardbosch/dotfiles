@@ -58,14 +58,13 @@ here.
 # Adding new submodules
 
 You can add to your dotfiles other projects that you want to bring always with
-you (like shell frameworks). Use a submodule for that:
+you (like shell frameworks). Use a submodule for that. A convenience script is
+provided in `~/bin`; just run:
 
 ```shell
-homeshick cd dotfiles
-git submodule add --depth=1 URL
-git config -f .gitmodules submodule.SUBMODULE_NAME.ignore dirty
-cd ./home && ln -s ../SUBMODULE_NAME LINK_NAME
+add-castle-submod <castle> <URL>
 ```
+
 
 * When you add a submodule, submodule's nested submodules (if any) are not
 initialized, so they remain empty. If you want/need to populate it:<br>
@@ -73,8 +72,8 @@ initialized, so they remain empty. If you want/need to populate it:<br>
 
 # Update submodules
 
-Some of the submodules like may update themselves automatically. But you can manually update one,
-or all submodules at once:
+Some of the submodules may update (pull) themselves automatically. But you can
+manually update one, or all submodules at once:
 
 ```shell
 # Pull all submodules from its remotes

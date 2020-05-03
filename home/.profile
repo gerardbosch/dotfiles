@@ -46,8 +46,8 @@ if [ -x ""$(command -v xmodmap)"" ]; then
   xmodmap -e 'keycode 60 = period ntilde period colon periodcentered division periodcentered division'
 fi
 
-# Homebrew / Linuxbrew
+# Homebrew / Linuxbrew (brew installation instructions)
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-# homeshick command
+# homeshick command (from its Github installation)
 source "${CASTLES}/homeshick/homeshick.sh"
