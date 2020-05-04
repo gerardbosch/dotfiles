@@ -10,7 +10,6 @@ CASTLES=~/.homesick/repos
 
 git clone --depth=1 https://github.com/andsens/homeshick.git "$CASTLES/homeshick"
 "$CASTLES/homeshick/bin/homeshick" clone gerardbosch/dotfiles
-#git -C "$CASTLES/dotfiles" submodule 
 
 # Text format
 ul=$(tput smul)   # underline
