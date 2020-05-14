@@ -15,6 +15,7 @@ source ~/.zsh/aliases.zsh
 
 # Source completions
 source ~/.zsh/completions.zsh
+[ -f ~/.zsh/completions-local.zsh ] && source ~/.zsh/completions-local.zsh
 
 # Load Antigen - the ZSH package manager (https://github.com/zsh-users/antigen)
 source ~/.zsh/antigen.zsh
