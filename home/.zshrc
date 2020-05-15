@@ -16,6 +16,9 @@ source ~/.zsh/aliases.zsh
 # Source completions
 source ~/.zsh/completions.zsh
 [ -f ~/.zsh/completions-local.zsh ] && source ~/.zsh/completions-local.zsh
+# it looks that completion system will be already initialized by Antigen
+#autoload -Uz compinit
+#compinit
 
 # Load Antigen - the ZSH package manager (https://github.com/zsh-users/antigen)
 source ~/.zsh/antigen.zsh
@@ -23,4 +26,4 @@ source ~/.zsh/antigen.zsh
 antigen init ~/.zsh/antigenrc
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.zsh/p10k.zsh ]] || source ~/.zsh/p10k.zsh
+[[ -f ~/.zsh/p10k.zsh ]] && source ~/.zsh/p10k.zsh
