@@ -73,5 +73,5 @@ export SCM_CHECK=true
 source "$BASH_IT"/bash_it.sh
 
 
-# Homeshick completions
-source "$HOME/.homesick/repos/homeshick/completions/homeshick-completion.bash"
+# Source completions
+source $HOME/.bash/completions.bash
