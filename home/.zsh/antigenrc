@@ -12,6 +12,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle supercrabtree/k	# k = ll replacement Git friendly :)
+antigen bundle matthieusb/zsh-sdkman  # sdkman completions
 
 # Set ZSH theme :)
 #antigen theme denysdovhan/spaceship-prompt
