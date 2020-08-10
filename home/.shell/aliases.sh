@@ -17,7 +17,11 @@ alias pt='setsid audacious -E . >/dev/null'  # play in templist
 alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
 
 # Git
-alias cg='cd $(git rev-parse --show-toplevel)'
+alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir
 
 # Misc
 alias hs='homeshick'
+
+# Dev
+alias codeh='code . &' # code here!
+
