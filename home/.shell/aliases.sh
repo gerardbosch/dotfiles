@@ -23,5 +23,13 @@ alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir
 alias hs='homeshick'
 
 # Dev
-alias codeh='code . &' # code here!
+
+
+# Maven
+alias mcp='mvn clean package'
+alias mcps='mvn clean package -DskipTests -Dcheckstyle.skip'
+alias mcv='mvn clean verify'
+alias mcvs='mvn clean verify -DskipTests -Dcheckstyle.skip'
+alias mci='mvn clean install'
+alias mcis='mvn clean install -DskipTests -Dcheckstyle.skip'
 
