@@ -4,6 +4,9 @@
 # using Homebrew package manager:
 
 PACKAGES="
+zsh
+bash
+git
 git-extras
 ripgrep
 bat
@@ -12,4 +15,5 @@ exa
 cloc
 "
 
+brew update
 xargs brew install <<< "$PACKAGES"
