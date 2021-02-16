@@ -1,4 +1,4 @@
-# Load oh-my-zsh library
+# Use oh-my-zsh as default library for bundles
 antigen use oh-my-zsh
 
 # Load bundles from the default repo (oh-my-zsh)

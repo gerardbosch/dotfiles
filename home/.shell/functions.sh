@@ -36,5 +36,5 @@ pdf2png() {
 #    echo -e "\n>>> Converting file: ${file} ... <<<"
 #    gs -sDEVICE=jpeg -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dJPGQ=100 -r300 -o "${file%.[pP][dD][fF]}-%03d.jpg" "$file"
 #  done
-}
+#}
 

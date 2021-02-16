@@ -24,3 +24,6 @@
 	path = ~/repos/.gitconfig
 [includeIf "gitdir:~/personal-repos/"]
 	path = ~/personal-repos/.gitconfig
+[user]
+	name = Gerard Bosch
+	email = gerard.bosch@gmail.com
