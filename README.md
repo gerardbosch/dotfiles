@@ -8,6 +8,10 @@ bootstrap the dotfiles using Homeshick dotfile manager. It will do the following
 * Clone Homeshick to the right place in your home
 * Bootstrap this dotfiles castle
 
+**NOTE!** Git is required to run the script. So check if it is installed first. If you
+run on MacOS just run: `xcode-select --install`. On Linux check your distribution.
+You can also install it via Brew.
+
 ```shell
 sh -c "$(curl -fsSL https://gerardbosch.github.io/dotfiles/bootstrap.sh)"
 ```
