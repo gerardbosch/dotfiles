@@ -6,8 +6,9 @@ firefox
 spectacle
 alfred
 "
+#firefox-developer-edition
 #visual-studio-code
 
 brew update
-xargs brew cask install <<< "$CASKS"
+xargs brew install --cask <<< "$CASKS"
 
