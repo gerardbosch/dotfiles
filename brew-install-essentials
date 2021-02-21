@@ -10,6 +10,7 @@ git
 git-extras
 ripgrep
 bat
+tree
 eth-p/software/bat-extras
 exa
 cloc
