@@ -28,6 +28,8 @@ fi
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
+export PATH="/usr/local/sbin:$PATH"
+
 export LANG="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
 export LC_MESSAGES="en_GB.UTF-8"
