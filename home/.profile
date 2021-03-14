@@ -49,7 +49,9 @@ if [ -x ""$(command -v xmodmap)"" ]; then
 fi
 
 # Homebrew / Linuxbrew (brew installation instructions)
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+case "$(uname -s)" in
+  Linux*) eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) ;;
+esac
 
 # homeshick command (from its Github installation)
 source "${CASTLES}/homeshick/homeshick.sh"
