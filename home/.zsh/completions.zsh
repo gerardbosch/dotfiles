@@ -1,3 +1,6 @@
+# Generic completion dir (completion functions manually generated - not installed by a package manager in default locations)
+fpath=(~/.zsh/completion $fpath)
+
 # Homeshick completion
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 
