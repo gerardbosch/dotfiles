@@ -27,7 +27,7 @@ alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
 
 # --- Development ---
 
-alias ij='idea . &'
+alias ij='idea . &disown'
 
 ## Git
 alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir

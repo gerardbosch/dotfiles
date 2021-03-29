@@ -6,6 +6,7 @@
 PACKAGES="
 zsh
 bash
+ncdu
 git
 git-extras
 ripgrep
