@@ -32,7 +32,7 @@ alias ij='idea . &disown'
 ## Git
 alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir
 # copy-branch (cpb) Copy git branch name to clipboard alias (plattform independent)
-#alias cpb='git rev-parse --abbrev-ref HEAD | clipcopy'
+alias cpb='git rev-parse --abbrev-ref HEAD | pbcopy'
 
 ## jshell with vavr loaded and imports in place :) ##
 alias vavr='jshell --class-path "$(coursier fetch -p io.vavr:vavr:0.10.2)" --startup ~/.jshell/vavr-imports.jsh'
