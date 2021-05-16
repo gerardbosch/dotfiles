@@ -35,7 +35,7 @@ alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir
 alias cpb='git rev-parse --abbrev-ref HEAD | pbcopy'
 
 ## jshell with vavr loaded and imports in place :) ##
-alias vavr='jshell --class-path "$(coursier fetch -p io.vavr:vavr:0.10.2)" --startup ~/.jshell/vavr-imports.jsh'
+alias vavr='jshell --class-path "$(cs fetch -p io.vavr:vavr:0.10.3)" --startup ~/.jshell/vavr-imports.jsh'
 
 ## Maven
 alias mcp='mvn clean package'
