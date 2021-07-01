@@ -1,6 +1,6 @@
 # Custom completion dir: Completion functions manually generated - not installed by a package manager in default locations;
 # or symlinks for packages
-#fpath=(~/.zsh/completion $fpath)
+fpath=(~/.zsh/completion $fpath)
 
 # Homeshick completion
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
