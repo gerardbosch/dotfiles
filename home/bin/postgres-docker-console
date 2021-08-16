@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+dbUser="$1"
+
+containerId=$(docker ps | grep postgres | cut -d' ' -f1)
+docker exec -it "$containerId" /bin/bash -c "psql -U ${dbUser}"
+
