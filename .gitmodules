@@ -2,8 +2,3 @@
 	path = bash-it
 	url = https://github.com/Bash-it/bash-it.git
 	ignore = dirty
-[submodule "submodules/z"]
-	path = submodules/z
-	url = https://github.com/rupa/z
-[submodule "z"]
-	ignore = dirty
