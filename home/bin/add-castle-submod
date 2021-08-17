@@ -124,7 +124,7 @@ check_env() {
     && exit 1
 }
 
-# link_name will be hidden if target is home, e.g. home/.fzf
+# Prepend a dot (hidden dir), e.g. home/.fzf, if the target is $HOME to avoid polluting homedir
 link_name() {
   local prefix=$(if [[ "$__symlink_target" = "home" ]]; then echo "."; else echo "" ; fi)
   echo "${prefix}$1"
@@ -136,14 +136,15 @@ main() {
   local link_name=$(link_name "$submodule_name")
 
   cd "$CASTLES/$_castle_"
-  git submodule add "$depth" "$_URL_"
+  mkdir -p submodules
+  (cd submodules && git submodule add "$depth" "$_URL_")
   git config -f .gitmodules submodule."$submodule_name".ignore dirty \
     && git add .gitmodules
   # Make the "shallow-symlink" in the castle, then homeshick-link it!
   cd "$__symlink_target" \
     && ln -s ../"$submodule_name" "$link_name" \
     && git add "$link_name" \
-    && ~/.homesick/repos/homeshick/bin/homeshick link "$_castle_"
+    && "$CASTLES"/homeshick/bin/homeshick link "$_castle_"
 }
 
 # Parse arguments
