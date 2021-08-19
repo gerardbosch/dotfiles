@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+#
+# Converts the color space to sRGB: Used for CMYK images.
+#
+
+inFile=$(basename "$1")
+
+inFileName=${inFile%.*}    # strip extension
+#extension="${inFile##*.}"
+outFile="${inFileName}_rgb.pdf"
+
+echo
+echo "Writing into "${outFile} ...
+echo
+
+gs -sDEVICE=pdfwrite \
+   -dPDFX \
+   -dPDFSETTINGS=/prepress \
+   -dColorConversionStrategy=/sRGB \
+   -dEPSCrop \
+   -o "$outFile" \
+   "$1"
