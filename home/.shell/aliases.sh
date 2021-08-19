@@ -10,6 +10,7 @@ alias cpv='rsync -ah --info=progress2'
 ## grep
 alias gp='grep -n --exclude-dir .svn --exclude-dir .git'
 #alias gp='grep -n --color=auto --exclude-dir=".svn" --exclude-dir=".git" --exclude-dir="target"'
+alias rg='rg --follow'
 
 alias hs='homeshick'
 alias tree='tree -F --dirsfirst'
@@ -24,6 +25,10 @@ alias pt='setsid audacious -E . >/dev/null'  # play in templist
 # Show mounted devices: /dev/*
 #alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
 alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
+
+# --- Misc ---
+
+alias gmagick="$(brew --prefix)/bin/gm"
 
 # --- Development ---
 
