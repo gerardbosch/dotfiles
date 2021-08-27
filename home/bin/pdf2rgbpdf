@@ -4,20 +4,21 @@
 # Converts the color space to sRGB: Used for CMYK images.
 #
 
-inFile=$(basename "$1")
+for filePath in "$@"; do
 
-inFileName=${inFile%.*}    # strip extension
-#extension="${inFile##*.}"
-outFile="${inFileName}_rgb.pdf"
+  fileName=$(basename "$1"); shift
 
-echo
-echo "Writing into "${outFile} ...
-echo
+  #extension="${fileName##*.}"
+  outFile="${fileName%.*}_rgb.pdf" # strip extension
 
-gs -sDEVICE=pdfwrite \
-   -dPDFX \
-   -dPDFSETTINGS=/prepress \
-   -dColorConversionStrategy=/sRGB \
-   -dEPSCrop \
-   -o "$outFile" \
-   "$1"
+  echo -e "\n>>> Writing into ${outFile} ...\n"
+
+  gs -sDEVICE=pdfwrite \
+     -dPDFX \
+     -dPDFSETTINGS=/prepress \
+     -dColorConversionStrategy=/sRGB \
+     -dEPSCrop \
+     -o "$outFile" \
+     "${filePath}"
+
+done
