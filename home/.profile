@@ -36,9 +36,6 @@ export LC_MESSAGES="en_GB.UTF-8"
 export LC_CTYPE="en_GB.UTF-8"
 export LC_COLLATE="en_GB.UTF-8"
 
-# Common shell (bash/zsh) stuff
-source ~/.shell/common-rc
-
 # Redefine some keyboard mapping: slash / plus / dead_circumflex
 if [ -x ""$(command -v xmodmap)"" ]; then
   xmodmap -e 'keycode 16 = 7 dead_circumflex slash braceleft seveneighths'
@@ -56,4 +53,7 @@ esac
 # homeshick command (from its Github installation)
 source "${CASTLES}/homeshick/homeshick.sh"
 homeshick --quiet refresh 1 # check outdated castles (1 day) and prompt for update
+
+# Common shell (bash/zsh) stuff
+source ~/.shell/common-rc
 
