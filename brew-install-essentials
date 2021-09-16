@@ -16,6 +16,7 @@ eth-p/software/bat-extras
 exa
 cloc
 jq
+diffr
 "
 #midnight-commander
 

@@ -16,6 +16,11 @@
 	submodule-pull = submodule update --init --remote
 	submodule-update-rec = submodule update --init --recursive
 
+[pager]
+	log  = diffr | less
+	show = diffr | less
+	diff = diffr | less
+
 [include]
 	path = ~/.gitconfig-local
 
