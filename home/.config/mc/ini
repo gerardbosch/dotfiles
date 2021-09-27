@@ -81,7 +81,7 @@ reverse_files_only=1
 copymove_persistent_attr=true
 select_flags=6
 editor_backup_extension=~
-skin=default
+skin=dark
 keymap=mc.keymap
 auto_save_setup_panels=1
 
@@ -101,22 +101,24 @@ editor_filesize_threshold=64M
 editor_stop_format_chars=-+*\\,.;:&>
 mcview_eof=
 
+shadows=true
+
 [Layout]
-message_visible=1
-keybar_visible=1
-xterm_title=1
+message_visible=true
+keybar_visible=true
+xterm_title=true
 output_lines=0
-command_prompt=0
-menubar_visible=1
+command_prompt=false
+menubar_visible=true
 show_mini_info=1
 permission_mode=1
 filetype_mode=1
-free_space=1
+free_space=true
 
-horizontal_split=0
-vertical_equal=1
-left_panel_size=94
-horizontal_equal=1
+horizontal_split=false
+vertical_equal=true
+left_panel_size=105
+horizontal_equal=true
 top_panel_size=97
 
 [Misc]

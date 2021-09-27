@@ -1,3 +1,6 @@
 *.swp
 *.zwc
 .DS_Store
+
+home/.config/mc/ini
+
