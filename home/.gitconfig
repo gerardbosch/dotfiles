@@ -9,7 +9,7 @@
 	st = status
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lg1 = log --pretty=oneline
-	cl = clone
+	cl = clone --recurse-submodules
 	in = init
 	# cleanup already **fully** merged branches (git branch -d)
 	brcleanup = !git branch --merged | egrep -v '(^\\*|^\\s*master$|^\\s*develop$|^\\s*dev$)' | xargs -n1 -r git branch -d
