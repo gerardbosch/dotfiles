@@ -1,4 +1,8 @@
-# --- Misc ---
+#
+# --- System ---
+# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+[[ $(command -v exa) ]] && alias l='exa -la --header --git'
 
 # Clipboard: alias a la MacOS
 if [ $(command -v xclip) ]; then
@@ -23,20 +27,24 @@ alias tree='tree -F --dirsfirst'
 alias cls='clear'
 alias print_colors_shell='for i in {0..255}; do print -Pn "%${i}F${(l:3::0:)i}%f " ${${(M)$((i%8)):#7}:+"\n"}; done'
 
+# Show mounted devices: /dev/*
+#alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
+alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
+
+#
+# --- Misc ---
+# ‾‾‾‾‾‾‾‾‾‾‾‾
+
+alias gmagick="$(brew --prefix)/bin/gm"
+
 # Audacious play
 alias p='setsid audacious -e . >/dev/null'
 alias P='setsid audacious . >/dev/null'
 alias pt='setsid audacious -E . >/dev/null'  # play in templist
 
-# Show mounted devices: /dev/*
-#alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
-alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
-
-# --- Misc ---
-
-alias gmagick="$(brew --prefix)/bin/gm"
-
+#
 # --- Development ---
+# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
 alias ij='idea . &disown'
 
