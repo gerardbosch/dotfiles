@@ -1,0 +1,293 @@
+;;
+;; See quick ref at: https://github.com/kmonad/kmonad/blob/master/doc/quick-reference.md
+;; Read the full tutorial at: https://github.com/kmonad/kmonad/blob/master/keymap/tutorial.kbd
+;;
+;; Characters that need to be backslash-escaped: \ ( ) _   e.g. '\\'
+;;
+;; HOW the "chords" are emited:
+;; ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+;;               `tap-next`  emits either the key or the chord, but no timeout here, so the key only becomes a
+;;                             modifier if a 2nd key is pressed.
+;;               `tap-hold`  emits ONLY AFTER the timeout (not useful for regular mod keys). If the key is released
+;;                             before timeout expiration, the key along with any subsequent keys are emited.
+;;          `tap-hold-next`  emits AS SOON AS a 2nd key is pressed. The timeout tells when the key becomes a modifier
+;;                             if no 2nd key is pressed yet.
+;;       `tap-next-release`  ... 
+;;  `tap-hold-next-release`  ...
+;;
+;; NOTE: `tap-hold-next` and `tap-hold-next-release` accept the option `:timeout-button b` for a fallback hold button
+;;   after timeout, which allows a fallback to emit a repeating button.
+;;
+;; NOTE: The most *comfortable* to use seems to be `tap-hold-next-release`.
+;; _____________________________________________________________________________________________________________________
+;;
+;; https://github.com/kmonad/kmonad/issues/237#issuecomment-840661222
+;;
+;; Just think about it: a tap-next-hold-release is actually just the following logic:
+;; 
+;;   - notice my trigger being pressed
+;;   - either
+;;      - timeout -> do hold thing
+;;      - notice my trigger being released -> do tap thing
+;;      - notice something else being pressed
+;;         - notice my trigger being released -> do tap thing
+;;         - notice the something else being released -> do hold thing
+;;
+
+(defcfg
+
+  fallthrough true
+  allow-cmd true
+
+  ;; Linux
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink
+          "My KMonad output"                           ;; name of the created keyboard
+          "sleep 1 && setxkbmap -option compose:menu") ;; additional, environment-specific, information
+  cmp-seq cmp
+  cmp-seq-delay 5 ;; tutorial recommendation
+
+  ;; Windows
+  ;;input  (low-level-hook)
+  ;;output (send-event-sink)
+
+  ;; MacOS
+  ;;input  (iokit-name "my-keyboard-product-string")
+  ;;output (kext)
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc           home
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \              end
+  caps a    s    d    f    g    h    j    k    l    ;    '         ret            pgup
+  lsft z    x    c    v    b    n    m    ,    .    /         rsft           up   pgdn
+  lctl      lmet lalt           spc            ralt rctl                left down rght
+)
+
+;; TODO combo s l => caps (not impl yet: https://github.com/kmonad/kmonad/issues/157)
+;; TODO combo a ; => vim-like leader key? e.g. write stuff like `smi` for smiley emoji. Think in more interesting stuff like complex launchers like open FF in the URL to create a project's issue, 
+
+;; TODO move alias defs just above each layer?
+
+(defalias
+
+  ;; === Base layer ===
+  ;; --- Home row mod keys (control/shift)
+  aCtl (tap-hold-next-release 250 a ctl)
+  ;Ctl (tap-hold-next-release 250 ; ctl)
+  sSft (tap-hold-next-release 250 s sft)
+  lSft (tap-hold-next-release 250 l sft :timeout-button l)
+
+  ;; --- Layer triggers
+  zKmn (tap-hold-next-release 250 z (layer-toggle kmonad-mgmt))
+  fEdt (tap-hold-next-release 250 f (layer-toggle edition))
+  kSym (tap-hold-next-release 250 k (layer-toggle symbols) :timeout-button k)
+  pLau (tap-hold-next-release 250 p (layer-toggle launcher))
+  num  (layer-toggle numpad)                                  ;; TODO assign key to trigger (enable) it!
+
+  tbWsp (tap-hold-next-release 350 tab (layer-toggle workspace) :timeout-button tab) ;; TODO best candidate? (maybe tab-alt to follow window?)
+  eWsp  (tap-hold-next-release 250 e (layer-toggle workspace)) ;; TODO best candidate? (maybe e-f to follow window?)
+
+  ;; TODO DROP
+  qWsp  (tap-hold-next-release 250 q (layer-toggle workspace)) ;; TODO best candidate? (maybe q-f to follow window?)
+  wWsp  (tap-hold-next-release 250 w (layer-toggle workspace)) ;; candidate to move window? e-f (follow) would be nice too
+  rWsp  (tap-hold-next-release 250 r (layer-toggle workspace)) ;; TODO remove?
+
+  ;; === Edition layer ===
+  wb C-left
+  wf C-rght
+  dlw C-bspc   ;; delete word
+  supc del
+  supw C-del
+
+  ;; === Launcher layer ===
+  ter (cmd-button "gnome-terminal --working-directory ${HOME} &")
+  cod (cmd-button "code &")
+
+  ;; === KMonad management layer ===
+  rdcfg (cmd-button "pkill -SIGINT kmonad && kmonad $HOME/.config/kmonad/mi-keyboard.kbd ;
+                     notify-send 'KMonad' 'Config reloaded'")
+  edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
+
+  ;; === Misc ===
+  ;;kil  C-A-del                ;; Bind kil to a button that Ctrl-Alt-deletes
+  ]caps (multi-tap 170 ] caps)
+)
+
+;; ------------------
+;; === BASE layer ===
+;; ------------------
+
+(deflayer qwerty
+  caps   _      _     _     _     _        _    _    _     _     _     _     _      _ 
+  _      _      _     _     _     _        _    _    _     _     _     _     _      _                 _
+  @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _    _    _     _     @pLau _     @]caps _                 _
+  esc    @aCtl  @sSft _     @fEdt _        _    _    @kSym @lSft @;Ctl _            _                 _
+  _      @zKmn  _     _     _     _        _    _    _     _     _     _                       _      _
+  _             _     _                    _               _     _                       _     _      _
+)
+
+#| TODO DROP shifted block: didn't work properly
+
+;; ----------------------------
+;; === (@sft) Shifted layer ===
+;; ----------------------------
+
+(defalias
+  ;;sft (around sft (layer-toggle shifted))
+  sft S-(layer-toggle shifted)
+)
+
+(deflayer shifted ;; @sft
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
+  _    _    _    _    _    _        _    _    _    _    ;    _         _             _
+  XX   _    _    _    _    _        _    _    _    _    _    _                  _    _
+  _         _    _                  _              _    _                  _    _    _
+)
+|#
+
+;; -------------------------
+;; === (f) Edition layer ===
+;; -------------------------
+
+;; The edition layer is inspired by capslock.vonng.com
+;;
+;; wb   - jump word backward
+;; wf   - jump word forward
+;; dlw  - delete word backwards
+;; supc - supress char forward
+;; supw - supress word forward
+(deflayer edition ;; f
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _ 
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _              _
+  _    @wb  @wf  _    _    _        _    pgup home  end   pgdn _    _    _              _
+  _    _    _    sft  _    _        left down up    rght  ret  _         _              _
+  _    _    _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
+  _         _    _                  _               _     _                   _    _    _
+)
+
+;; -------------------------
+;; === (k) Symbols layer ===
+;; -------------------------
+
+(deflayer symbols ;; k
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
+  _    _    _    \(   \)   _        _    _    _    _    _    _         _             _
+  _    _    _    _    _    _        _    _    _    _    _    _                  _    _
+  _         _    _                  _              _    _                  _    _    _
+)
+
+;; -----------------------------
+;; === (e|tab) Workspace layer === ;; TODO decide trigger
+;; -----------------------------
+
+;; I use 5 workspaces/desktops to organise windows by topics. They're virtually organized in a grid like the following:
+;;
+;;   U | I
+;;   J | K | L
+;;
+;; where `U` is the first workspace, `I` the second, and so on. I could eventually extend the "grid" with adjacent keys.
+
+(defalias
+  winWsp (layer-toggle window-workspace)
+
+  ;; TODO find command or window manager that allows to switch to recently used workspace, see if xdotool can help
+  prev (cmd-button "")
+
+  u (cmd-button "workspace-focus u")
+  i (cmd-button "workspace-focus i")
+  j (cmd-button "workspace-focus j")
+  k (cmd-button "workspace-focus k")
+  l (cmd-button "workspace-focus l")
+  ;; TODO Focus 2nd monitor: find command to do so, see if xdotool can help instead wmctrl
+  / (cmd-button "")
+)
+
+(deflayer workspace ;; e | tab ;; TODO decide
+  _    _    _    _    _       _        _     _    _    _    _    _    _    _ 
+  _    _    _    _    _       _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _       _        _     @u   @i   _    _    _    _    _              _
+  _    _    _    _    @winWsp _        _     @j   @k   @l   _    _         _              _
+  _    _    _    _    _       _        _     _    _    _    @/   _                   _    _
+  _         _    @winWsp               @prev           _    _                   _    _    _
+)
+
+;; ------------------------------------
+;; === (e-f) Window-workspace layer ===
+;; ------------------------------------
+
+;; Move windows around workspaces
+
+(defalias
+  mu (cmd-button "window-workspace-mv u")
+  mi (cmd-button "window-workspace-mv i")
+  mj (cmd-button "window-workspace-mv j")
+  mk (cmd-button "window-workspace-mv k")
+  ml (cmd-button "window-workspace-mv l")
+  ;; TODO Move window to 2nd monitor: find command to do so, see if xdotool can help instead wmctrl
+  m/ (cmd-button "notify-send \'KMonad\' \'Moving current window to monitor 2\'")
+)
+
+(deflayer window-workspace ;; e-f | tab-f ;; TODO decide
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _ 
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
+  _    _    _    _    _    _        _     @mj  @mk  @ml  _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @m/  _                   _    _
+  _         _    _                  _               _    _                   _    _    _
+)
+
+;; ----------------------
+;; === Launcher layer ===
+;; ----------------------
+
+(deflayer launcher ;; p
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _ 
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _       _
+  _    _    _    _    _    @ter _    _    _    _    _    _    _    _       _
+  _    _    _    _    _    _    _    _    _    _    _    _         _       _
+  _    _    _    @cod _    _    _    _    _    _    _    _    _            _
+  _         _    _              _              _    _    _    _    _ 
+)
+
+;; --------------------
+;; === Numpad layer ===
+;; --------------------
+
+(deflayer numpad ;; TODO
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _ 
+  _    _    _    _    _    _    _    7    8    9    -    _    _    _       _
+  _    _    _    _    _    _    _    4    5    6    +    \(   \)   _       _
+  _    _    _    _    _    _    _    1    2    3    ret  _         _       _
+  _    _    _    _    _    _    _    0    *    .    /    _    _            _
+  _         _    _              _              _    _    _    _    _ 
+)
+
+;; -------------------------------
+;; === KMonad management layer ===
+;; -------------------------------
+
+(deflayer kmonad-mgmt ;; z
+  _    _    _    _      _      _    _    _    _    _    _    _    _    _ 
+  _    _    _    _      _      _    _    _    _    _    _    _    _    _       _
+  _    _    _    @edcfg @rdcfg _    _    _    _    _    _    _    _    _       _
+  _    _    _    _      _      _    _    _    _    _    _    _         _       _
+  _    _    _    _      _      _    _    _    _    _    _    _    _            _
+  _         _    _                  _              _    _    _    _    _ 
+)
+
+;; TODO Reformat all layouts like the one below for better clarity
+
+(deflayer default ;; 
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
+  _    _    _    _    _    _        _    _    _    _    _    _         _             _
+  _    _    _    _    _    _        _    _    _    _    _    _                  _    _
+  _         _    _                  _              _    _                  _    _    _
+)
