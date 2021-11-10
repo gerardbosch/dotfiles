@@ -2,7 +2,7 @@
 # --- System ---
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-[[ $(command -v exa) ]] && alias l='exa -la --header --git'
+[[ $(command -v exa) ]] && alias s='exa -la --header --git'
 
 # Clipboard: alias a la MacOS
 if [ $(command -v xclip) ]; then

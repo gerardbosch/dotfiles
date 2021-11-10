@@ -14,6 +14,9 @@ case $- in
     *) return;;
 esac
 
+# Source common shell stuff
+source ~/.shell/shellrc
+
 # Path to the bash it configuration
 export BASH_IT=~/.bash/bash-it
 

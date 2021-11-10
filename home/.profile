@@ -14,7 +14,6 @@ export CASTLES="$HOME/.homesick/repos"
 export EDITOR=vim
 #--------------------------
 
-
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     [ -f ~/.bashrc ] && source ~/.bashrc
@@ -24,37 +23,27 @@ fi
 # will be able to read: tars, images, etc.
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set PATH so it includes user's private bin if it exists
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
-
-export PATH="/usr/local/sbin:$PATH"
-
 export LANG="en_GB.UTF-8"
 export LANGUAGE="en_GB:en"
 export LC_MESSAGES="en_GB.UTF-8"
 export LC_CTYPE="en_GB.UTF-8"
 export LC_COLLATE="en_GB.UTF-8"
 
-# TODO Clean up: Find a more convenient way that can be based on current input source lang
-# Redefine some keyboard mapping: slash / plus / dead_circumflex
-#if [ -x ""$(command -v xmodmap)"" ]; then
-#  xmodmap -e 'keycode 16 = 7 dead_circumflex slash braceleft seveneighths'
-#  xmodmap -e 'keycode 35 = slash asterisk plus asterisk bracketright dead_macron'
-#  xmodmap -e 'keycode 34 = dead_grave plus dead_grave dead_circumflex bracketleft dead_abovering'
-#  xmodmap -e 'keycode 47 = colon Ntilde ntilde Ntilde asciitilde dead_doubleacute'
-#  xmodmap -e 'keycode 60 = period ntilde period colon periodcentered division periodcentered division'
-#fi
+# ------------
+# === PATH ===
+# ------------ 
 
-# Homebrew / Linuxbrew (brew installation instructions)
-case "$(uname -s)" in
-  Linux*) eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) ;;
-esac
+# TODO was that necessary? restic_backup.sh is run by systemd unit, absolute path is specified in there
+#export PATH="/usr/local/sbin:$PATH"
 
-# homeshick command (from its Github installation)
-source "${CASTLES}/homeshick/homeshick.sh"
-homeshick --quiet refresh 1 # check outdated castles (1 day) and prompt for update
+pathsToAdd=(
+  "${HOME}/bin"
+  "${HOME}/bin/keyboard-triggers"
+  "${HOME}/.local/bin"
+  "${HOME}/.local/share/coursier/bin"
+)
 
-# Common shell (bash/zsh) stuff
-source ~/.shell/common-rc
+for p in ${pathsToAdd[@]}; do
+  [ -d "$p" ] && export PATH="${p}:${PATH}"
+done
 
