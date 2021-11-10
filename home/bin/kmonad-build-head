@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -o errexit   # abort on nonzero exitstatus
+set -o nounset   # abort on unbound variable
+set -o pipefail  # don't hide errors within pipes
+
+TARGET_DIR="${HOME}/.local/bin"
+
+[[ -d "$TARGET_DIR" ]] || mkdir -p "$TARGET_DIR"
+
+# Build the Docker image which will contain the binary.
+docker build -t kmonad-builder github.com/kmonad/kmonad.git
+
+# Keep a copy of the previous built version, just in case...
+[[ -f "${TARGET_DIR}/kmonad" ]] && mv "${TARGET_DIR}/kmonad" "${TARGET_DIR}/kmonad.prev-build"
+
+# Spin up an ephemeral Docker container from the built image, to just copy the
+# built binary to the host's current directory bind-mounted inside the
+# container at /host/.
+docker run --rm -it -v ${TARGET_DIR}:/host/ kmonad-builder bash -c 'cp -vp /root/.local/bin/kmonad /host/'
+
+# Clean up build image, since it is no longer needed.
+docker rmi kmonad-builder
+
