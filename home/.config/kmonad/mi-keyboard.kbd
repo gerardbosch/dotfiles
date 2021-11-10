@@ -106,8 +106,7 @@
   cod (cmd-button "code &")
 
   ;; === KMonad management layer ===
-  rdcfg (cmd-button "pkill -SIGINT kmonad && kmonad $HOME/.config/kmonad/mi-keyboard.kbd ;
-                     notify-send 'KMonad' 'Config reloaded'")
+  rdcfg (cmd-button "notify-send 'KMonad' 'Reloading config...' ; systemctl --user restart kmonad")
   edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
 
   ;; === Misc ===
