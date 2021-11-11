@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+#
+# Usage: $ clock-git <git_url>
+#
+
+DST_DIR=/tmp/cloc-git
+
+git clone --depth 1 "$1" "$DST_DIR" &&
+  cloc "$DST_DIR" &&
+  rm -rf "$DST_DIR"
+
