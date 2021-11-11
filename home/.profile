@@ -33,9 +33,6 @@ export LC_COLLATE="en_GB.UTF-8"
 # === PATH ===
 # ------------ 
 
-# TODO was that necessary? restic_backup.sh is run by systemd unit, absolute path is specified in there
-#export PATH="/usr/local/sbin:$PATH"
-
 pathsToAdd=(
   "${HOME}/bin"
   "${HOME}/bin/keyboard-triggers"
