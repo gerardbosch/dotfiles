@@ -42,7 +42,7 @@
   ;; Linux
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink
-          "My KMonad output"                           ;; name of the created keyboard
+          "My KMonad output"                             ;; name of the created keyboard
           "sleep 1 && systemctl --user restart xkbcomp") ;; additional, environment-specific, information
   cmp-seq cmp
   cmp-seq-delay 5 ;; tutorial recommendation
@@ -65,14 +65,16 @@
   lctl      lmet lalt           spc            ralt rctl                left down rght
 )
 
-;; TODO combo s l => caps (not impl yet: https://github.com/kmonad/kmonad/issues/157)
-;; TODO combo a ; => vim-like leader key? e.g. write stuff like `smi` for smiley emoji. Think in more interesting stuff like complex launchers like open FF in the URL to create a project's issue, 
 
-;; TODO move alias defs just above each layer?
+;; TODO combo s l => caps (not impl yet: https://github.com/kmonad/kmonad/issues/157)
+;; TODO combo a ; => vim-like leader key? e.g. write stuff like `smi` for smiley emoji. Think in more interesting stuff like complex launchers like open FF in the URL to create a project's issue
+
+
+;; ------------------
+;; === BASE layer ===
+;; ------------------
 
 (defalias
-
-  ;; === Base layer ===
   ;; --- Home row mod keys (control/shift)
   aCtl (tap-hold-next-release 250 a ctl)
   ;Ctl (tap-hold-next-release 250 ; ctl)
@@ -88,38 +90,18 @@
 
   tbWsp (tap-hold-next-release 350 tab (layer-toggle workspace) :timeout-button tab) ;; TODO best candidate? (maybe tab-alt to follow window?)
   eWsp  (tap-hold-next-release 250 e (layer-toggle workspace)) ;; TODO best candidate? (maybe e-f to follow window?)
-
   ;; TODO DROP
   qWsp  (tap-hold-next-release 250 q (layer-toggle workspace)) ;; TODO best candidate? (maybe q-f to follow window?)
   wWsp  (tap-hold-next-release 250 w (layer-toggle workspace)) ;; candidate to move window? e-f (follow) would be nice too
   rWsp  (tap-hold-next-release 250 r (layer-toggle workspace)) ;; TODO remove?
-
-  ;; === Edition layer ===
-  wb C-left
-  wf C-rght
-  dlw C-bspc   ;; delete word
-  supc del
-  supw C-del
-
-  ;; === Launcher layer ===
-  ter (cmd-button "gnome-terminal --working-directory ${HOME} &")
-  cod (cmd-button "code &")
-
-  ;; === KMonad management layer ===
-  rdcfg (cmd-button "notify-send 'KMonad restart' 'Reloading config...' ; systemctl --user restart kmonad")
-  edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
-
-  ;; === Misc ===
-  ;;kil  C-A-del                ;; Bind kil to a button that Ctrl-Alt-deletes
+  
+  ;; --- Misc
+  ;; TODO change with [
   ]caps (multi-tap 170 ] caps)
 )
 
-;; ------------------
-;; === BASE layer ===
-;; ------------------
-
 (deflayer qwerty
-  caps   _      _     _     _     _        _    _    _     _     _     _     _      _ 
+  caps   _      _     _     _     _        _    _    _     _     _     _     _      _
   _      _      _     _     _     _        _    _    _     _     _     _     _      _                 _
   @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _    _    _     _     @pLau _     @]caps ret               _
   esc    @aCtl  @sSft _     @fEdt _        _    _    @kSym @lSft @;Ctl _            \                 _
@@ -128,16 +110,13 @@
 )
 
 #| TODO DROP shifted block: didn't work properly
-
 ;; ----------------------------
 ;; === (@sft) Shifted layer ===
 ;; ----------------------------
-
 (defalias
   ;;sft (around sft (layer-toggle shifted))
   sft S-(layer-toggle shifted)
 )
-
 (deflayer shifted ;; @sft
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
@@ -153,14 +132,17 @@
 ;; -------------------------
 
 ;; The edition layer is inspired by capslock.vonng.com
-;;
-;; wb   - jump word backward
-;; wf   - jump word forward
-;; dlw  - delete word backwards
-;; supc - supress char forward
-;; supw - supress word forward
+
+(defalias
+  wb C-left    ;; jump word backward
+  wf C-rght    ;; jump word forward
+  dlw C-bspc   ;; delete word backward
+  supc del     ;; supress char forward
+  supw C-del   ;; supress word forward
+)
+
 (deflayer edition ;; f
-  _    _    _    _    _    _        _    _    _     _     _    _    _    _ 
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _
   _    _    _    _    _    _        _    _    _     _     _    _    _    _              _
   _    @wb  @wf  _    _    _        _    pgup home  end   pgdn _    _    _              _
   _    _    _    sft  _    _        left down up    rght  ret  _         _              _
@@ -174,11 +156,11 @@
 
 (deflayer symbols ;; k
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
-  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
-  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
-  _    _    _    \(   \)   _        _    _    _    _    _    _         _             _
-  _    _    _    _    _    _        _    _    _    _    _    _                  _    _
-  _         _    _                  _              _    _                  _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    \(   \)   _        _    _    _    _    _    _         _              _
+  _    _    _    _    _    _        _    _    _    _    _    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
 )
 
 ;; -----------------------------
@@ -208,7 +190,7 @@
 )
 
 (deflayer workspace ;; e | tab ;; TODO decide
-  _    _    _    _    _       _        _     _    _    _    _    _    _    _ 
+  _    _    _    _    _       _        _     _    _    _    _    _    _    _
   _    _    _    _    _       _        _     _    _    _    _    _    _    _              _
   _    _    _    _    _       _        _     @u   @i   _    _    _    _    _              _
   _    _    _    _    @winWsp _        _     @j   @k   @l   _    _         _              _
@@ -233,7 +215,7 @@
 )
 
 (deflayer window-workspace ;; e-f | tab-f ;; TODO decide
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _ 
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
   _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
   _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
   _    _    _    _    _    _        _     @mj  @mk  @ml  _    _         _              _
@@ -245,13 +227,19 @@
 ;; === Launcher layer ===
 ;; ----------------------
 
+(defalias
+  ;; TODO check if &disown make sense, test with sth, e.g. eog, eog &, eog &disown
+  ter (cmd-button "gnome-terminal --working-directory ${HOME} &")
+  cod (cmd-button "code &")
+)
+
 (deflayer launcher ;; p
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _ 
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _       _
-  _    _    _    _    _    @ter _    _    _    _    _    _    _    _       _
-  _    _    _    _    _    _    _    _    _    _    _    _         _       _
-  _    _    _    @cod _    _    _    _    _    _    _    _    _            _
-  _         _    _              _              _    _    _    _    _ 
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    @ter     _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _         _              _
+  _    _    _    @cod _    _        _    _    _    _    _    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
 )
 
 ;; --------------------
@@ -259,34 +247,40 @@
 ;; --------------------
 
 (deflayer numpad ;; TODO
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _ 
-  _    _    _    _    _    _    _    7    8    9    -    _    _    _       _
-  _    _    _    _    _    _    _    4    5    6    +    \(   \)   _       _
-  _    _    _    _    _    _    _    1    2    3    ret  _         _       _
-  _    _    _    _    _    _    _    0    *    .    /    _    _            _
-  _         _    _              _              _    _    _    _    _ 
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    7    8    9    -    _    _    _              _
+  _    _    _    _    _    _        _    4    5    6    +    \(   \)   _              _
+  _    _    _    _    _    _        _    1    2    3    ret  _         _              _
+  _    _    _    _    _    _        _    0    *    .    /    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
 )
 
 ;; -------------------------------
 ;; === KMonad management layer ===
 ;; -------------------------------
 
-(deflayer kmonad-mgmt ;; z
-  _    _    _    _      _      _    _    _    _    _    _    _    _    _ 
-  _    _    _    _      _      _    _    _    _    _    _    _    _    _       _
-  _    _    _    @edcfg @rdcfg _    _    _    _    _    _    _    _    _       _
-  _    _    _    _      _      _    _    _    _    _    _    _         _       _
-  _    _    _    _      _      _    _    _    _    _    _    _    _            _
-  _         _    _                  _              _    _    _    _    _ 
+(defalias
+  rdcfg (cmd-button "notify-send 'KMonad restart' 'Reloading config...' ; systemctl --user restart kmonad")
+  edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
+
 )
 
-;; TODO Reformat all layouts like the one below for better clarity
+(deflayer kmonad-mgmt ;; z
+  _    _    _    _      _      _        _    _    _    _    _    _    _    _ 
+  _    _    _    _      _      _        _    _    _    _    _    _    _    _              _
+  _    _    _    @edcfg @rdcfg _        _    _    _    _    _    _    _    _              _
+  _    _    _    _      _      _        _    _    _    _    _    _         _              _
+  _    _    _    _      _      _        _    _    _    _    _    _                   _    _
+  _         _    _                      _              _    _                   _    _    _
+)
+
+;; -----------------------------------------------------------------------------------
 
 (deflayer default ;; 
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
-  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
-  _    _    _    _    _    _        _    _    _    _    _    _    _    _             _
-  _    _    _    _    _    _        _    _    _    _    _    _         _             _
-  _    _    _    _    _    _        _    _    _    _    _    _                  _    _
-  _         _    _                  _              _    _                  _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _         _              _
+  _    _    _    _    _    _        _    _    _    _    _    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
 )
