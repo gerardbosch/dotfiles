@@ -43,7 +43,7 @@
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink
           "My KMonad output"                           ;; name of the created keyboard
-          "sleep 1 && setxkbmap -option compose:menu") ;; additional, environment-specific, information
+          "sleep 1 && systemctl --user restart xkbcomp") ;; additional, environment-specific, information
   cmp-seq cmp
   cmp-seq-delay 5 ;; tutorial recommendation
 
@@ -106,7 +106,7 @@
   cod (cmd-button "code &")
 
   ;; === KMonad management layer ===
-  rdcfg (cmd-button "notify-send 'KMonad' 'Reloading config...' ; systemctl --user restart kmonad")
+  rdcfg (cmd-button "notify-send 'KMonad restart' 'Reloading config...' ; systemctl --user restart kmonad")
   edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
 
   ;; === Misc ===
