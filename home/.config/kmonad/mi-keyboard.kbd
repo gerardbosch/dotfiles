@@ -121,8 +121,8 @@
 (deflayer qwerty
   caps   _      _     _     _     _        _    _    _     _     _     _     _      _ 
   _      _      _     _     _     _        _    _    _     _     _     _     _      _                 _
-  @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _    _    _     _     @pLau _     @]caps _                 _
-  esc    @aCtl  @sSft _     @fEdt _        _    _    @kSym @lSft @;Ctl _            _                 _
+  @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _    _    _     _     @pLau _     @]caps ret               _
+  esc    @aCtl  @sSft _     @fEdt _        _    _    @kSym @lSft @;Ctl _            \                 _
   _      @zKmn  _     _     _     _        _    _    _     _     _     _                       _      _
   _             _     _                    _               _     _                       _     _      _
 )
