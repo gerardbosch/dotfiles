@@ -43,7 +43,8 @@
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink
           "My KMonad output"                             ;; name of the created keyboard
-          "sleep 1 && systemctl --user restart xkbcomp") ;; additional, environment-specific, information
+          ;; setxkbmap -option compose:menu
+          "sleep 1; systemctl --user restart xkbcomp; sleep 0.2; xset r rate 230") ;; additional, environment-specific, information
   cmp-seq cmp
   cmp-seq-delay 5 ;; tutorial recommendation
 
@@ -80,6 +81,7 @@
   ;Ctl (tap-hold-next-release 250 ; ctl)
   sSft (tap-hold-next-release 250 s sft)
   lSft (tap-hold-next-release 250 l sft :timeout-button l)
+  spSft (tap-hold-next-release 350 spc sft :timeout-button spc)
 
   ;; --- Layer triggers
   zKmn (tap-hold-next-release 250 z (layer-toggle kmonad-mgmt))
@@ -88,7 +90,7 @@
   pLau (tap-hold-next-release 250 p (layer-toggle launcher))
   num  (layer-toggle numpad)                                  ;; TODO assign key to trigger (enable) it!
 
-  tbWsp (tap-hold-next-release 350 tab (layer-toggle workspace) :timeout-button tab) ;; TODO best candidate? (maybe tab-alt to follow window?)
+  tbWsp (tap-hold-next 250 tab (layer-toggle workspace)) ;; TODO best candidate?
   eWsp  (tap-hold-next-release 250 e (layer-toggle workspace)) ;; TODO best candidate? (maybe e-f to follow window?)
   ;; TODO DROP
   qWsp  (tap-hold-next-release 250 q (layer-toggle workspace)) ;; TODO best candidate? (maybe q-f to follow window?)
@@ -96,17 +98,16 @@
   rWsp  (tap-hold-next-release 250 r (layer-toggle workspace)) ;; TODO remove?
   
   ;; --- Misc
-  ;; TODO change with [
-  ]caps (multi-tap 170 ] caps)
+  [caps (multi-tap 170 [ caps)
 )
 
 (deflayer qwerty
-  caps   _      _     _     _     _        _    _    _     _     _     _     _      _
-  _      _      _     _     _     _        _    _    _     _     _     _     _      _                 _
-  @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _    _    _     _     @pLau _     @]caps ret               _
-  esc    @aCtl  @sSft _     @fEdt _        _    _    @kSym @lSft @;Ctl _            \                 _
-  _      @zKmn  _     _     _     _        _    _    _     _     _     _                       _      _
-  _             _     _                    _               _     _                       _     _      _
+  caps   _      _     _     _     _        _      _    _     _     _     _      _    _
+  _      _      _     _     _     _        _      _    _     _     _     /      _    _                 _
+  @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _      _    _     _     @pLau @[caps _    ret               _
+  esc    @aCtl  @sSft _     @fEdt _        _      _    @kSym @lSft @;Ctl _           \                 _
+  _      @zKmn  _     _     _     _        _      _    _     _     -     _                      _      _
+  _             _     _                    @spSft            _     _                      _     _      _
 )
 
 #| TODO DROP shifted block: didn't work properly
@@ -228,9 +229,8 @@
 ;; ----------------------
 
 (defalias
-  ;; TODO check if &disown make sense, test with sth, e.g. eog, eog &, eog &disown
-  ter (cmd-button "gnome-terminal --working-directory ${HOME} &")
-  cod (cmd-button "code &")
+  ter (cmd-button "run-detach gnome-terminal --working-directory ${HOME}")
+  cod (cmd-button "run-detach code")
 )
 
 (deflayer launcher ;; p
