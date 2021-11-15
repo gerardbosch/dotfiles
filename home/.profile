@@ -31,7 +31,7 @@ export LC_COLLATE="en_GB.UTF-8"
 
 # ------------
 # === PATH ===
-# ------------ 
+# ------------
 
 pathsToAdd=(
   "${HOME}/bin"

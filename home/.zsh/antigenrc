@@ -12,6 +12,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle spwhitt/nix-zsh-completions.git
 antigen bundle supercrabtree/k	# k = ll replacement Git friendly :)
 antigen bundle matthieusb/zsh-sdkman  # sdkman completions
 antigen bundle agkozak/zsh-z # rupa/z ZSH native rewrite: Quickly jump around dirs
