@@ -8,16 +8,8 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-
-#---- Environment vars ----
-export CASTLES="$HOME/.homesick/repos"
-export EDITOR=vim
-#--------------------------
-
 # if running bash
-if [ -n "$BASH_VERSION" ]; then
-    [ -f ~/.bashrc ] && source ~/.bashrc
-fi
+[ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source ~/.bashrc
 
 # Make less more friendly for non-text input files, see lesspipe(1)
 # will be able to read: tars, images, etc.
@@ -29,18 +21,5 @@ export LC_MESSAGES="en_GB.UTF-8"
 export LC_CTYPE="en_GB.UTF-8"
 export LC_COLLATE="en_GB.UTF-8"
 
-# ------------
-# === PATH ===
-# ------------
-
-pathsToAdd=(
-  "${HOME}/bin"
-  "${HOME}/bin/keyboard-triggers"
-  "${HOME}/.local/bin"
-  "${HOME}/.local/share/coursier/bin"
-)
-
-for p in ${pathsToAdd[@]}; do
-  [ -d "$p" ] && export PATH="${p}:${PATH}"
-done
-
+# Load common shell stuff (ZSH/Bash/... ), incl. env: PATH,...
+source ~/.shell/shellrc
