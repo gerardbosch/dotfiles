@@ -14,9 +14,6 @@ fi
 ADOTDIR=~/.cache/zsh-antigen
 #------------------------------
 
-# Source Zsh specific aliases
-source ~/.zsh/aliases.zsh
-
 # Source completions
 source ~/.zsh/completions-loader.zsh
 [ -f ~/.zsh/completions-local.zsh ] && source ~/.zsh/completions-local.zsh
@@ -31,4 +28,7 @@ antigen init ~/.zsh/antigenrc
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.zsh/p10k.zsh ]] && source ~/.zsh/p10k.zsh
+
+# Source Zsh specific aliases, can unalias oh-my-zsh stuff like gm
+[[ -f "${HOME}/.zsh/aliases.zsh" ]] && source "${HOME}/.zsh/aliases.zsh"
 
