@@ -35,7 +35,8 @@ alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
 # --- Misc ---
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
-alias gmagick="$(brew --prefix)/bin/gm"
+# It clashed with Oh My ZSH alias for git merge: I disabled OMZ alias
+# alias gmagick="$(brew --prefix)/bin/gm"
 
 # Audacious play
 alias p='setsid audacious -e . >/dev/null'
