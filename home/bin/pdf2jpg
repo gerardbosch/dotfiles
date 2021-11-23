@@ -125,13 +125,21 @@ check_env() {
   fi
 }
 
-convert() {
-  src_file="$1"
-  dst_file="${src_file%.pdf}.jpg"
+mk_dst_dir() {
+  local pdf_file="$1"
+  local dst_dir="$(dirname "$pdf_file")/jpg"
+  mkdir -p "$dst_dir"
+  echo "$dst_dir"
+}
 
+convert() {
+  local src_file_path="$1"
+  local dst_dir="$2"
+
+  local dst_file_path="${dst_dir}/$(basename "${src_file_path%.pdf}".jpg)"
   (
     set -x
-    gm convert -quality ${__quality} -density 300 "$src_file" "$dst_file"
+    gm convert -quality ${__quality} -density 300 "$src_file_path" "$dst_file_path"
   )
 }
 
@@ -140,8 +148,8 @@ main() {
   local max_depth=$([[ "$__recursive" == "false" ]] && echo "-maxdepth 1")
 
   while read -d '' filename; do     # read until \0 found
-    convert "${filename}" </dev/null
-  done < <(eval "find ${_path_} ${max_depth} -type f -iname '*.pdf' -print0")
+    convert "${filename}" "$(mk_dst_dir "$filename")"
+  done < <(find ${_path_} ${max_depth} -type f -iname '*.pdf' -print0)
 }
 
 check_env
