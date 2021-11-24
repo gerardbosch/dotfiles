@@ -22,7 +22,7 @@ source ~/.zsh/completions-loader.zsh
 #compinit
 
 # Load Antigen - the ZSH package manager (https://github.com/zsh-users/antigen)
-source ~/.zsh/antigen.zsh
+source ~/.zsh/antigen/antigen.zsh
 # and Antigen run commands
 antigen init ~/.zsh/antigenrc
 
