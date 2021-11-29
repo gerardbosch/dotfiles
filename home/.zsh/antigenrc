@@ -16,6 +16,7 @@ antigen bundle spwhitt/nix-zsh-completions.git
 antigen bundle supercrabtree/k	# k = ll replacement Git friendly :)
 antigen bundle matthieusb/zsh-sdkman  # sdkman completions
 antigen bundle agkozak/zsh-z # rupa/z ZSH native rewrite: Quickly jump around dirs
+antigen bundle ianthehenry/sd
 
 # Set ZSH theme :)
 #antigen theme denysdovhan/spaceship-prompt
