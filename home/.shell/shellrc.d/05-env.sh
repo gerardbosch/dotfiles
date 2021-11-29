@@ -5,6 +5,8 @@
 export EDITOR=vim
 export CASTLES="$HOME/.homesick/repos"
 
+export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.local/share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
+
 # I come up with this as GraphicsMagick installed with Nix was complaining about delegates.mgk not found and did not work.
 # Brew installation works fine out of the box BTW.
 # See https://superuser.com/a/452657/684037
