@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Copy the .editorconfig file into current directory and stash them
+
+cat $(dirname "$0")/editorconfig > "${PWD}/.editorconfig"
+
+# Stash if in initialized git repo
+[[ $(git rev-parse --is-inside-work-tree 2>/dev/null) ]] &&
+  git add .editorconfig
+

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+vim $(dirname "$0")/editorconfig
+
