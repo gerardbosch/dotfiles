@@ -68,6 +68,74 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+
+" CoC (nvim completion engine - https://github.com/neoclide/coc.nvim)
+" ‾‾‾
+" VSCode-like tab completion
+" inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+" let g:coc_snippet_next = '<TAB>'
+" let g:coc_snippet_prev = '<S-TAB>'
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" coc-yank (https://github.com/neoclide/coc-yank)
+" ‾‾‾‾‾‾‾‾
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+
+
 " ----------------
 " === vim-plug ===
 " ----------------
@@ -103,6 +171,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " check the last fzf binary 
 Plug 'vim-syntastic/syntastic'                      " syntax checker
 Plug 'airblade/vim-gitgutter'                       " Git gutter
 Plug 'junegunn/vim-easy-align'                      " :EasyAlign to align text by column `ga<symbol>`
+Plug 'neoclide/coc.nvim', {'branch': 'release'}     " Completion engine
+Plug 'jiangmiao/auto-pairs'
 
 " Syntax highlight
 Plug 'tridactyl/vim-tridactyl'
