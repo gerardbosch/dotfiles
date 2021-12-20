@@ -1,0 +1,96 @@
+" Syntax highlighting (https://github.com/tridactyl/vim-tridactyl)
+" vim: filetype=tridactyl
+
+" Check here for more tridactylrc ideas:
+" https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files#installation
+
+" Nice hints :)
+"   ;p -- copy an element's text to the clipboard
+"   ;# -- copy an element's anchor URL to the clipboard
+"   ym -- "clipboard yankmd" yank current url and title as Markdown
+
+" As I'm using KMonad to swap `;` and `:` system-wide, I want a handy key to trigger
+" hints. In my keyboard map `{` is in place of `[`, so that's a good one. 
+keymap { ;
+
+set hintchars jkldfasuiopqwertynmvcxz
+set smoothscroll true
+set tabopenpos last
+" set editorcmd /usr/bin/gnome-terminal -- /usr/bin/vim
+set editorcmd /usr/bin/kitty /usr/bin/vim
+" Status bar in the bottom left corner overlaps the Tridactyl command line
+guiset_quiet hoverlink right
+
+bind , tabprev
+bind . tabnext
+bind h back
+bind l forward
+bind j scrollline 5
+bind k scrollline -5
+bind H scrollpx -200
+bind L scrollpx 200
+" Open in private window
+bind ;gx hint -wp
+
+" Switch to frequent sites
+bind gc taball calendar.google.com
+bind gd taball discord.com
+bind gk taball keep.google.com
+bind gm taball mail.google.com
+bind gt taball web.telegram.org
+bind gw taball web.whatsapp.com
+
+" Yank
+" a link (a stands for for html anchor)
+bind ya hint -y 
+" a paragraph (actually any element)
+bind yp hint -p
+" an image
+bind yi hint -cF img i => tri.excmds.yankimage(tri.urlutils.getAbsoluteURL(i.src))
+" an anchor # URL
+bind y# hint -#
+
+unbind <C-b>
+" Ctrl-F should use the browser's native 'find' functionality,
+unbind <C-f>
+" but also support Tridactyl search too.
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind <C-/> noh
+
+" Disable on some sites
+blacklistadd youtube.com
+" blacklistadd calendar.google.com
+" blacklistadd docs.google.com
+" blacklistadd drive.google.com
+" blacklistadd mail.google.com
+
+" Make gu take you back to subreddit from comments
+bindurl reddit.com gu urlparent 4
+ 
+" Only hint search results on Google and DDG
+bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
+bindurl www.google.com F hint -Jbc #search div:not(.action-menu) > a
+bindurl ^https://duckduckgo.com f hint -Jc [class~=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc [class~=result__a]
+
+" Search
+set searchurls.alternativeto https://alternativeto.net/browse/search/?q=
+set searchurls.boardgamegeek https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q=
+set searchurls.boardgameprices https://boardgameprices.com/compare-prices-for?q=
+set searchurls.boardgamepricesuk https://boardgameprices.co.uk/item/search?search=
+set searchurls.booksprice https://booksprice.com/compare.do?inputData=
+set searchurls.bookspriceuk http://booksprice.co.uk/compare.do?inputData=
+set searchurls.chambersbiog https://chambers.co.uk/search/?query=%s&title=biog
+set searchurls.chambersdict https://chambers.co.uk/search/?query=%s&title=21st
+set searchurls.chambersthes https://chambers.co.uk/search/?query=%s&title=thes
+set searchurls.ebay https://www.ebay.com/sch/i.html?_nkw=
+set searchurls.ebayuk https://www.ebay.co.uk/sch/i.html?_nkw=
+set searchurls.etymonline https://www.etymonline.com/search?q=
+set searchurls.goodreads https://www.goodreads.com/search?q=
+set searchurls.hotukdeals https://www.hotukdeals.com/search?q=
+set searchurls.oeis https://oeis.org/search?q=
+set searchurls.powerthesaurus https://www.powerthesaurus.org/_search?q=
+
