@@ -12,7 +12,7 @@
 ;;                             before timeout expiration, the key along with any subsequent keys are emited.
 ;;          `tap-hold-next`  emits AS SOON AS a 2nd key is pressed. The timeout tells when the key becomes a modifier
 ;;                             if no 2nd key is pressed yet.
-;;       `tap-next-release`  ... 
+;;       `tap-next-release`  ...
 ;;  `tap-hold-next-release`  ...
 ;;
 ;; NOTE: `tap-hold-next` and `tap-hold-next-release` accept the option `:timeout-button b` for a fallback hold button
@@ -24,7 +24,7 @@
 ;; https://github.com/kmonad/kmonad/issues/237#issuecomment-840661222
 ;;
 ;; Just think about it: a tap-next-hold-release is actually just the following logic:
-;; 
+;;
 ;;   - notice my trigger being pressed
 ;;   - either
 ;;      - timeout -> do hold thing
@@ -43,8 +43,8 @@
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink
           "My KMonad output"                             ;; name of the created keyboard
-          ;; setxkbmap -option compose:menu
-          "sleep 1; systemctl --user restart xkbcomp; sleep 0.2; xset r rate 230") ;; additional, environment-specific, information
+          ;; setxkbmap -option compose:menu              ;; option already defined in custom keyboard map
+          "sleep 1; systemctl --user restart xkbcomp; sleep 0.2; xset r rate 230 55") ;; additional, environment-specific, information
   cmp-seq cmp
   cmp-seq-delay 5 ;; tutorial recommendation
 
@@ -88,7 +88,7 @@
   fEdt (tap-hold-next-release 250 f (layer-toggle edition))
   kSym (tap-hold-next-release 250 k (layer-toggle symbols) :timeout-button k)
   pLau (tap-hold-next-release 250 p (layer-toggle launcher))
-  num  (layer-toggle numpad)                                  ;; TODO assign key to trigger (enable) it!
+  vNum (tap-hold-next-release 250 v (layer-toggle numpad))
 
   tbWsp (tap-hold-next 250 tab (layer-toggle workspace)) ;; TODO best candidate?
   eWsp  (tap-hold-next-release 250 e (layer-toggle workspace)) ;; TODO best candidate? (maybe e-f to follow window?)
@@ -96,17 +96,19 @@
   qWsp  (tap-hold-next-release 250 q (layer-toggle workspace)) ;; TODO best candidate? (maybe q-f to follow window?)
   wWsp  (tap-hold-next-release 250 w (layer-toggle workspace)) ;; candidate to move window? e-f (follow) would be nice too
   rWsp  (tap-hold-next-release 250 r (layer-toggle workspace)) ;; TODO remove?
-  
+
   ;; --- Misc
   [caps (multi-tap 170 [ caps)
 )
 
+;; TODO Switches like `/` and `-` are probably better with XKB as doing it here applies to all languages. Although
+;;  that's tempting as would work OOB for any platform so would imply re-learning to type some symbols in Catalan :-/
 (deflayer qwerty
   caps   _      _     _     _     _        _      _    _     _     _     _      _    _
   _      _      _     _     _     _        _      _    _     _     _     /      _    _                 _
   @tbWsp @qWsp  @wWsp @eWsp @rWsp _        _      _    _     _     @pLau @[caps _    ret               _
   esc    @aCtl  @sSft _     @fEdt _        _      _    @kSym @lSft @;Ctl _           \                 _
-  _      @zKmn  _     _     _     _        _      _    _     _     -     _                      _      _
+  _      @zKmn  _     _     @vNum _        _      _    _     _     -     _                      _      _
   _             _     _                    @spSft            _     _                      _     _      _
 )
 
@@ -246,12 +248,12 @@
 ;; === Numpad layer ===
 ;; --------------------
 
-(deflayer numpad ;; TODO
+(deflayer numpad ;; v
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
-  _    _    _    _    _    _        _    7    8    9    -    _    _    _              _
-  _    _    _    _    _    _        _    4    5    6    +    \(   \)   _              _
-  _    _    _    _    _    _        _    1    2    3    ret  _         _              _
-  _    _    _    _    _    _        _    0    *    .    /    _                   _    _
+  _    _    _    _    _    _        _    _    *    _    -    /    _    _              _
+  _    _    _    _    _    _        _    7    8    9    +    \(   \)   _              _
+  _    _    _    _    _    _        _    4    5    6    ret  _         _              _
+  _    _    _    _    _    _        0    1    2    3    .    _                   _    _
   _         _    _                  _              _    _                   _    _    _
 )
 
@@ -266,7 +268,7 @@
 )
 
 (deflayer kmonad-mgmt ;; z
-  _    _    _    _      _      _        _    _    _    _    _    _    _    _ 
+  _    _    _    _      _      _        _    _    _    _    _    _    _    _
   _    _    _    _      _      _        _    _    _    _    _    _    _    _              _
   _    _    _    @edcfg @rdcfg _        _    _    _    _    _    _    _    _              _
   _    _    _    _      _      _        _    _    _    _    _    _         _              _
@@ -276,7 +278,7 @@
 
 ;; -----------------------------------------------------------------------------------
 
-(deflayer default ;; 
+(deflayer default ;;
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
