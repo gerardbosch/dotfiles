@@ -159,6 +159,7 @@ call plug#begin('~/.cache/vim-plug')
 " Plug 'sickill/vim-monokai'
 Plug 'romainl/flattened'
 
+" Plugins
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
@@ -173,6 +174,7 @@ Plug 'airblade/vim-gitgutter'                       " Git gutter
 Plug 'junegunn/vim-easy-align'                      " :EasyAlign to align text by column `ga<symbol>`
 Plug 'neoclide/coc.nvim', {'branch': 'release'}     " Completion engine
 Plug 'jiangmiao/auto-pairs'
+Plug 'kmonad/kmonad-vim'
 
 " Syntax highlight
 Plug 'tridactyl/vim-tridactyl'
