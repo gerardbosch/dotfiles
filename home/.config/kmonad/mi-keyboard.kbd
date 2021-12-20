@@ -231,14 +231,17 @@
 ;; ----------------------
 
 (defalias
-  ter (cmd-button "run-detach gnome-terminal --working-directory ${HOME}")
-  cod (cmd-button "run-detach code")
+  ;; focus or `l`aunch apps
+  lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}")
+  ;; fol: "focus or launch"
+  ter  (cmd-button "fol gnome-terminal")
+  cod  (cmd-button "run-detach code")
 )
 
 (deflayer launcher ;; p
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
-  _    _    _    _    _    @ter     _    _    _    _    _    _    _    _              _
+  _    _    _    _    @ter @lTer    _    _    _    _    _    _    _    _              _
   _    _    _    _    _    _        _    _    _    _    _    _         _              _
   _    _    _    @cod _    _        _    _    _    _    _    _                   _    _
   _         _    _                  _              _    _                   _    _    _

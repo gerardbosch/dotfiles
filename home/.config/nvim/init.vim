@@ -157,7 +157,7 @@ call plug#begin('~/.cache/vim-plug')
 " Themes
 " Plug 'artanikin/vim-synthwave84' " not sure it works, see its GitHub
 " Plug 'sickill/vim-monokai'
-Plug 'romainl/flattened'
+" Plug 'romainl/flattened'
 
 " Plugins
 Plug 'mhinz/vim-startify'
