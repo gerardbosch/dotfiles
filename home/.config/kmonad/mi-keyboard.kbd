@@ -232,9 +232,11 @@
 
 (defalias
   ;; focus or `l`aunch apps
+  ;;  run-detach: detaches long living processes from kmonad proc
   lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}")
-  ;; fol: "focus or launch"
+  ;;  fol: "focus or launch"
   ter  (cmd-button "fol gnome-terminal")
+  scr  (cmd-button "run-detach ksnip --rectarea")
   cod  (cmd-button "run-detach code")
 )
 
@@ -242,7 +244,7 @@
   _    _    _    _    _    _        _    _    _    _    _    _    _    _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
   _    _    _    _    @ter @lTer    _    _    _    _    _    _    _    _              _
-  _    _    _    _    _    _        _    _    _    _    _    _         _              _
+  _    _    @scr _    _    _        _    _    _    _    _    _         _              _
   _    _    _    @cod _    _        _    _    _    _    _    _                   _    _
   _         _    _                  _              _    _                   _    _    _
 )
