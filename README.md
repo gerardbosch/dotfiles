@@ -25,6 +25,9 @@ This repository uses Git submodules to host its dependencies.
 
 THAT'S ALL! 😎
 
+### ⭐ Related repos
+
+- [gerardbosch/dotfiles-linux](https://github.com/gerardbosch/dotfiles-linux) – the complementary Linux-specific dotfiles.
 
 # What's included
 
