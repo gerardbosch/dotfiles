@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Licensed under CC-BY-SA 4.0 - https://github.com/6gk -->
+
+<svg
+   fill="#695b98"
+   width="17"
+   height="17"
+   version="1.1"
+   id="svg63"
+   sodipodi:docname="kmonad-k.svg"
+   inkscape:version="1.1.1 (26b7af14f2, 2022-01-19)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs67">
+    <linearGradient
+       id="linearGradient3659"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop3657" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3499"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop3497" />
+    </linearGradient>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4194">
+      <g
+         id="g4202">
+        <path
+           d="m 5.8611519,19.140855 h 3.32 v 15.98 h -3.32 z"
+           id="path4196" />
+        <path
+           d="m 8.3011519,27.150855 5.2500001,-8.03 h 4 l -5.27,8 5.25,8 h -3.97 z"
+           id="path4198" />
+        <path
+           fill="#985b94"
+           d="m 13.611152,27.150855 5.26,-8.03 h 3.99 l -5.25,8 5.25,8 h -4 z"
+           id="path4200" />
+      </g>
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview65"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="32"
+     inkscape:cx="13.859375"
+     inkscape:cy="10.765625"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg63" />
+  <path
+     d="M 0,0.52 H 3.32 V 16.5 H 0 Z"
+     id="path55" />
+  <path
+     d="M 2.44,8.53 7.69,0.5 h 4 l -5.27,8 5.25,8 H 7.7 Z"
+     id="path57" />
+  <path
+     fill="#985b94"
+     d="M 7.75,8.53 13.01,0.5 H 17 l -5.25,8 5.25,8 h -4 z"
+     id="path59" />
+</svg>

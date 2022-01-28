@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Kind of alias to run and detach (disown) a process.
+#
+# This is helpful in KMonad as it runs commands on /bin/sh (dash) which lacks
+# disown command. Using bash and `&disown` solves the problem.
+#
+# For a dash compatible solution use nohup: `nohup <COMMAND> >/dev/null 2>&1 &`
+#
+
+"$@" &disown
+

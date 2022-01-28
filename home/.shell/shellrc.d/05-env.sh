@@ -22,6 +22,9 @@ export SD_ROOT="$HOME/.local/share/sd"
 exportPaths=(
   "${HOME}/bin"
   "${HOME}/bin/keyboard-triggers"
+  "${HOME}/bin/keyboard-triggers-linux"
+  "${HOME}/bin/keyboard-triggers-macos"
+  "${HOME}/bin/keyboard-triggers-windows"
   "${HOME}/.local/bin"
   "${HOME}/.local/share/coursier/bin"
 )
