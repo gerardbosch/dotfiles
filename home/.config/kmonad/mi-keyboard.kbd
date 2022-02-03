@@ -53,7 +53,6 @@
 ;;   PATH after desktop login (couldn't find another way to load it, see detail below).
 ;;
 ;;   Relevant/related configs:
-;;     - https://github.com/gerardbosch/dotfiles-linux/tree/main/_shallow-symlinks/bin/keyboard-triggers-linux
 ;;     - https://github.com/gerardbosch/dotfiles/tree/main/_shallow-symlinks/bin/keyboard-triggers
 ;;     - https://github.com/gerardbosch/dotfiles-linux/blob/main/home/.config/systemd/user/kmonad.service
 ;;     - https://github.com/gerardbosch/dotfiles-linux/blob/main/home/.config/autostart/kmonad.desktop

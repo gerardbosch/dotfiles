@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# NOTE: This script is used to interface with KMonad config, and works just as a disatcher to the platform-specific
+#  implementation. It works by dispatching to the script with the same name, placed in the platform specific directory,
+#  e.g. ./linux/SCRIPT or ./macos/SCRIPT
+#
+
+source $(dirname "$0")/_helper/os-dispatcher.sh
+dispatch "$@"
+

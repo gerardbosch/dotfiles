@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Focus or Launch applications.
+#
+# It should also detach (fork?) the process so that if the parent process dies, it does not affect
+# the launched one.
+#
+# NOTE: This script is platform specific.
+#
+
+jumpapp "$@"
+

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Move the focused window to a specified workspace.
+#
+# NOTE: This script is platform specific.
+#
+
+dest="$1"
+
+declare -A workspaces=(
+  ['u']=0
+  ['i']=1
+  ['j']=2
+  ['k']=3
+  ['l']=4
+)
+
+wmctrl -r :ACTIVE: -t ${workspaces["$dest"]}
