@@ -252,6 +252,7 @@
   lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}")
   ter  (cmd-button "fol gnome-terminal")
   scr  (cmd-button "run-detach ksnip --rectarea")
+  fil  (cmd-button "fol file-manager")
   cod  (cmd-button "run-detach code")
 )
 
@@ -259,7 +260,7 @@
   @rec _    _    _    _    _        _    _    _    _    _    _    _    _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
   _    _    _    _    @ter @lTer    _    _    _    _    _    _    _    _              _
-  _    _    @scr _    _    _        _    _    _    _    _    _         _              _
+  _    _    @scr _    @fil _        _    _    _    _    _    _         _              _
   _    _    _    @cod _    _        _    _    _    _    _    _                   _    _
   _         _    _                  _              _    _                   _    _    _
 )

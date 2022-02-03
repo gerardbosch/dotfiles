@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Launch file manager of choice.
+#
+# NOTE: This script is platform specific.
+#
+
+nautilus "$@"
+
