@@ -35,9 +35,6 @@ alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
 # --- Misc ---
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
-# It clashed with Oh My ZSH alias for git merge: I disabled OMZ alias
-# alias gmagick="$(brew --prefix)/bin/gm"
-
 # Audacious play
 alias p='setsid audacious -e . >/dev/null'
 alias P='setsid audacious . >/dev/null'
@@ -53,6 +50,9 @@ alias ij='idea . &disown'
 alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir
 # copy-branch (cpb) Copy git branch name to clipboard alias (plattform independent)
 alias cpb='git rev-parse --abbrev-ref HEAD | pbcopy'
+alias gl='git l'    # `lg` alias is defined in .gitconfig
+alias gll='git lg'  # `lg` alias is defined in .gitconfig
+alias gst='git status'
 
 ## jshell with vavr loaded and imports in place :) ##
 alias vavr='jshell --class-path "$(cs fetch -p io.vavr:vavr:0.10.3)" --startup ~/.jshell/vavr-imports.jsh'

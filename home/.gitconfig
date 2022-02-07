@@ -8,6 +8,7 @@
 	ci = commit
 	st = status
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  l  = ! git lg | head
 	lg1 = log --pretty=oneline
 	cl = clone --recurse-submodules
 	in = init
