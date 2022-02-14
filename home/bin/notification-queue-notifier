@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#
+# Any program can send notifications by just writing to a queue file, e.g.
+#
+#   $ do-stuff | other-stuff >> $HOME/.cache/notification-queue
+#
+# Notifications can be deferred in the sense that they will be held in the queue until the target
+# user starts the process to read them. This means that the user can receive notifications from
+# stuff that happened even before logging in.
+#
+# Any process from any user can send notifications as long as they have permission to write to the
+# user queue file.
+#
+# The script runs forever reading the lines in the queue and showing the notifications.
+#
+# NOTE: This script should be started on user desktop login via platform-specific mechanisms,
+#  e.g. FreeDesktop (aka XDG) Autostart spec on Linux.
+#
+set -euo pipefail
+
+# A FIFO pipe file (not a regular file)
+QUEUE=$HOME/.cache/notification-queue
+
+
+basedir=$(dirname "$QUEUE")
+
+test -d "$basedir" || mkdir -p "$basedir"
+test -e "$QUEUE"   || mkfifo "$QUEUE"
+
+while [[ -e "$QUEUE" ]]; do
+  while read line; do
+    notify-desktop "[Notification queue]" "$line"
+    sleep 10
+  done < $QUEUE
+done
+
