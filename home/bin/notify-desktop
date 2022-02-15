@@ -12,9 +12,9 @@ iconPath="${3:-$DEFAULT_ICON_PATH}"
 # A Linux specific way (libnotify package)
 #notify-send "$title" "$body"
 
-# A cross-platform way using Python -https://github.com/ms7m/notify-py
+# A cross-platform way using Python + notify-py package/script - https://github.com/ms7m/notify-py
 #
-# -By using Nix shell, no system-wide Python package gets installed
+# --by using Nix shell, no system-wide Python package gets installed.
 #
 nix shell nixpkgs#python3 nixpkgs#python39Packages.notify-py \
   -c notifypy -t "$title" -m "$body" --applicationName "$0" -i "$iconPath"

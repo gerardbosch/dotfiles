@@ -225,7 +225,7 @@
   mk (cmd-button "window-workspace-mv k")
   ml (cmd-button "window-workspace-mv l")
   ;; TODO Move window to 2nd monitor: find command or window manager to do so, see if xdotool can help instead wmctrl
-  m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/keyboard-triggers/notify-desktop-img/kmonad-k.svg")
+  m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
 )
 
 (deflayer window-workspace ;; w
@@ -283,7 +283,7 @@
 ;; -------------------------------
 
 (defalias
-  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/keyboard-triggers/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad")
+  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad")
   edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
 )
 
