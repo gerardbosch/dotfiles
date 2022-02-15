@@ -6,6 +6,7 @@ antigen use oh-my-zsh
 antigen bundle command-not-found
 #antigen bundle docker
 #antigen bundle tmux
+antigen bundle fzf
 
 # Load bundles from external repos
 antigen bundle zsh-users/zsh-completions
