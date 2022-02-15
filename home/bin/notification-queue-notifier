@@ -13,8 +13,14 @@
 #
 # The script runs forever reading the lines in the queue and showing the notifications.
 #
-# NOTE: This script should be started on user desktop login via platform-specific mechanisms,
+# NOTE 1: This script should be started on user desktop login via platform-specific mechanisms,
 #  e.g. FreeDesktop (aka XDG) Autostart spec on Linux.
+#
+# NOTE 2: `notify-desktop` is my own script to run cross-platform notifications. This allows me to
+#  use this notification-queue system in any system supporting UNIX pipe files (should probably
+#  work on Windows/WSL, but not tested). If you don't need this, simply use `notify-send` on Linux
+#  from libnotify package (probably installed by default), or any tool for your OS.
+#  See https://github.com/gerardbosch/dotfiles/blob/cbd9d92224b0fdf5516e24e68aa97760d470a049/home/bin/notify-desktop
 #
 set -euo pipefail
 
@@ -29,7 +35,8 @@ test -e "$QUEUE"   || mkfifo "$QUEUE"
 
 while [[ -e "$QUEUE" ]]; do
   while read line; do
-    notify-desktop "[Notification queue]" "$line"
+    #notify-send "[Notification queue]" "$line"    # <-- platform-specific (Linux)
+    notify-desktop "[Notification queue]" "$line"  # <-- platform-independent
     sleep 10
   done < $QUEUE
 done
