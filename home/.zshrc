@@ -14,9 +14,9 @@ fi
 ADOTDIR=~/.cache/zsh-antigen
 #------------------------------
 
-# Source completions
-source ~/.zsh/completions-loader.zsh
-[ -f ~/.zsh/completions-local.zsh ] && source ~/.zsh/completions-local.zsh
+# Source manually installed completions
+source ~/.zsh/completion-loader.zsh
+[ -f ~/.zsh/completion-local.zsh ] && source ~/.zsh/completion-local.zsh
 # it looks that completion system will be already initialized by Antigen
 #autoload -Uz compinit
 #compinit

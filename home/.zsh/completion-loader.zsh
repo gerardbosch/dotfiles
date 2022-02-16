@@ -2,10 +2,6 @@
 # or symlinks for packages
 fpath=(~/.zsh/completion $fpath)
 
-# Homeshick completion
-fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
-
-
 # --- Nix-installed packages --------------------------------------
 
 # Standard functions location
