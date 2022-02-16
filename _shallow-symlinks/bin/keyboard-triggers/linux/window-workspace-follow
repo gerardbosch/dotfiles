@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Follow the focused window to a specified workspace: Move the window an follow it.
+#
+# NOTE: This script is platform specific.
+#
+
+dest="$1"
+
+window-workspace-mv $dest
+workspace-focus $dest
+

@@ -118,7 +118,7 @@
 
   ;;tbWsp (tap-hold-next 250 tab (layer-toggle workspace)) ;; Disabled, using `q` instead: See the problems in the intro
   qWsp   (tap-hold-next-release 250 q (layer-toggle workspace))
-  winWsp (tap-hold-next-release 250 w (layer-toggle window-workspace))
+  wMvWin (tap-hold-next-release 250 w (layer-toggle window-workspace-mv))
 
   ;; --- Misc
   [caps (multi-tap 170 [ caps)
@@ -128,12 +128,12 @@
 ;;  Although that's tempting, as it would work OOB for any platform, it would imply re-learning to type some symbols in
 ;;  Catalan :-/ If I can get used to US-intl keyboard and/or compose key to type Catalan/Spanish, then it's fine! Ö·ó
 (deflayer qwerty
-  caps   _      _       _     _     _        _      _    _     _     _     _      _    _
-  _      _      _       _     _     _        _      _    _     _     _     /      _    _                 _
-  _      @qWsp  @winWsp _     _     _        _      _    _     _     @pLau @[caps _    ret               _
-  esc    @aCtl  @sSft   _     @fEdt _        _      _    @kSym @lSft @;Ctl _           \                 _
-  _      @zKmn  _       _     @vNum _        _      _    _     _     -     _                      _      _
-  _             _       _                    @spSft            _     _                      _     _      _
+  caps   _     _       _     _     _        _      _    _     _     _     _      _    _
+  _      _     _       _     _     _        _      _    _     _     _     /      _    _                 _
+  _      @qWsp @wMvWin _     _     _        _      _    _     _     @pLau @[caps _    ret               _
+  esc    @aCtl @sSft   _     @fEdt _        _      _    @kSym @lSft @;Ctl _           \                 _
+  _      @zKmn _       _     @vNum _        _      _    _     _     -     _                      _      _
+  _            _       _                    @spSft            _     _                      _     _      _
 )
 
 ;; -------------------------
@@ -151,15 +151,13 @@
 )
 
 (deflayer edition ;; f
-  _    _    _    _    _    _        _    _    _     _     _    _    _    _
-  _    _    _    _    _    _        _    _    _     _     _    _    _    _              _
-  _    @wb  @wf  _    _    _        _    pgup home  end   pgdn @wf  @wf  _              _
-  _    _    _    sft  _    _        left down up    rght  ret  _         _              _
-  _    _    _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
-  _         _    _                  _               _     _                   _    _    _
+  _    _       _    _    _    _        _    _    _     _     _    _    _    _
+  _    _       _    _    _    _        _    _    _     _     _    _    _    _              _
+  _    @folWin _    _    _    _        _    pgup home  end   pgdn @wb  @wf  _              _
+  _    _       _    sft  _    _        left down up    rght  ret  _         _              _
+  _    _       _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
+  _            _    _                  _               _     _                   _    _    _
 )
-
-;; TODO define a new selection layer triggered by `s` above? Then place @wb @wf and `,` `.` to select whole words
 
 ;; -------------------------
 ;; === (k) Symbols layer ===
@@ -188,7 +186,7 @@
 ;; where `U` is the first workspace, `I` the second, and so on. I could eventually extend the "grid" with adjacent keys.
 
 (defalias
-  winWsp2 (layer-toggle window-workspace) ;; TODO REVIEW replaced by `w` key on base layer, test usability
+  folWin (layer-toggle window-workspace-follow) ;; TODO REVIEW replaced by `w` key on base layer, test usability
 
   ;; TODO Any command or window manager that allows to switch to recently used workspace? Can xdotool can help? Looking
   ;;  for something like MacOS `yabai -m space --focus recent` that works in Linux...
@@ -204,17 +202,17 @@
 )
 
 (deflayer workspace ;; q
-  _    _    _    _    _        _        _     _    _    _    _    _    _    _
-  _    _    _    _    _        _        _     _    _    _    _    _    _    _              _
-  _    _    _    _    _        _        _     @u   @i   _    _    _    _    _              _
-  _    _    _    _    @winWsp2 _        _     @j   @k   @l   _    _         _              _
-  _    _    _    _    _        _        _     _    _    _    @/   _                   _    _
-  _         _    @winWsp2               @prev           _    _                   _    _    _
+  _    _    _    _    _       _        _     _    _    _    _    _    _    _
+  _    _    _    _    _       _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _       _        _     @u   @i   _    _    _    _    _              _
+  _    _    _    _    @folWin _        _     @j   @k   @l   _    _         _              _
+  _    _    _    _    _       _        _     _    _    _    @/   _                   _    _
+  _         _    @folWin               @prev           _    _                   _    _    _
 )
 
-;; ----------------------------------
-;; === (w) Window-workspace layer ===
-;; ----------------------------------
+;; ---------------------------------------
+;; === (w) Window-workspace move layer ===
+;; ---------------------------------------
 
 ;; Move windows around workspaces: Send a window to the specified workspace (not follow the window).
 
@@ -228,7 +226,7 @@
   m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
 )
 
-(deflayer window-workspace ;; w
+(deflayer window-workspace-mv ;; w
   _    _    _    _    _    _        _     _    _    _    _    _    _    _
   _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
   _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
@@ -237,9 +235,34 @@
   _         _    _                  _               _    _                   _    _    _
 )
 
-;; ----------------------
-;; === Launcher layer ===
-;; ----------------------
+;; -------------------------------------------
+;; === (q+f) Window-workspace follow layer ===
+;; -------------------------------------------
+
+;; Follow windows around workspaces: Send a window to the specified workspace and follow the window.
+
+(defalias
+  fu (cmd-button "window-workspace-follow u")
+  fi (cmd-button "window-workspace-follow i")
+  fj (cmd-button "window-workspace-follow j")
+  fk (cmd-button "window-workspace-follow k")
+  fl (cmd-button "window-workspace-follow l")
+  ;; TODO Move window to 2nd monitor: find command or window manager to do so, see if xdotool can help instead wmctrl
+  f/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Following current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
+)
+
+(deflayer window-workspace-follow ;; q+f
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @fu  @fi  _    _    _    _    _              _
+  _    _    _    _    _    _        _     @fj  @fk  @fl  _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @f/  _                   _    _
+  _         _    _                  _               _    _                   _    _    _
+)
+
+;; --------------------------
+;; === (p) Launcher layer ===
+;; --------------------------
 
 ;; Focus or `l`aunch apps (fol).
 
