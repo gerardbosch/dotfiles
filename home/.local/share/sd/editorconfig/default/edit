@@ -2,5 +2,6 @@
 
 set -euo pipefail
 
+# Edit the .editorconfig template in sd.
 vim $(dirname "$0")/editorconfig
 

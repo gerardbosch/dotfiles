@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Edit the .pre-commit-config.yaml template in sd
+vim $(dirname "$0")/pre-commit-config.yaml
+

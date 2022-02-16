@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Copy the file into current directory and stash them
+
+fileToInstall="pre-commit-config.yaml"
+
+cat $(dirname "$0")/"$fileToInstall" > "${PWD}/.${fileToInstall}"  # install as hidden
+
+command -v pre-commit && pre-commit autoupdate || echo "[WARN] pre-commit not installed."
+
+# Stash and install hook if in initialized git repo
+[[ $(git rev-parse --is-inside-work-tree 2>/dev/null) ]] &&
+  git add ".${fileToInstall}" &&
+  pre-commit install
+
