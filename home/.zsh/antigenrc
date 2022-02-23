@@ -1,23 +1,32 @@
 # Use oh-my-zsh as default library for bundles
 antigen use oh-my-zsh
 
-# Load bundles from the default repo (oh-my-zsh)
-# antigen bundle git  # disabled: too many stuff
-antigen bundle command-not-found
-#antigen bundle docker
-#antigen bundle tmux
-antigen bundle fzf
+antigen bundles <<EOBUNDLES
+# Bundles from the default repo (oh-my-zsh)
+command-not-found
+# git  # disabled: too many stuff
+#docker
+#tmux
 
-# Load bundles from external repos
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle spwhitt/nix-zsh-completions.git
-antigen bundle supercrabtree/k	# k = ll replacement Git friendly :)
-antigen bundle matthieusb/zsh-sdkman  # sdkman completions
-antigen bundle agkozak/zsh-z # rupa/z ZSH native rewrite: Quickly jump around dirs
-antigen bundle ianthehenry/sd
+# More bundles from GitHub repos
+unixorn/autoupdate-antigen.zshplugin  # auto-update plugins and antigen itself (antigen selfupdate)
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+#zsh-users/zsh-syntax-highlighting    # zdharma/fast-syntax-highlighting replaces this
+zsh-users/zsh-history-substring-search
+spwhitt/nix-zsh-completions.git
+supercrabtree/k	            # k = ll replacement Git friendly :)
+matthieusb/zsh-sdkman       # sdkman completions
+agkozak/zsh-z               # rupa/z ZSH native rewrite: Quickly jump around dirs
+ianthehenry/sd
+zdharma-continuum/zbrowse   # C-b: Browse vars
+zdharma-continuum/zui       # zbrowse depends on zui
+zdharma-continuum/fast-syntax-highlighting
+wfxr/forgit                 # interactive Git :)
+RobSis/zsh-reentry-hook     # just reentry recreated dirs
+unixorn/fzf-zsh-plugin@main # Place near end as can use other env vars previously set. !Explicitly specify default branch: https://github.com/zsh-users/antigen/issues/717
+Aloxaf/fzf-tab              # the order or loading may break it, see the README
+EOBUNDLES
 
 # Set ZSH theme :)
 #antigen theme denysdovhan/spaceship-prompt
@@ -25,3 +34,4 @@ antigen theme romkatv/powerlevel10k
 
 # Tell Antigen that you're done
 antigen apply
+
