@@ -11,10 +11,6 @@
 # if running bash
 [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source ~/.bashrc
 
-# Make less more friendly for non-text input files, see lesspipe(1)
-# will be able to read: tars, images, etc.
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # export LANG="en_GB.UTF-8"
 # export LANGUAGE="en_GB:en"
 # export LC_MESSAGES="en_GB.UTF-8"
@@ -23,3 +19,4 @@
 
 # Load common shell stuff (ZSH/Bash/... ), incl. env: PATH,...
 source ~/.shell/shellrc
+
