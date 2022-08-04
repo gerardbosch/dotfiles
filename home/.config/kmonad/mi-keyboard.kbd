@@ -156,7 +156,7 @@
   _    @folWin _    _    _    _        _    pgup home  end   pgdn @wb  @wf  _              _
   _    _       _    sft  _    _        left down up    rght  ret  _         _              _
   _    _       _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
-  _            _    _                  _               _     _                   _    _    _
+  _            _    _                  caps            _     _                   _    _    _
 )
 
 ;; -------------------------
