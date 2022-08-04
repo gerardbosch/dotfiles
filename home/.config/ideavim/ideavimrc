@@ -1,0 +1,29 @@
+" ----------------------
+" === Basic Settings ===
+" ----------------------
+
+let mapleader=","
+
+set hlsearch
+set ignorecase smartcase
+
+" -----------------
+" === Key remap ===
+" -----------------
+
+" Reload config
+nnoremap <Leader><Leader><Leader> :source $MYVIMRC<cr>
+
+" yank what?? don'r remember
+noremap Y ^yg_
+
+" ---------------------------------
+" === IntelliJ/VIM key handlers ===
+" ---------------------------------
+"
+" https://github.com/JetBrains/ideavim/blob/master/doc/sethandler.md
+"
+
+" Use ctrl-c as an ide shortcut in normal and visual modes
+sethandler <C-C> n-v:ide i:vim
+
