@@ -102,7 +102,12 @@
 ;; ---------------------------
 
 (defalias
-  ;; --- Home row mod keys (control/shift)
+  ;; --- New button definitions
+  hyp (around rctl (around ralt rsft))
+
+  ;; --- Home row mod keys (control/shift/hyper)
+  escHyp (tap-hold-next-release 250 esc @hyp)
+  quotHyp (tap-hold-next-release 250 ' @hyp)
   aCtl (tap-hold-next-release 250 a ctl)
   ;Ctl (tap-hold-next-release 250 ; ctl)
   sSft (tap-hold-next-release 250 s sft)
@@ -121,19 +126,19 @@
   wMvWin (tap-hold-next-release 250 w (layer-toggle window-workspace-mv))
 
   ;; --- Misc
-  [caps (multi-tap 170 [ caps)
+  ;;[caps (multi-tap 170 [ caps) ;; Really unconfortable as delays emiting single [ a lot
 )
 
 ;; TODO Switching keys like `/` and `-` is probably better done by XKB, as doing it here applies to all languages.
 ;;  Although that's tempting, as it would work OOB for any platform, it would imply re-learning to type some symbols in
 ;;  Catalan :-/ If I can get used to US-intl keyboard and/or compose key to type Catalan/Spanish, then it's fine! Ö·ó
 (deflayer qwerty
-  caps   _     _       _     _     _        _      _    _     _     _     _      _    _
-  _      _     _       _     _     _        _      _    _     _     _     /      _    _                 _
-  _      @qWsp @wMvWin _     _     _        _      _    _     _     @pLau @[caps _    ret               _
-  esc    @aCtl @sSft   _     @fEdt _        _      _    @kSym @lSft @;Ctl _           \                 _
-  _      @zKmn _       _     @vNum _        _      _    _     _     -     _                      _      _
-  _            _       _                    @spSft            _     _                      _     _      _
+  caps    _     _       _     _     _        _      _    _     _     _     _        _    _
+  _       _     _       _     _     _        _      _    _     _     _     /        _    _                 _
+  _       @qWsp @wMvWin _     _     _        _      _    _     _     @pLau _        _    ret               _
+  @escHyp @aCtl @sSft   _     @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
+  _       @zKmn _       _     @vNum _        _      _    _     _     -     _                        _      _
+  _             _       _                    @spSft            _     _                        _     _      _
 )
 
 ;; -------------------------
