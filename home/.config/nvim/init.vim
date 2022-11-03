@@ -33,17 +33,19 @@ set shiftwidth=2
 " -----------------
 
 " Reload config
-nnoremap <Leader><Leader> :source $MYVIMRC<cr>
+nnoremap \r :source $MYVIMRC<cr>
 " Open config in a split
-nnoremap <silent> <Leader>e :vsplit $MYVIMRC<cr>
-" Write as sudo
+nnoremap <silent> \e :vsplit $MYVIMRC<cr>
+" Write as sudo (there is an open issue with nvim that prevents this to work)
 noremap <Leader>W :w !sudo tee % > /dev/null
 " Search - clear highlight
 nnoremap <Leader>/ :noh<cr>
+"
 " Copy/paste to system clipboard (`"+` seems X11 specific, for MacOS use `"*`)
 :vmap <C-c> "+y
 :vmap <C-x> "+d
 :inoremap <C-v> <C-o>"+p
+:nnoremap <C-a> gg0vG$
 
 " Move around panes
 nnoremap <Leader>j <C-W>j
@@ -60,6 +62,10 @@ inoremap <C-_> <Esc>:Commentary<cr>ji
 " -----------------------
 " === Plugin settings ===
 " -----------------------
+
+" suda.vim (https://github.com/lambdalisue/suda.vim)
+" ‾‾‾‾‾‾‾‾
+let g:suda_smart_edit = 1  " automatically write file name to save as... when not writable
 
 " easy-align (https://github.com/junegunn/vim-easy-align)
 " ‾‾‾‾‾‾‾‾‾‾
@@ -164,7 +170,9 @@ Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'                           " Git commands :G
+"Plug 'tpope/vim-surround'                               " Commands: ys, cs, ds, S
 Plug 'farmergreg/vim-lastplace'
+Plug 'lambdalisue/suda.vim'
 " Plug 'bling/vim-airline'                            " status bar
 Plug 'itchyny/lightline.vim'                        " status bar
 Plug 'editorconfig/editorconfig-vim'

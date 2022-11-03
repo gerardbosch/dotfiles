@@ -7,23 +7,60 @@ let mapleader=","
 set hlsearch
 set ignorecase smartcase
 
+""" Editing source code
+set ideajoin
+set idearefactormode=select " {keep, select, visual}
+
+
 " -----------------
 " === Key remap ===
 " -----------------
 
-" Reload config
-nnoremap <Leader><Leader><Leader> :source $MYVIMRC<cr>
+" Reload config ($HOME does not work, ~ instead)
+nnoremap \e :e ~/.config/ideavim/ideavimrc<CR>
+nnoremap \r :source ~/.config/ideavim/ideavimrc<CR>
 
-" yank what?? don'r remember
+" Search - clear highlight
+nnoremap <Leader>/ :noh<cr>
+
+" yank trimmed line (no head/tail space, no line break)
 noremap Y ^yg_
 
-" ---------------------------------
-" === IntelliJ/VIM key handlers ===
-" ---------------------------------
-"
+" ---------------
+" === Plugins ===
+" ---------------
+
+" I think don't need the Plug line, maybe the plugin installed in IntelliJ?
+"Plug 'easymotion/vim-easymotion'
+
+set easymotion  " not so sure if I need to install an extra plugin
+set commentary
+
+" ------------------------------------
+" === IntelliJ/VIM keymap handlers ===
+" ------------------------------------
 " https://github.com/JetBrains/ideavim/blob/master/doc/sethandler.md
 "
+" Use:
+" n-v:ide i:vim
+" to define independent for normal, visual or insert modes
 
-" Use ctrl-c as an ide shortcut in normal and visual modes
-sethandler <C-C> n-v:ide i:vim
-
+sethandler <C-a> ide
+sethandler <C-b> ide
+sethandler <C-c> ide
+sethandler <C-d> ide
+sethandler <C-e> ide
+sethandler <C-f> ide
+sethandler <C-h> ide
+sethandler <C-i> ide
+sethandler <C-j> ide
+sethandler <C-k> ide
+sethandler <C-n> ide
+sethandler <C-o> ide
+sethandler <C-p> ide
+sethandler <C-q> ide
+sethandler <C-r> vim
+sethandler <C-t> ide
+sethandler <C-v> ide
+sethandler <C-w> ide
+sethandler <C-x> ide
