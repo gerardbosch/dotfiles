@@ -2,5 +2,8 @@
 *.zwc
 .DS_Store
 
-home/.config/mc/ini
+.idea/
+*.iml
+.vscode
 
+home/.config/mc/ini

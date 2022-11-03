@@ -122,8 +122,9 @@
   vNum (tap-hold-next-release 250 v (layer-toggle numpad))
 
   ;;tbWsp (tap-hold-next 250 tab (layer-toggle workspace)) ;; Disabled, using `q` instead: See the problems in the intro
-  qWsp   (tap-hold-next-release 250 q (layer-toggle workspace))
-  wMvWin (tap-hold-next-release 250 w (layer-toggle window-workspace-mv))
+  qWsp    (tap-hold-next-release 250 q (layer-toggle workspace))
+  wFolWin (tap-hold-next-release 250 w (layer-toggle window-workspace-follow))
+  3mvWin  (tap-hold-next-release 250 3 (layer-toggle window-workspace-mv))
 
   ;; --- Misc
   ;;[caps (multi-tap 170 [ caps) ;; Really unconfortable as delays emiting single [ a lot
@@ -133,12 +134,12 @@
 ;;  Although that's tempting, as it would work OOB for any platform, it would imply re-learning to type some symbols in
 ;;  Catalan :-/ If I can get used to US-intl keyboard and/or compose key to type Catalan/Spanish, then it's fine! Ö·ó
 (deflayer qwerty
-  caps    _     _       _     _     _        _      _    _     _     _     _        _    _
-  _       _     _       _     _     _        _      _    _     _     _     /        _    _                 _
-  _       @qWsp @wMvWin _     _     _        _      _    _     _     @pLau _        _    ret               _
-  @escHyp @aCtl @sSft   _     @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
-  _       @zKmn _       _     @vNum _        _      _    _     _     -     _                        _      _
-  _             _       _                    @spSft            _     _                        _     _      _
+  caps    _     _        _       _     _        _      _    _     _     _     _        _    _
+  _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
+  _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
+  @escHyp @aCtl @sSft    _       @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
+  _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
+  _             _        _                      @spSft            _     _                        _     _      _
 )
 
 ;; -------------------------
@@ -156,12 +157,12 @@
 )
 
 (deflayer edition ;; f
-  _    _       _    _    _    _        _    _    _     _     _    _    _    _
-  _    _       _    _    _    _        _    _    _     _     _    _    _    _              _
-  _    @folWin _    _    _    _        _    pgup home  end   pgdn @wb  @wf  _              _
-  _    _       _    sft  _    _        left down up    rght  ret  _         _              _
-  _    _       _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
-  _            _    _                  caps            _     _                   _    _    _
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _              _
+  _    _    _    _    _    _        _    pgup home  end   pgdn @wb  @wf  _              _
+  _    _    _    sft  _    _        left down up    rght  ret  _         _              _
+  _    _    _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
+  _         _    _                  caps            _     _                   _    _    _
 )
 
 ;; -------------------------
@@ -191,7 +192,7 @@
 ;; where `U` is the first workspace, `I` the second, and so on. I could eventually extend the "grid" with adjacent keys.
 
 (defalias
-  folWin (layer-toggle window-workspace-follow) ;; TODO REVIEW replaced by `w` key on base layer, test usability
+  ;;folWin (layer-toggle window-workspace-follow) ;; TODO REVIEW replaced by `w` key on base layer, test usability
 
   ;; TODO Any command or window manager that allows to switch to recently used workspace? Can xdotool can help? Looking
   ;;  for something like MacOS `yabai -m space --focus recent` that works in Linux...
@@ -207,31 +208,31 @@
 )
 
 (deflayer workspace ;; q
-  _    _    _    _    _       _        _     _    _    _    _    _    _    _
-  _    _    _    _    _       _        _     _    _    _    _    _    _    _              _
-  _    _    _    _    _       _        _     @u   @i   _    _    _    _    _              _
-  _    _    _    _    @folWin _        _     @j   @k   @l   _    _         _              _
-  _    _    _    _    _       _        _     _    _    _    @/   _                   _    _
-  _         _    @folWin               @prev           _    _                   _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @u   @i   _    _    _    _    _              _
+  _    _    _    _    _    _        _     @j   @k   @l   _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @/   _                   _    _
+  _         _    _                  @prev           _    _                   _    _    _
 )
 
-;; ---------------------------------------
-;; === (w) Window-workspace move layer ===
-;; ---------------------------------------
+;; ---------------------------------------------------
+;; === (w) Window-workspace layer (move following) ===
+;; ---------------------------------------------------
 
 ;; Move windows around workspaces: Send a window to the specified workspace (not follow the window).
 
 (defalias
-  mu (cmd-button "window-workspace-mv u")
-  mi (cmd-button "window-workspace-mv i")
-  mj (cmd-button "window-workspace-mv j")
-  mk (cmd-button "window-workspace-mv k")
-  ml (cmd-button "window-workspace-mv l")
+  mu (cmd-button "window-workspace-follow u")
+  mi (cmd-button "window-workspace-follow i")
+  mj (cmd-button "window-workspace-follow j")
+  mk (cmd-button "window-workspace-follow k")
+  ml (cmd-button "window-workspace-follow l")
   ;; TODO Move window to 2nd monitor: find command or window manager to do so, see if xdotool can help instead wmctrl
-  m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
+  m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Following current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
 )
 
-(deflayer window-workspace-mv ;; w
+(deflayer window-workspace-follow ;; w
   _    _    _    _    _    _        _     _    _    _    _    _    _    _
   _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
   _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
@@ -240,23 +241,23 @@
   _         _    _                  _               _    _                   _    _    _
 )
 
-;; -------------------------------------------
-;; === (q+f) Window-workspace follow layer ===
-;; -------------------------------------------
+;; ----------------------------------------------
+;; === (3) Window-workspace layer (move only) ===
+;; ----------------------------------------------
 
 ;; Follow windows around workspaces: Send a window to the specified workspace and follow the window.
 
 (defalias
-  fu (cmd-button "window-workspace-follow u")
-  fi (cmd-button "window-workspace-follow i")
-  fj (cmd-button "window-workspace-follow j")
-  fk (cmd-button "window-workspace-follow k")
-  fl (cmd-button "window-workspace-follow l")
+  fu (cmd-button "window-workspace-mv u")
+  fi (cmd-button "window-workspace-mv i")
+  fj (cmd-button "window-workspace-mv j")
+  fk (cmd-button "window-workspace-mv k")
+  fl (cmd-button "window-workspace-mv l")
   ;; TODO Move window to 2nd monitor: find command or window manager to do so, see if xdotool can help instead wmctrl
-  f/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Following current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
+  f/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
 )
 
-(deflayer window-workspace-follow ;; q+f
+(deflayer window-workspace-mv ;; 3
   _    _    _    _    _    _        _     _    _    _    _    _    _    _
   _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
   _    _    _    _    _    _        _     @fu  @fi  _    _    _    _    _              _
@@ -276,8 +277,9 @@
   ;;   - run-detach: detaches long living processes from kmonad proc
   ;;   - fol: "focus or launch" (also detaches de process)
   ;;
+  cha  (cmd-button "fol telegram-desktop")
   rec  (cmd-button "run-detach screen-rec") ;; toggle rec
-  lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}")
+  lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}") ;; l = launch
   ter  (cmd-button "fol gnome-terminal")
   scr  (cmd-button "run-detach ksnip --rectarea")
   fil  (cmd-button "fol file-manager")
@@ -289,7 +291,7 @@
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
   _    _    _    _    @ter @lTer    _    _    _    _    _    _    _    _              _
   _    _    @scr _    @fil _        _    _    _    _    _    _         _              _
-  _    _    _    @cod _    _        _    _    _    _    _    _                   _    _
+  _    _    @cha @cod _    _        _    _    _    _    _    _                   _    _
   _         _    _                  _              _    _                   _    _    _
 )
 
