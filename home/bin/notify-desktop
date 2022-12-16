@@ -10,7 +10,7 @@ body="$2"
 iconPath="${3:-$DEFAULT_ICON_PATH}"
 
 # A Linux specific way (libnotify package)
-#notify-send "$title" "$body"
+#notify-send "$title" "$body" --icon "$iconPath"
 
 # A cross-platform way using Python + notify-py package/script - https://github.com/ms7m/notify-py
 #
