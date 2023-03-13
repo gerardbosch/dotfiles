@@ -4,9 +4,15 @@
 
 # cl = cd + ls
 cl() {
-  DIR="$*";
-  [ $# -lt 1 ] && DIR=$HOME    # if no DIR given, go home
-  cd "${DIR}" && ls -A --color=auto
+  dir="$*";
+  [ $# -lt 1 ] && dir=$HOME    # if no dir given, go home
+  cd "${dir}" && ls -A --color=auto
+}
+
+# mdc
+mdc() {
+  dir="$*";
+  mkdir -p "$dir" && cd "$dir"
 }
 
 print-colors-shell() {
