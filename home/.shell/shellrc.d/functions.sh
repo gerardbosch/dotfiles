@@ -9,8 +9,8 @@ cl() {
   cd "${dir}" && ls -A --color=auto
 }
 
-# mdc
-mdc() {
+# cdd = mkdir && cd
+cdd() {
   dir="$*";
   mkdir -p "$dir" && cd "$dir"
 }
