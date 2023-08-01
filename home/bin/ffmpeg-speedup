@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+speed="$1"
+fileInPath="$2"
+
+
+fileInName="${fileInPath##*/}"  # without path
+ext="${fileInName##*.}"
+fileInName="${fileInName%.*}"
+outFile="${fileInName}_${speed}.${ext}"
+
+echo "speed: ${speed}"
+echo "input: ${fileInPath}"
+echo "output: ${outFile}"
+echo ""
+
+ffmpeg -i "$fileInPath" -filter_complex "[0:v]setpts=1/${speed}*PTS[v];[0:a]atempo=${speed}[a]" -map "[v]" -map "[a]" "$outFile"
+
