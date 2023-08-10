@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+seconds="$1"
+inputFilePath="$2"
+
+
+inputFilename="${inputFilePath##*/}"   # without path
+ext="${inputFilename##*.}"
+inputFilename="${inputFilename%.*}" # without extension
+outFile="${inputFilename}_%03d.${ext}"
+
+echo "seconds: ${seconds}"
+echo "input: ${inputFilePath}"
+echo "output: ${outFile}"
+echo ""
+
+ffmpeg -i "$inputFilePath" \
+  -vcodec copy \
+  -f segment -segment_time "$seconds" \
+  -reset_timestamps 1 \
+  "$outFile"
+
