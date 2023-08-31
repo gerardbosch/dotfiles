@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repoUrl="$1"
+tag="$2"
+
+nix-shell -p nix-prefetch-git jq --run \
+  "nix hash to-sri sha256:\$(nix-prefetch-git --url "$repoUrl" --quiet --rev "$tag" | jq -r '.sha256')"
+
