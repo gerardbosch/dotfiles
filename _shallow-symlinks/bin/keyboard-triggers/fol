@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# Focus or Launch applications.
+#
 # NOTE: This script is used to interface with KMonad config, and works just as a disatcher to the platform-specific
 #  implementation. It works by dispatching to the script with the same name, placed in the platform specific directory,
 #  e.g. ./linux/SCRIPT or ./macos/SCRIPT
