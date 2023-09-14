@@ -277,21 +277,22 @@
   ;;   - run-detach: detaches long living processes from kmonad proc
   ;;   - fol: "focus or launch" (also detaches de process)
   ;;
-  cha  (cmd-button "fol telegram-desktop")
+  tel  (cmd-button "fol telegram-desktop")
   rec  (cmd-button "run-detach screen-rec") ;; toggle rec
   lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}") ;; l = launch
   ter  (cmd-button "fol gnome-terminal")
   scr  (cmd-button "run-detach ksnip --rectarea")
   fil  (cmd-button "fol file-manager")
   cod  (cmd-button "run-detach code")
+  whp  (cmd-button "fol-whatsapp")
 )
 
 (deflayer launcher ;; p
   @rec _    _    _    _    _        _    _    _    _    _    _    _    _
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
-  _    _    _    _    @ter @lTer    _    _    _    _    _    _    _    _              _
+  _    _    @whp _    @ter @lTer    _    _    _    _    _    _    _    _              _
   _    _    @scr _    @fil _        _    _    _    _    _    _         _              _
-  _    _    @cha @cod _    _        _    _    _    _    _    _                   _    _
+  _    _    @tel @cod _    _        _    _    _    _    _    _                   _    _
   _         _    _                  _              _    _                   _    _    _
 )
 

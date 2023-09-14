@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Focus or Launch Whatsapp.
+#
+# NOTE: This script is platform specific.
+#
+
+APP_FILE_NAME='brave-whatsapp-web.desktop'
+WINDOW_TITLE='whatsapp web'
+
+
+# Find window ID (`wmctrl -a` does not work in this case, so find the ID intead)
+windowId=$(wmctrl -l | grep -i "$WINDOW_TITLE" | head -n1 | cut -d ' ' -f1)
+
+if [[ "$windowId" ]]; then
+  echo 'Window found, raising!'
+  # -R = Move window to current desktop and raise; -a = Switch to app's desktop and raise
+  wmctrl -i -R "$windowId"
+else
+  echo 'Window NOT found, launching!'
+  gtk-launch "$APP_FILE_NAME"
+fi
+
