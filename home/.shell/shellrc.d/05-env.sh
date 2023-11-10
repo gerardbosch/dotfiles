@@ -10,7 +10,7 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 export XDG_CACHE_HOME="${HOME}/.cache"
 
 export EDITOR=vim
-export LESSOPEN='| lessfilter-fzf %s'   # a pre-processor to increases less capabilities
+export LESSOPEN='| lessfilter-fzf %s'   # a pre-processor to increase less capabilities (shell plugin)
 export CASTLES="$HOME/.homesick/repos"
 export SD_ROOT="$HOME/.local/share/sd"
 
