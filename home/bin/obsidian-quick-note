@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# This script requires Obsidian with the plugin 'Local REST API' enabled.
+# This script requires Obsidian with the plugin 'Local REST API' enabled:
+#  https://github.com/coddingtonbear/obsidian-local-rest-api
 #
 
 SERVER_HOST="127.0.0.1" # localhost
