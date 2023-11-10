@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+#
+# This script requires Obsidian with the plugin 'Local REST API' enabled.
+#
 
 SERVER_HOST="127.0.0.1" # localhost
 SERVER_PORT="27124"
@@ -9,6 +12,7 @@ SERVER_PORT="27124"
 true=0
 false=1
 
+# User input text
 text="$*"
 
 # -- Functions
@@ -19,6 +23,16 @@ fail() {
   echo -e "\n$msg"
   exit "$code"
 }
+
+checkEnv() {
+  [[ -z $OBSIDIAN_LOCAL_REST_API_KEY || -z $OBSIDIAN_LOCAL_REST_CA_CERT ]] &&
+    fail 1 '🔴 You need to export environment variables:\n OBSIDIAN_LOCAL_REST_API_KEY\n OBSIDIAN_LOCAL_REST_CA_CERT'
+}
+
+checkNonEmptyArgs() {
+  [[ -z "$text" ]] && fail 2 "🔴 Run again providing the text to add, e.g.\n\n  ❯ $(basename "$0") Some random thoughts..."
+}
+
 
 isObsidianRunning() {
   [[ -z $(pgrep --full 'electron.*obs') ]] && return $false || return $true
@@ -53,18 +67,10 @@ addNote() {
   return $?
 }
 
-
 # -- Main
 
-# Check environment
-[[ -z $OBSIDIAN_LOCAL_REST_API_KEY || -z $OBSIDIAN_LOCAL_REST_CA_CERT ]] &&
-  echo -e '🔴 You need to export environment variables:\n OBSIDIAN_LOCAL_REST_API_KEY\n OBSIDIAN_LOCAL_REST_CA_CERT' &&
-  exit 1
-
-# Check arguments
-[[ -z "$*" ]] &&
-  echo -e "🔴 Run again providing the text to add, e.g.\n\n  ❯ $(basename "$0") Some random thoughts..." &&
-  exit 2
+checkEnv
+checkNonEmptyArgs
 
 isObsidianRunning || obsidian >/dev/null 2>&1 & disown
 isServerUp || fail 3 "🔴 Obsidian Local REST server is not running on $SERVER_HOST port $SERVER_PORT. Is the plugin enabled?"
