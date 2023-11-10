@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+SERVER_HOST="127.0.0.1" # localhost
+SERVER_PORT="27124"
+
+# ---
+
+# Boolean bashism...
+true=0
+false=1
+
+text="$*"
+
+# -- Functions
+
+fail() {
+  local code="$1"
+  local msg="$2"
+  echo -e "\n$msg"
+  exit "$code"
+}
+
+isObsidianRunning() {
+  [[ -z $(pgrep --full 'electron.*obs') ]] && return $false || return $true
+}
+
+isServerUp() {
+  local running=$false
+  for attempt in {1..10}; do
+    #echo "Check server, attempt $attempt ..."
+    nc -z "$SERVER_HOST" "$SERVER_PORT" && running=$true && break # netcat can connect!
+    sleep 0.5
+  done
+  #shellcheck disable=2086 # no quotes here! needs to be a number
+  return $running
+}
+
+addNote() {
+  # The https certificate from the Obsidian REST plugin is self-signed.
+  #  Note: `--insecure` allows to skip the verification.
+  curl -sS --cacert "$OBSIDIAN_LOCAL_REST_CA_CERT" \
+    -X 'PATCH' \
+    "https://${SERVER_HOST}:${SERVER_PORT}/periodic/daily/" \
+    -H "Authorization: Bearer $OBSIDIAN_LOCAL_REST_API_KEY" \
+    -H 'accept: */*' \
+    -H 'Heading: Quick notes' \
+    -H 'Content-Insertion-Position: end' \
+    -H 'Content-Insertion-Ignore-Newline: true' \
+    -H 'Heading-Boundary: ::' \
+    -H 'Content-Type: text/markdown' \
+    -d "- $text" \
+    > /dev/null
+  return $?
+}
+
+
+# -- Main
+
+# Check environment
+[[ -z $OBSIDIAN_LOCAL_REST_API_KEY || -z $OBSIDIAN_LOCAL_REST_CA_CERT ]] &&
+  echo -e '🔴 You need to export environment variables:\n OBSIDIAN_LOCAL_REST_API_KEY\n OBSIDIAN_LOCAL_REST_CA_CERT' &&
+  exit 1
+
+# Check arguments
+[[ -z "$*" ]] &&
+  echo -e "🔴 Run again providing the text to add, e.g.\n\n  ❯ $(basename "$0") Some random thoughts..." &&
+  exit 2
+
+isObsidianRunning || obsidian >/dev/null 2>&1 & disown
+isServerUp || fail 3 "🔴 Obsidian Local REST server is not running on $SERVER_HOST port $SERVER_PORT. Is the plugin enabled?"
+
+(addNote "$text" && echo 'Added ✅') || fail 10 '❌ Failed to add that! Something went wrong 😢'
+
