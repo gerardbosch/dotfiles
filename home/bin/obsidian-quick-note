@@ -33,7 +33,6 @@ checkNonEmptyArgs() {
   [[ -z "$text" ]] && fail 2 "🔴 Run again providing the text to add, e.g.\n\n  ❯ $(basename "$0") Some random thoughts..."
 }
 
-
 isObsidianRunning() {
   [[ -z $(pgrep --full 'electron.*obs') ]] && return $false || return $true
 }
