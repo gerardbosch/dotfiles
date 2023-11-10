@@ -40,6 +40,8 @@ alias p='setsid audacious -e . >/dev/null'
 alias P='setsid audacious . >/dev/null'
 alias pt='setsid audacious -E . >/dev/null'  # play in templist
 
+alias q='obsidian-quick-note' # alias to own script
+
 #
 # --- Development ---
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
