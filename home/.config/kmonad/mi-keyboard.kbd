@@ -110,8 +110,8 @@
   quotHyp (tap-hold-next-release 250 ' @hyp)
   aCtl (tap-hold-next-release 250 a ctl)
   ;Ctl (tap-hold-next-release 250 ; ctl)
-  sSft (tap-hold-next-release 250 s sft)
-  lSft (tap-hold-next-release 250 l sft :timeout-button l)
+  sSft (tap-hold-next-release 200 s sft)
+  lSft (tap-hold-next-release 200 l sft :timeout-button l)
   spSft (tap-hold-next-release 350 spc sft :timeout-button spc)
 
   ;; --- Layer triggers
@@ -281,9 +281,11 @@
   rec  (cmd-button "run-detach screen-rec") ;; toggle rec
   lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}") ;; l = launch
   ter  (cmd-button "fol gnome-terminal")
-  scr  (cmd-button "run-detach ksnip --rectarea")
+  ;; scr  (cmd-button "run-detach ksnip --rectarea & disown")
+  scr  (cmd-button "nohup ksnip --rectarea & disown")
   fil  (cmd-button "fol file-manager")
   cod  (cmd-button "run-detach code")
+  obs  (cmd-button "fol obsidian")
   whp  (cmd-button "fol-whatsapp")
 )
 
@@ -292,7 +294,7 @@
   _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
   _    _    @whp _    @ter @lTer    _    _    _    _    _    _    _    _              _
   _    _    @scr _    @fil _        _    _    _    _    _    _         _              _
-  _    _    @tel @cod _    _        _    _    _    _    _    _                   _    _
+  _    _    @tel @cod _    _        @obs _    _    _    _    _                   _    _
   _         _    _                  _              _    _                   _    _    _
 )
 
