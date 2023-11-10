@@ -43,10 +43,12 @@ outFile="${DST_DIR}/$(date '+%FT%H.%M.%S').mkv"
 
 # Tip: 0:v:0 means: input source num 0, video, all streams, the last digit can be 0 for all or a specific stream number, e.g. audio
 
-# ffmpeg -video_size 1920x1080 -framerate 25 -f x11grab -i :1 -f pulse -i alsa_output.pci-0000_00_1f.3.analog-stereo.monitor -f pulse -i alsa_input.pci-0000_00_1f.3.analog-stereo -acodec libmp3lame -map 0:v:0 -map 1:a:0 -map 2:a:0
+#ffmpeg -video_size 1920x1080 -framerate 25 -f x11grab -i :1                -f pulse       -i alsa_output.pci-0000_00_1f.3.analog-stereo.monitor -f pulse       -i alsa_input.pci-0000_00_1f.3.analog-stereo -acodec libmp3lame -map 0:v:0 -map 1:a:0 -map 2:a:0
 #ffmpeg -video_size 1920x1080 -f x11grab -framerate 24 -probesize 42M -i :1 -f pulse -ac 2 -i alsa_output.pci-0000_00_1f.3.analog-stereo.monitor -f pulse -ac 1 -i alsa_input.pci-0000_00_1f.3.analog-stereo -map 0:v:0 -map 1:a:0 -map 2:a:0 -preset fast
 
-partialRecCmd="ffmpeg -video_size ${screenResolution} -framerate ${FRAME_RATE} -f x11grab -i ${DISPLAY}.0 -f pulse -ac 2 -i default"
+# THIS VERSION works ONLY (and perfect audio sync) capturing the mic. So can only hear the other's voice if playing on speakers (headphones audio is NOT recorded)
+# TODO ${video_size} must be calculated
+partialRecCmd="ffmpeg -video_size 1920x1080 -framerate ${FRAME_RATE} -f x11grab -i ${DISPLAY}.0 -f pulse -ac 2 -i default"
 recCmd="${partialRecCmd} ${outFile}"
 
 recordingPid=$(pgrep --full "$partialRecCmd")
