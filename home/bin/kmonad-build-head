@@ -12,7 +12,7 @@ TARGET_DIR="${HOME}/.local/bin"
 docker build -t kmonad-builder github.com/kmonad/kmonad.git
 
 # Keep a copy of the previous built version, just in case...
-[[ -f "${TARGET_DIR}/kmonad" ]] && mv "${TARGET_DIR}/kmonad" "${TARGET_DIR}/kmonad.prev-build"
+[[ -f "${TARGET_DIR}/kmonad" ]] && mv "${TARGET_DIR}/kmonad" "${TARGET_DIR}/kmonad.build-$(kmonad --version | tr -d ',' | tr ' ' '_')"
 
 # Spin up an ephemeral Docker container from the built image, to just copy the
 # built binary to the host's current directory bind-mounted inside the
