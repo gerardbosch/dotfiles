@@ -3,9 +3,13 @@
 # This script requires Obsidian with the plugin 'Local REST API' enabled:
 #  https://github.com/coddingtonbear/obsidian-local-rest-api
 #
+# It works by adding items on the daily note, just under a specified heading. Daily notes plugin is
+# using a template to create such notes, and that template defines the heading we're targeting here.
+#
 
-SERVER_HOST="127.0.0.1" # localhost
-SERVER_PORT="27124"
+TARGET_HEADING='Quick notes'
+SERVER_HOST='127.0.0.1' # localhost
+SERVER_PORT='27124'
 
 # ---
 
@@ -57,7 +61,7 @@ addNote() {
     "https://${SERVER_HOST}:${SERVER_PORT}/periodic/daily/" \
     -H "Authorization: Bearer $OBSIDIAN_LOCAL_REST_API_KEY" \
     -H 'accept: */*' \
-    -H 'Heading: Quick notes' \
+    -H "Heading: $TARGET_HEADING" \
     -H 'Content-Insertion-Position: end' \
     -H 'Content-Insertion-Ignore-Newline: true' \
     -H 'Heading-Boundary: ::' \
