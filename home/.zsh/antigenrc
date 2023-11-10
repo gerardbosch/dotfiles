@@ -7,6 +7,7 @@ command-not-found
 # git  # disabled: too many stuff
 #docker
 #tmux
+direnv
 
 # More bundles from GitHub repos
 unixorn/autoupdate-antigen.zshplugin  # auto-update plugins and antigen itself (antigen selfupdate)
