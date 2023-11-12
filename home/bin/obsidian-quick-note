@@ -39,7 +39,7 @@ checkNonEmptyArgs() {
 }
 
 isObsidianRunning() {
-  [[ -z $(pgrep --full 'electron.*obs') ]] && return $false || return $true
+  [[ -z $(pgrep --full 'electron.*obsidian') ]] && return $false || return $true
 }
 
 isServerUp() {
@@ -55,7 +55,7 @@ isServerUp() {
 
 addNote() {
   # The https certificate from the Obsidian REST plugin is self-signed.
-  #  Note: `--insecure` allows to skip the verification.
+  #  Note: Using `--insecure` would allow to skip the verification.
   curl -sS --cacert "$OBSIDIAN_LOCAL_REST_CA_CERT" \
     -X 'PATCH' \
     "https://${SERVER_HOST}:${SERVER_PORT}/periodic/daily/" \
