@@ -15,5 +15,14 @@ declare -A workspaces=(
   ['l']=4
 )
 
+# Switch to workspace
 wmctrl -s ${workspaces["$dest"]}
+
+# TODO Try to fix the focus when switching workspaces
+#
+# Most of the time when switching workspaces, the window at front is not focused. May this help to fix it?
+# sleep 1
+# lastFocusedWinId=$(wmctrl -l | tail -n1 | cut -d' ' -f1)
+# wmctrl -R "$lastFocusedWinId" # -a should do the same hehre
+# echo "$(date) - ${lastFocusedWinId}" >> /tmp/lastFocusedWinId.txt
 
