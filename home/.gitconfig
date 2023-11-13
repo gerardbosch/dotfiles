@@ -18,9 +18,10 @@
 	brcleanup = !git branch --merged | egrep -v '(^\\*|^\\s*master$|^\\s*develop$|^\\s*dev$)' | xargs -n1 -r git branch -d
 	submodule-pull = submodule update --init --remote
 	submodule-update-rec = submodule update --init --recursive
-
   # Starts an interactive rebase of all the commits you haven't pushed yet. Handy for collapsing a bunch of work-in-progress snapshots into logical commits before pushing, without having to worry about accidentally squashing a commit someone else has already referred to.
   work-in-progress = rebase -i @{u}
+  # Stop tracking further changes on the given file (file is already checked-in on VCS but ignore future changes)
+  stop-tracking-changes = update-index --skip-worktree
 
 [pager]
 	log  = diffr | less
