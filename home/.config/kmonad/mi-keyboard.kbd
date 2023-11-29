@@ -101,6 +101,18 @@
 ;; === BASE layer (qwerty) ===
 ;; ---------------------------
 
+;; TODO Switching keys like `/` and `-` is probably better done by XKB, as doing it here applies to all languages.
+;;  Although that's tempting, as it would work OOB for any platform, it would imply re-learning to type some symbols in
+;;  Catalan :-/ If I can get used to US-intl keyboard and/or compose key to type Catalan/Spanish, then it's fine! Ö·ó
+(deflayer qwerty
+  caps    _     _        _       _     _        _      _    _     _     _     _        _    _
+  _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
+  _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
+  @escHyp @aCtl @sSft    _       @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
+  _       @zKmn _        _       @vNum _        _      _    _     _     -     -                        _      _
+  _             _        _                      @spSft            _     _                        _     _      _
+)
+
 (defalias
   ;; --- New button definitions
   hyp (around rctl (around ralt rsft))
@@ -130,31 +142,11 @@
   ;;[caps (multi-tap 170 [ caps) ;; Really unconfortable as delays emiting single [ a lot
 )
 
-;; TODO Switching keys like `/` and `-` is probably better done by XKB, as doing it here applies to all languages.
-;;  Although that's tempting, as it would work OOB for any platform, it would imply re-learning to type some symbols in
-;;  Catalan :-/ If I can get used to US-intl keyboard and/or compose key to type Catalan/Spanish, then it's fine! Ö·ó
-(deflayer qwerty
-  caps    _     _        _       _     _        _      _    _     _     _     _        _    _
-  _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
-  _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
-  @escHyp @aCtl @sSft    _       @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
-  _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
-  _             _        _                      @spSft            _     _                        _     _      _
-)
-
 ;; -------------------------
 ;; === (f) Edition layer ===
 ;; -------------------------
 
 ;; The edition layer is inspired by capslock.vonng.com
-
-(defalias
-  wb C-left    ;; jump word backward
-  wf C-rght    ;; jump word forward
-  dlw C-bspc   ;; delete word backward
-  supc del     ;; supress char forward
-  supw C-del   ;; supress word forward
-)
 
 (deflayer edition ;; f
   _    _    _    _    _    _        _    _    _     _     _    _    _    _
@@ -163,6 +155,14 @@
   _    _    _    sft  _    _        left down up    rght  ret  _         _              _
   _    _    _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
   _         _    _                  caps            _     _                   _    _    _
+)
+
+(defalias
+  wb C-left    ;; jump word backward
+  wf C-rght    ;; jump word forward
+  dlw C-bspc   ;; delete word backward
+  supc del     ;; supress char forward
+  supw C-del   ;; supress word forward
 )
 
 ;; -------------------------
@@ -191,6 +191,15 @@
 ;;
 ;; where `U` is the first workspace, `I` the second, and so on. I could eventually extend the "grid" with adjacent keys.
 
+(deflayer workspace ;; q
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @u   @i   _    _    _    _    _              _
+  _    _    _    _    _    _        _     @j   @k   @l   _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @/   _                   _    _
+  _         _    _                  @prev           _    _                   _    _    _
+)
+
 (defalias
   ;;folWin (layer-toggle window-workspace-follow) ;; TODO REVIEW replaced by `w` key on base layer, test usability
 
@@ -207,20 +216,20 @@
   / (cmd-button "")
 )
 
-(deflayer workspace ;; q
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
-  _    _    _    _    _    _        _     @u   @i   _    _    _    _    _              _
-  _    _    _    _    _    _        _     @j   @k   @l   _    _         _              _
-  _    _    _    _    _    _        _     _    _    _    @/   _                   _    _
-  _         _    _                  @prev           _    _                   _    _    _
-)
-
 ;; ---------------------------------------------------
 ;; === (w) Window-workspace layer (move following) ===
 ;; ---------------------------------------------------
 
 ;; Move windows around workspaces: Send a window to the specified workspace (not follow the window).
+
+(deflayer window-workspace-follow ;; w
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
+  _    _    _    _    _    _        _     @mj  @mk  @ml  _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @m/  _                   _    _
+  _         _    _                  _               _    _                   _    _    _
+)
 
 (defalias
   mu (cmd-button "window-workspace-follow u")
@@ -232,20 +241,20 @@
   m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Following current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
 )
 
-(deflayer window-workspace-follow ;; w
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
-  _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
-  _    _    _    _    _    _        _     @mj  @mk  @ml  _    _         _              _
-  _    _    _    _    _    _        _     _    _    _    @m/  _                   _    _
-  _         _    _                  _               _    _                   _    _    _
-)
-
 ;; ----------------------------------------------
 ;; === (3) Window-workspace layer (move only) ===
 ;; ----------------------------------------------
 
 ;; Follow windows around workspaces: Send a window to the specified workspace and follow the window.
+
+(deflayer window-workspace-mv ;; 3
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @fu  @fi  _    _    _    _    _              _
+  _    _    _    _    _    _        _     @fj  @fk  @fl  _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @f/  _                   _    _
+  _         _    _                  _               _    _                   _    _    _
+)
 
 (defalias
   fu (cmd-button "window-workspace-mv u")
@@ -257,20 +266,20 @@
   f/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
 )
 
-(deflayer window-workspace-mv ;; 3
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _
-  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
-  _    _    _    _    _    _        _     @fu  @fi  _    _    _    _    _              _
-  _    _    _    _    _    _        _     @fj  @fk  @fl  _    _         _              _
-  _    _    _    _    _    _        _     _    _    _    @f/  _                   _    _
-  _         _    _                  _               _    _                   _    _    _
-)
-
 ;; --------------------------
 ;; === (p) Launcher layer ===
 ;; --------------------------
 
 ;; Focus or `l`aunch apps (fol).
+
+(deflayer launcher ;; p
+  @rec _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    @whp _    @ter @lTer    _    _    _    _    _    _    _    _              _
+  _    _    @scr _    @fil _        _    _    _    _    _    _         _              _
+  _    _    @tel @cod _    _        @obs _    _    _    _    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
+)
 
 (defalias
   ;; This is implemented with custom scripts. They work as an interface that can be implemented differently by every OS:
@@ -287,15 +296,6 @@
   cod  (cmd-button "run-detach code")
   obs  (cmd-button "fol obsidian")
   whp  (cmd-button "fol-whatsapp")
-)
-
-(deflayer launcher ;; p
-  @rec _    _    _    _    _        _    _    _    _    _    _    _    _
-  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
-  _    _    @whp _    @ter @lTer    _    _    _    _    _    _    _    _              _
-  _    _    @scr _    @fil _        _    _    _    _    _    _         _              _
-  _    _    @tel @cod _    _        @obs _    _    _    _    _                   _    _
-  _         _    _                  _              _    _                   _    _    _
 )
 
 ;; --------------------
@@ -315,11 +315,6 @@
 ;; === KMonad management layer ===
 ;; -------------------------------
 
-(defalias
-  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad")
-  edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
-)
-
 (deflayer kmonad-mgmt ;; z
   _    _    _    _      _      _        _    _    _    _    _    _    _    _
   _    _    _    _      _      _        _    _    _    _    _    _    _    _              _
@@ -327,6 +322,11 @@
   _    _    _    _      _      _        _    _    _    _    _    _         _              _
   _    _    _    _      _      _        _    _    _    _    _    _                   _    _
   _         _    _                      _              _    _                   _    _    _
+)
+
+(defalias
+  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad")
+  edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
 )
 
 ;; -------------------------------------------------------------------------------------------
