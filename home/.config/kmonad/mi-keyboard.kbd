@@ -47,7 +47,7 @@
 ;;   The idea behind is that they can be implemented differently -if necessary- for each platform (Linux/MacOS/Win),
 ;;   without afecting KMonad configuration -making KMonad config agnostic of platform-specific commands/tools. For
 ;;   example, desktop management is done with different tools in Linux vs. MacOS, e.g. `wmctl` vs `yabai`.
-;;   
+;;
 ;;   Those scripts (as well as this KMonad config) are part of my dotfiles; they are placed in my PATH, and are
 ;;   accessible for KMonad to run them. Under Linux, KMonad is started by systemd in user mode. KMonad can access user
 ;;   PATH after desktop login (couldn't find another way to load it, see detail below).
@@ -109,7 +109,7 @@
   _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
   _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
   @escHyp @aCtl @sSft    _       @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
-  _       @zKmn _        _       @vNum _        _      _    _     _     -     -                        _      _
+  _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
   _             _        _                      @spSft            _     _                        _     _      _
 )
 
