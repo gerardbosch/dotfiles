@@ -18,6 +18,9 @@ export SD_ROOT="$HOME/.local/share/sd"
 export FZF_PREVIEW_WINDOW='right:60%:nohidden'
 export FZF_PREVIEW_ADVANCED=true
 
+# === Hombrew / Linuxbrew ===
+export HOMEBREW_GIT_PATH=/home/gerard/.nix-profile/bin/git
+
 # I come up with this as GraphicsMagick installed with Nix was complaining about delegates.mgk not found and did not work.
 # Brew installation works fine out of the box BTW.
 # See https://superuser.com/a/452657/684037
