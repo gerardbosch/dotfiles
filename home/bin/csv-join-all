@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+awk '(NR == 1) || (FNR > 1)' *.csv > $(date '+%FT%H:%M:%S')-joined.csv
+
