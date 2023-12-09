@@ -67,10 +67,10 @@
   ;; Linux
   input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink
-          "My KMonad output"                             ;; name of the created keyboard
+          "My KMonad keyboard"                           ;; name of the created keyboard
           ;; setxkbmap -option compose:menu              ;; option already defined in my custom keyboard map
           ;; Additional, environment-specific, information. Autorepeat: <delay> [rate-per-second]
-          "sleep 1; systemctl --user restart xkbcomp; sleep 0.2; xset r rate 180 60")
+          "sleep 0.2; xset r rate 180 60")
   cmp-seq cmp     ;; compose button (in mi-keyboard, it is the context-menu button: fn-rctl)
   cmp-seq-delay 5 ;; tutorial recommendation: 5ms delay between each compose-key sequence press
 
