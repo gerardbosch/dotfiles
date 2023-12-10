@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# Cross-platform desktop notification.
+#
+
+DEFAULT_ICON_PATH="$(dirname "$0")/notify-desktop-img/mono-gnome-info.svg"
+
+title="$1"
+body="$2"
+iconPath="${3:-$DEFAULT_ICON_PATH}"
+
+# A Linux specific way (libnotify package)
+#notify-send "$title" "$body" --icon "$iconPath"
+
+# A cross-platform way using Python + notify-py package/script - https://github.com/ms7m/notify-py
+#
+# --by using Nix shell, no system-wide Python package gets installed.
+#
+# EDIT 2023-12-10:
+#  The Nix+Python cross-platform idea was cool and works, but it requires to download ~500MiB and
+#  wait for that each time I run nix-collect-garbage. Better to use platform built-in tools!
+#
+nix shell nixpkgs#python3 nixpkgs#python39Packages.notify-py -c \
+  notifypy -t "$title" -m "$body" --applicationName "$0" -i "$iconPath" \
+  > /dev/null 2>&1 
+

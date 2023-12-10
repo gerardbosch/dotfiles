@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
 #
-# Cross-platform desktop notification.
+# NOTE: This script is used as cross-platform interface and works just as a disatcher to the platform-specific
+#  implementation. It works by dispatching to the script with the same name, placed in the platform specific directory,
+#  e.g. ./_linux/SCRIPT or ./_macos/SCRIPT
 #
 
-DEFAULT_ICON_PATH="$(dirname "$0")/notify-desktop-img/mono-gnome-info.svg"
-
-title="$1"
-body="$2"
-iconPath="${3:-$DEFAULT_ICON_PATH}"
-
-# A Linux specific way (libnotify package)
-#notify-send "$title" "$body" --icon "$iconPath"
-
-# A cross-platform way using Python + notify-py package/script - https://github.com/ms7m/notify-py
-#
-# --by using Nix shell, no system-wide Python package gets installed.
-#
-nix shell nixpkgs#python3 nixpkgs#python39Packages.notify-py \
-  -c notifypy -t "$title" -m "$body" --applicationName "$0" -i "$iconPath"
+source $(dirname "$0")/_helper/os-dispatcher.sh
+dispatch "$@"
 
