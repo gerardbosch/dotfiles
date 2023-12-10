@@ -28,6 +28,19 @@ set -euo pipefail
 QUEUE=$HOME/.cache/notification-queue
 
 
+checkSingletonOrDie() {
+  # pgrep is limited to 15-char command name; -f looks for whole command line (may lead for false positives)
+  # $$ used to exclude the PID of self instance
+  if pgrep -f "$(basename "$0")" | grep -v "^$$\$" >/dev/null; then
+    echo "$(basename "$0")"
+    echo "Script is already running. Exiting."
+    exit 1
+  fi
+}
+
+# == Main ==
+
+checkSingletonOrDie
 basedir=$(dirname "$QUEUE")
 
 test -d "$basedir" || mkdir -p "$basedir"
