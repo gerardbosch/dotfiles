@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# Start and connect to a .devcontainer
+#
+set -euo pipefail
+
+image=$(grep '"image":' .devcontainer/devcontainer.json | awk -F\" '/"image"/ {print $4}')
+
+echo "Starting container from ${image}"
+docker run -it --rm -v $(pwd):/workspace "$image"
+
