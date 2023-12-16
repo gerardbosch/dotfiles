@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+# Call with params: 'repoUrl tag' to get the commit hash for Nix.
+
 repoUrl="$1"
 tag="$2"
 
