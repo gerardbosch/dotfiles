@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Edit the template in sd
+vim $(dirname "$0")/gitattributes
+
