@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# Start and connect to a .devcontainer
+# Attach to a devcontainer (or start a container: will not perform devcontainer custom initialization, etc;
+# simply a docker+grep alias).
 #
 set -euo pipefail
 
