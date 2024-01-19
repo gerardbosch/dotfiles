@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+#
+# Slices a video in several files
 
-seconds="$1"
+seconds="$1" # duration of each slice
 inputFilePath="$2"
 
 
