@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -uo pipefail # -e excluded conciously
 
 # Upgrade all packages one by one
 while read -r pkg; do
 
-  pkgNum=$(echo "$pkg" | awk '{print $1}') 
-  pkgName=$(echo "$pkg" | awk '{print $2}') 
+  pkgNum=$(echo "$pkg" | awk '{print $1}')
+  pkgName=$(echo "$pkg" | awk '{print $2}')
 
   echo ">>> Upgrading ${pkgNum}: ${pkgName}"
   NIXPKGS_ALLOW_UNFREE=1 nix profile upgrade --impure "$pkgNum";
