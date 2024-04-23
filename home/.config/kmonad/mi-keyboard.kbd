@@ -285,17 +285,18 @@
   ;; This is implemented with custom scripts. They work as an interface that can be implemented differently by every OS:
   ;;   - run-detach: detaches long living processes from kmonad proc
   ;;   - fol: "focus or launch" (also detaches de process)
+  ;;   - folm: "focus or launch (minimizing)" (also detaches de process)
   ;;
-  tel  (cmd-button "fol telegram-desktop")
+  tel  (cmd-button "folm telegram-desktop")
   rec  (cmd-button "run-detach screen-rec") ;; toggle rec
   lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}") ;; l = launch
   ter  (cmd-button "fol gnome-terminal")
   ;; scr  (cmd-button "run-detach ksnip --rectarea & disown")
   scr  (cmd-button "nohup ksnip --rectarea & disown")
-  fil  (cmd-button "fol file-manager")
+  fil  (cmd-button "file-manager")
   cod  (cmd-button "run-detach code")
-  obs  (cmd-button "fol obsidian")
-  whp  (cmd-button "fol-whatsapp")
+  obs  (cmd-button "folm obsidian")
+  whp  (cmd-button "folm-whatsapp")
 )
 
 ;; --------------------

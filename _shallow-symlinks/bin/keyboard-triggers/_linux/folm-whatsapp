@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Focus or Launch Whatsapp.
+#
+# NOTE: This script is platform specific.
+#
+
+APP_FILE_NAME='brave-whatsapp-web.desktop'
+WINDOW_TITLE='whatsapp web'
+
+
+windowId=$(xdotool search --name "$WINDOW_TITLE") # case insensitive
+
+if [[ "$windowId" ]]; then
+
+  if [[ "$windowId" == $(xdotool getactivewindow) ]]; then
+    echo "Window already focused, minimizing!"
+    xdotool windowminimize "$windowId"
+  else
+    echo 'Window found, raising!'
+    # -i: Use windowId; -R: Move window to current desktop and raise; -a: Switch to app's desktop and raise
+    wmctrl -i -R "$windowId"
+  fi
+else
+  echo 'Window NOT found, launching!'
+  gtk-launch "$APP_FILE_NAME"
+fi
+

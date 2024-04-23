@@ -5,5 +5,5 @@
 # NOTE: This script is platform specific.
 #
 
-nautilus "$@"
+folm nautilus "$@"
 
