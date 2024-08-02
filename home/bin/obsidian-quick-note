@@ -44,7 +44,7 @@ isObsidianRunning() {
 
 isServerUp() {
   local running=$false
-  for attempt in {1..10}; do
+  for attempt in {1..15}; do
     #echo "Check server, attempt $attempt ..."
     nc -z "$SERVER_HOST" "$SERVER_PORT" && running=$true && break # netcat can connect!
     sleep 0.5
