@@ -1,6 +1,6 @@
 [core]
 	eol = lf
-	autocrlf = false
+	autocrlf = input
 
 [alias]
 	co = checkout
