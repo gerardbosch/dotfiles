@@ -21,6 +21,10 @@ export FZF_PREVIEW_ADVANCED=true
 # === Hombrew / Linuxbrew ===
 export HOMEBREW_GIT_PATH=/home/gerard/.nix-profile/bin/git
 
+# === Sonarlint ===
+#  Avoid polluting homedir
+export SONARLINT_USER_HOME="${XDG_CACHE_HOME}/sonarlint"
+
 # I come up with this as GraphicsMagick installed with Nix was complaining about delegates.mgk not found and did not work.
 # Brew installation works fine out of the box BTW.
 # See https://superuser.com/a/452657/684037
