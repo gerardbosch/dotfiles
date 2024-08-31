@@ -4,7 +4,7 @@
 
 alias mysudo='sudo -E env "PATH=$PATH"'
 
-[[ $(command -v exa) ]] && alias s='exa -la --header --git'
+[[ $(command -v eza) ]] && alias s='eza -la --header --git'
 
 # Clipboard: alias a la MacOS
 if [ $(command -v xclip) ]; then
