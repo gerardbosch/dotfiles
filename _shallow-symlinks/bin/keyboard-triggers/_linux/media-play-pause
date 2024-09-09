@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Emit media control button: Play/Pause
+#
+# NOTE: This script is platform specific.
+#
+
+xdotool key XF86AudioPlay
+

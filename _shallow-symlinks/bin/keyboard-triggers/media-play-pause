@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# NOTE: This script is used as cross-platform interface and works just as a disatcher to the platform-specific
+#  implementation. It works by dispatching to the script with the same name, placed in the platform specific directory,
+#  e.g. ./_linux/SCRIPT or ./_macos/SCRIPT
+#
+
+source "$HOME"/bin/_helper/os-dispatcher.sh
+dispatch "$@"
+
