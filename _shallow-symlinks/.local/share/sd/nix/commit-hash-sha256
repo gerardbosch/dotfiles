@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# Call with params: 'repoUrl tag' to get the commit hash for Nix.
+# Call with params: 'repoUrl tag' to get the commit hash for Nix. e.g. `sd nix commit-hash-sha256 https://github.com/hluk/CopyQ v7.1.0`
 
 repoUrl="$1"
 tag="$2"
