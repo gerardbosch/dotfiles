@@ -44,6 +44,8 @@ alias pt='setsid audacious -E . >/dev/null'  # play in templist
 
 alias q='obsidian-quick-note' # alias to own script
 
+alias vlc-multitrack="vlc --sout-all --sout '#display'"
+
 #
 # --- Development ---
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
