@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Join 2 video streams into multi track video MKV file
+
+stream1Path="$1"
+stream2Path="$2"
+
+
+inputFilename="${stream1Path##*/}"   # without path
+#ext="${inputFilename##*.}"
+inputFilename="${inputFilename%.*}" # without extension
+outFile="${inputFilename}_dual-video.mkv"
+
+echo "input 1: ${stream1Path}"
+echo "input 2: ${stream2Path}"
+echo "output: ${outFile}"
+echo ""
+
+ffmpeg \
+  -i "$stream1Path" \
+  -i "$stream2Path" \
+  -c copy -map 0 -map 1 \
+  "$outFile"
+
