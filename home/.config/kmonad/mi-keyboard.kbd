@@ -19,6 +19,8 @@
 ;;   after timeout, which allows a fallback to emit a repeating button.
 ;;
 ;; NOTE: The most *comfortable* to use seems to be `tap-hold-next-release`.
+;; NOTE 2024-11-14: `tap-hold` and  `tap-hold-overlap` are new (possibly better) options. See here:
+;;   https://github.com/kmonad/kmonad/pull/916/files#diff-885489a200014c02066b8081c6acbea03a7f907a6c0df4f951657ad196fb72c6
 ;; _____________________________________________________________________________________________________________________
 ;;
 ;; https://github.com/kmonad/kmonad/issues/237#issuecomment-840661222
