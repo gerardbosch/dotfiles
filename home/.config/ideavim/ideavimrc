@@ -20,6 +20,9 @@ set idearefactormode=select " {keep, select, visual}
 nnoremap \e :e ~/.config/ideavim/ideavimrc<CR>
 nnoremap \r :source ~/.config/ideavim/ideavimrc<CR>
 
+" Close active tab with Leader
+nnoremap <Leader>q :q<cr>
+
 " Search - clear highlight
 nnoremap <Leader>/ :noh<cr>
 
