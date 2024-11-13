@@ -2,6 +2,10 @@
 	eol = lf
 	autocrlf = input
 
+[user]
+  email = gerard.bosch@gmail.com
+  name = Gerard Bosch
+
 [alias]
 	co = checkout
   # checkout default branch
