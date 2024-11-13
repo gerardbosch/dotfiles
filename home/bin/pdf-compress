@@ -5,6 +5,10 @@
 # Requirements: ghostscript
 # Inspired by: https://askubuntu.com/a/256449/277752
 
+#
+# Usage: ${scriptname} [-r] [-o] [-s [default|screen*|ebook|prepress|printer]] <pdf>"
+#
+
 get_file_size() {
   file="$1"
   du -h "$file" | awk '{print $1}'
