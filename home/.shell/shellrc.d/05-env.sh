@@ -14,6 +14,9 @@ export LESSOPEN='| lessfilter-fzf %s'   # a pre-processor to increase less capab
 export CASTLES="$HOME/.homesick/repos"
 export SD_ROOT="$HOME/.local/share/sd"
 
+# === Nix
+export NIXPKGS_ALLOW_UNFREE=1
+
 # === fzf ===
 export FZF_PREVIEW_WINDOW='right:60%:nohidden'
 export FZF_PREVIEW_ADVANCED=true
