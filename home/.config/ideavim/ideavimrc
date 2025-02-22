@@ -5,12 +5,18 @@
 let mapleader=","
 
 set hlsearch
+set incsearch
 set ignorecase smartcase
 
-""" Editing source code
+set scrolloff=5
+set startofline=off " without selecting new line
+
 set ideajoin
+set ideaput
 set idearefactormode=select " {keep, select, visual}
 
+" Don't use Ex mode, use Q for formatting.
+"map Q gq
 
 " -----------------
 " === Key remap ===
@@ -20,24 +26,159 @@ set idearefactormode=select " {keep, select, visual}
 nnoremap \e :e ~/.config/ideavim/ideavimrc<CR>
 nnoremap \r :source ~/.config/ideavim/ideavimrc<CR>
 
-" Close active tab with Leader
-nnoremap <Leader>q :q<cr>
+" Close active tab with leader
+nnoremap <leader>q :q<cr>
 
 " Search - clear highlight
-nnoremap <Leader>/ :noh<cr>
+nnoremap <leader>/ :noh<cr>
 
 " yank trimmed line (no head/tail space, no line break)
 noremap Y ^yg_
 
+" remap `u` to IntelliJ's Undo (Ctrl-z) so that IntelliJ does the undo (they behave differently)
+nnoremap u :action $Undo<CR>
+
+" select
+nnoremap <C-A> gg<S-v>G
+
+" -- GOTO - https://gist.github.com/plateauu/2850b551c934f4168fa4f6b56e8fb087
+nnoremap gj :action MethodDown<cr>
+nnoremap gk :action MethodUp<cr>
+nnoremap gd :action GotoDeclaration<cr>
+nnoremap gi :action GotoImplementation<cr>
+nnoremap gt :action GotoTest<cr>
+nnoremap gs :action GotoSuperMethod<cr>
+nnoremap g, :action JumpToLastChange <CR>
+nnoremap g. :action JumpToNextChange <CR>
+"go up and down
+"nnoremap gd <C-d>zz "conflict with goto definition
+
+" -- Find usages
+" nnoremap gu :action ShowUsages<cr>
+" nnoremap <leader>fu :action FindUsages<cr>
+" nnoremap <leader>fh :action HighlightUsagesInFile<cr>
+" nnoremap <leader>ff :action FindUsagesInFile<cr> "implement find in file
+" nnoremap <leader>fg :action FindUsagesMenuGroup<cr>
+
+" -- Switch split windows
+nnoremap gh :action PrevSplitter<cr>
+nnoremap gl :action NextSplitter<cr>
+
+" -- Navigation
+" nnoremap ]m :action MethodDown<cr>
+" nnoremap [m :action MethodUp<cr>
+nnoremap ]e :action GotoNextError<cr>
+nnoremap [e :action GotoPreviousError<cr>
+" nnoremap ]c :action VcsShowNextChangeMarker<cr>
+" nnoremap [c :action VcsShowPrevChangeMarker<cr>
+" nnoremap ]t :action NextOccurence<cr>
+" nnoremap [t :action PreviousOccurence<cr>
+" nnoremap ]f :action NextOccurence<cr>
+" nnoremap [f :action PreviousOccurence<cr>
+
+" -- Move tabs (not sure that works)
+nnoremap mh :action com.mnw.tabmover.actions.MoveTabUpAction<cr>
+nnoremap ml :action com.mnw.tabmover.actions.MoveTabDownAction<cr>
+
+" -- REFACTOR
+nnoremap <leader>rn :action RenameElement<cr>
+nnoremap <leader>mv :action Move<cr>
+nnoremap <leader>rs :action ChangeSignature<cr> " rs: refactor-signature
+""nnoremap <leader>rf :action RenameFile<cr> " run failed is better
+""nnoremap <leader>ms :action MakeStatic<cr>
+""nnoremap <leader>ci :action ConvertToInstanceMethod<cr>
+nnoremap <leader>in :action Inline<cr>
+"nnoremap <leader>ef :action EncapsulateFields<cr>
+nnoremap <leader>em :action ExtractMethod<cr>
+nnoremap <leader>ev :action IntroduceVariable<cr>
+nnoremap <leader>ec :action IntroduceConstant<cr>
+"nnoremap <leader>ec :action ExtractClass<cr>
+"nnoremap <leader>ei :action ExtractInterface<cr>
+" nnoremap <leader>ip :action IntroduceParameter<cr>
+" nnoremap <leader>if :action IntroduceField<cr>
+" nnoremap <leader>im :action ImplementMethods<cr>
+" nnoremap <leader>ru :action MembersPullUp<cr>
+" nnoremap <leader>rd :action MemberPushDown<cr>
+" nnoremap <leader>rom :action OverrideMethods<cr>
+" nnoremap <leader>roi :action OptimizeImports<cr>
+" nnoremap <leader>rai :action AnonymousToInner<cr>
+" nnoremap <leader>rl :action Refactorings.QuickListPopupAction<cr>
+
+" -- Run code - https://gist.github.com/plateauu/2850b551c934f4168fa4f6b56e8fb087
+" open Run Configurations popup
+nnoremap <leader>rr :action Run<cr>
+nnoremap <leader>rc :action RunConfiguration<cr>
+nnoremap <leader>R :action Rerun<cr>
+" nnoremap <leader>rc :action RunClass<cr>
+" nnoremap <leader>rt :action RunClass<cr>
+
+" -- Run tests
+nnoremap <leader>rf :action RerunFailedTests<cr>
+nnoremap <leader>t :action RunClass<cr>
+nnoremap <leader>T :action RerunTests<cr>
+" nnoremap <leader>rh :action RunTestGroup<cr>
+
 " ---------------
 " === Plugins ===
 " ---------------
+" Plugin list: https://github.com/JetBrains/ideavim/wiki/IdeaVim-Plugins
 
-" I think don't need the Plug line, maybe the plugin installed in IntelliJ?
-"Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'            " Commands: ys, cs, ds, S
+Plug 'easymotion/vim-easymotion'     " Requires IntelliJ plugins: AceJump, IdeaVim-EasyMotion
+Plug 'machakann/vim-highlightedyank' " Highlight copied text
+set functiontextobj " Requires Intellij plugin 'FunctionTextObject'
+Plug 'vim-scripts/argtextobj.vim'    " Argument objects, e.g. daa: delete-an-argument, cia: change-inner-argument, via: select-inner-argument
 
-set easymotion  " not so sure if I need to install an extra plugin
-set commentary
+" vim-commentary
+" ﹌﹌﹌﹌﹌﹌﹌﹌
+" Toggle comment on selected lines in normal mode
+nmap <leader>c <Plug>Commentary
+xmap <leader>c <Plug>Commentary
+omap <leader>c <Plug>Commentary
+" Comment inner paragraph
+nmap <leader>cc <leader>cip
+
+" vim-easymotion
+" ﹌﹌﹌﹌﹌﹌﹌﹌
+" The default leader has been changed to <leader><leader> to avoid conflicts with other plugins you may have installed.
+" This can easily be changed back to pre-1.3 behavior by rebinding the leader in your vimrc:
+map <leader> <Plug>(easymotion-prefix)
+
+" Example with explicit (command basis) redefine
+"map <leader>j <Plug>(easymotion-f)
+"map <leader>J <Plug>(easymotion-s)
+
+" This setting makes EasyMotion work similarly to Vim's smartcase option for global searches.
+let g:EasyMotion_smartcase = 1
+
+" -- jkhl motions
+"
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
+map <leader>l <Plug>(easymotion-lineforward)
+map <leader>h <Plug>(easymotion-linebackward)
+"let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+map <leader>L <Plug>(easymotion-bd-jk)
+"nmap <leader>L <Plug>(easymotion-overwin-line) " overwin UNSUPPORTED!
+
+" -- n-character search motion
+"
+"map  / <Plug>(easymotion-sn)
+"omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion. Without these mappings, `n` &
+" `N` works fine. (These mappings just provide different highlight method and have some other features)
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
+
+" -- Overwin motions (search across tabs?) - UNSUPPORTED!
+"
+"map  <leader>f <Plug>(easymotion-bd-f)
+"nmap <leader>f <Plug>(easymotion-overwin-f)
+" without leader?
+"nmap s <Plug>(easymotion-overwin-f2)
+
 
 " ------------------------------------
 " === IntelliJ/VIM keymap handlers ===
@@ -48,7 +189,7 @@ set commentary
 " n-v:ide i:vim
 " to define independent for normal, visual or insert modes
 
-sethandler <C-a> ide
+sethandler <C-a> vim
 sethandler <C-b> ide
 sethandler <C-c> ide
 sethandler <C-d> ide
@@ -67,3 +208,4 @@ sethandler <C-t> ide
 sethandler <C-v> ide
 sethandler <C-w> ide
 sethandler <C-x> ide
+
