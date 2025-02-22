@@ -279,7 +279,7 @@
   _    @play _    _    _    _        _    _    _    _    _    _    _    _              _
   _    _     @whp _    @ter @lTer    _    _    _    _    _    _    _    _              _
   _    _     @scr _    @fil _        _    _    _    _    _    _         _              _
-  _    _     @tel @cod _    _        @obs _    _    _    _    _                   _    _
+  _    @sla  @tel @cod _    _        @obs _    _    _    _    _                   _    _
   _          _    _                  _              _    _                   _    _    _
 )
 
@@ -299,6 +299,7 @@
   cod  (cmd-button "run-detach code")
   obs  (cmd-button "folm obsidian")
   play (cmd-button "media-play-pause") ;; media conntrol buttons
+  sla  (cmd-button "folm slack")
   whp  (cmd-button "folm-whatsapp")
 )
 
