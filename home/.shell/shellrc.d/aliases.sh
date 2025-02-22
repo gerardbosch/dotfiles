@@ -4,7 +4,8 @@
 
 alias mysudo='sudo -E env "PATH=$PATH"'
 
-alias vim='nvim'
+[[ $(command -v nvim) ]] && alias vim='nvim'
+[[ $(command -v vim) ]]  && alias vi='vim'
 
 [[ $(command -v eza) ]] \
   && alias s='eza -la --header --git' \
