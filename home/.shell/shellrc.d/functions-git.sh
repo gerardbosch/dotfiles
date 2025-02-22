@@ -4,7 +4,8 @@ git-amend-date-subtract-seconds() {
   export offsetSeconds="$1"
 
   # Use Perl instead of date command as a standard solution (GNU date / BSD date has different options)
-  amendDate=$(perl -MPOSIX -e 'print strftime("%a, %e %b %Y %H:%M:%S %z", localtime(time - $ENV{'offsetSeconds'}))')
+  amendDate=$(LC_ALL=en_GB.UTF-8 perl -MPOSIX -e 'print strftime("%a, %e %b %Y %H:%M:%S %z", localtime(time - $ENV{'offsetSeconds'}))')
+  echo "amendDate=${amendDate}"
 
   GIT_COMMITTER_DATE="$amendDate" git commit --amend --no-edit --date "$amendDate"
 }
