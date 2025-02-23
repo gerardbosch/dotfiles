@@ -103,7 +103,6 @@ in
     postman
 
     # TODO Must be in Linux!
-    ulauncher
     emote 
     caffeine-ng
     livecaptions
