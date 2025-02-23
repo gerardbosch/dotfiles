@@ -1,0 +1,11 @@
+#!/bin/sh
+
+echo 'Running global pre-commit hooks...'
+
+for hook in "$XDG_CONFIG_HOME"/git/hooks/pre-commit.d/*; do
+  if [ -x "$hook" ]; then
+    "$hook" || exit 1
+  fi
+done
+exit 0
+
