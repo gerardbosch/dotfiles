@@ -42,6 +42,8 @@
 # Ending slash (/) makes it to work recursively like (/**)
 [includeIf "gitdir:~/repos/"]
   path = ~/repos/.gitconfig
+[includeIf "gitdir:~/reposw/"]
+  path = ~/reposw/.gitconfig
 [includeIf "gitdir:~/repos-personal/"]
   path = ~/repos-personal/.gitconfig
 [includeIf "gitdir:~/personal-repos/"]
