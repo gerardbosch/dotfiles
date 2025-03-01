@@ -3,9 +3,10 @@
   autocrlf = input
   hooksPath = ~/.config/git/hooks
 
+; Define it in config-local file (untracked by dotfiles)
 [user]
-  email = gerard.bosch@gmail.com
-  name = Gerard Bosch
+ email = 
+ name = 
 
 [alias]
   co = checkout
@@ -19,7 +20,8 @@
   lg1 = log --pretty=oneline
   cl = clone --recurse-submodules
   in = init
-  # cleanup already **fully** merged branches (git branch -d)
+  # Cleanup already **fully** merged branches (git branch -d).
+  #  - Only works when using merge commits (not squash)
   brcleanup = !git branch --merged | egrep -v '(^\\*|^\\s*master$|^\\s*develop$|^\\s*dev$)' | xargs -n1 -r git branch -d
   submodule-pull = submodule update --init --remote
   submodule-update-rec = submodule update --init --recursive
@@ -34,11 +36,14 @@
   diff = diffr | less
 
 [include]
+  path = ~/.config/git/config-local
   path = ~/.gitconfig-local
 
 # Ending slash (/) makes it to work recursively like (/**)
 [includeIf "gitdir:~/repos/"]
   path = ~/repos/.gitconfig
+[includeIf "gitdir:~/repos-personal/"]
+  path = ~/repos-personal/.gitconfig
 [includeIf "gitdir:~/personal-repos/"]
   path = ~/personal-repos/.gitconfig
 
