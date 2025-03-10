@@ -1,9 +1,8 @@
-#!/bin/sh
-
 #
 # Common RC file for bash/zsh
 #
 
 for file in ~/.shell/shellrc.d/*sh; do
-    source "$file"
+  source "$file"
 done
+
