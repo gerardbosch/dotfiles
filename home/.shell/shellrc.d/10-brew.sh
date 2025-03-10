@@ -2,7 +2,5 @@
 
 BREW_BIN=/home/linuxbrew/.linuxbrew/bin/brew
 
-test -f "$BREW_BIN" &&
-case "$(uname -s)" in
-  Linux*) eval $("$BREW_BIN" shellenv) ;;
-esac
+test -f "$BREW_BIN" && eval $("$BREW_BIN" shellenv)
+
