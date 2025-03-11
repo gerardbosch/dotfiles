@@ -29,7 +29,11 @@ in
   home.packages = with pkgs; [
     # === CLI ===
     # -- Basic tools
+
     # nh # Nix Helper CLI
+    gitFull
+    firefox
+    hugo
     ncdu
     mc
     duf
@@ -45,7 +49,6 @@ in
     jumpapp
     ksnip
     ffmpeg
-    yad
     tealdeer
     gh
     #fd
@@ -68,6 +71,7 @@ in
     direnv
     btop
     jq
+    neofetch
 
     #github:ceedubs/unison-nix#packages.x86_64-linux.ucm
     #nodePackages.localtunnel
@@ -103,6 +107,7 @@ in
     postman
 
     # TODO Must be in Linux!
+    yad
     emote 
     caffeine-ng
     livecaptions
