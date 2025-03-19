@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 let
- isLinux = pkgs.stdenv.isLinux == "x86_64-linux";
- isMacOs = pkgs.stdenv.isDarwin == "x86_64-darwin";
+  isLinux = pkgs.stdenv.isLinux == "x86_64-linux";
+  isMacOs = pkgs.stdenv.isDarwin == "x86_64-darwin";
 
   # Load additional packages if `local-packages.nix` exists
   localPackages =
@@ -27,18 +27,30 @@ in
   home.stateVersion = "24.05";  # Adjust to your original home-manager
 
   home.packages = with pkgs; [
-    # === CLI ===
-    # -- Basic tools
 
-    # nh # Nix Helper CLI
+    # === CLI ===
+
+    # nh # Nix Helper CLI # Added in programs
+    lesspipe
+    nvimpager
+    fasd
+    fzf
     gitFull
-    firefox
+    git-extras
+    ranger
+    cloc
     hugo
     ncdu
     mc
     duf
     eza
     bat
+    #bat-extras.prettybat
+    #bat-extras.batwatch
+    #bat-extras.batpipe
+    #bat-extras.batman
+    #bat-extras.batgrep
+    #bat-extras.batdiff
     diffr
     delta
     ripgrep
@@ -51,14 +63,14 @@ in
     ffmpeg
     tealdeer
     gh
-    #fd
+    #fd # added in programs
     gitleaks
     pre-commit
     neovim
     chafa
     exiftool
-    #xsv # deprecated replace with xan
     csvkit
+    xan # Rust cli to process csv files
     mdcat
     shellcheck
     lynx
@@ -78,7 +90,6 @@ in
 
     #docker-compose
     #yarn
-    #fzf
     #pipx
     #nushell
     #scala-cli
@@ -87,40 +98,41 @@ in
     #ammonite
 
     # -- Other
-    awscli2
-    aws-sso-cli
+    #awscli2
+    #aws-sso-cli
 
     # === Graphical ===
-    #copyq # install with yay
-    #ksnip
-    vscode
+    alacritty # nixGL
+    activitywatch
     blanket
+    copyq # install with yay => any issues?
+    firefox
+    ksnip
     obsidian
     vlc
-    slack
-    #remmina
+    vscode
     workrave
-    activitywatch
 
-    # TODO Env specific
-    # quarkus # install through sdkman?
-    postman
-
-    # TODO Must be in Linux!
-    yad
-    emote 
+    # == TODO Must be in Linux!
     caffeine-ng
-    livecaptions
+    emote
     gimp
+    livecaptions
+    yad
+
+    # == TODO Move to localPackages
+    calibre # nixGL
+    #postman
+    remmina
+    #slack
 
   ] ++ (if isLinux then [
 
     # Linux specific
-    #emote
 
   ] else if isMacOs then [
 
-    # Packages specific to macOS
+    # macOS specific
 
   ] else []) ++ localPackages;
 
