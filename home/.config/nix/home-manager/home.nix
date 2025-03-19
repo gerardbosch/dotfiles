@@ -11,20 +11,38 @@ let
     else [];
 in
 {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
+  # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  # Home Manager needs a bit of information about you and the paths it should manage
   home.username = "gerard";
   home.homeDirectory = "/home/gerard";
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
+  # This value determines the Home Manager release that your configuration is compatible
+  # with. This helps avoid breakage when a new Home Manager release introduces backwards
   # incompatible changes.
   #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
+  # You can update Home Manager without changing this value. See the Home Manager release
+  # notes for a list of state version changes in each release.
   home.stateVersion = "24.05";  # Adjust to your original home-manager
+  # ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+  # ---------------
+  # === Modules ===
+  # ---------------
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  programs.nh = {
+    enable = true;
+    # Optional: Set the default flake to use
+    # flake = "/path/to/your/flake";
+  };
+
+  programs.fd.enable = true;
+
+  # ----------------
+  # === Packages ===
+  # ----------------
 
   home.packages = with pkgs; [
 
@@ -84,6 +102,8 @@ in
     btop
     jq
     neofetch
+    warp-terminal
+    waveterm
 
     #github:ceedubs/unison-nix#packages.x86_64-linux.ucm
     #nodePackages.localtunnel
@@ -134,20 +154,6 @@ in
 
     # macOS specific
 
-  ] else []) ++ localPackages;
-
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  programs.fd = { enable = true; };
-
-  programs.nh = {
-    enable = true;
-    # Optional: Set the default flake to use
-    # flake = "/path/to/your/flake";
-  };
-
-
+  ]) ++ localPackages;
 }
 
