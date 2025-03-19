@@ -10,7 +10,12 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 export XDG_CACHE_HOME="${HOME}/.cache"
 
 export EDITOR=vim
+
+# https://github.com/unixorn/fzf-zsh-plugin/blob/main/README.md
+# Ultimately, lesspipe.sh (if present) will still honor your own lessfilter if found in your PATH, leading to the
+# following execution: lessfilter-fzf > lesspipe.sh > lessfilter.
 export LESSOPEN='| lessfilter-fzf %s'   # a pre-processor to increase less capabilities (shell plugin)
+
 export PAGER=less
 export CASTLES="$HOME/.homesick/repos"
 export SD_ROOT="$HOME/.local/share/sd"
