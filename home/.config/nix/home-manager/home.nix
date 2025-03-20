@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, nixgl, ... }:
 
 let
   isLinux = pkgs.stdenv.isLinux == "x86_64-linux";
@@ -25,6 +25,13 @@ in
   home.stateVersion = "24.05";  # Adjust to your original home-manager
   # ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 
+  # Now you can use nixgl functions, for example:
+  # Configure nixGL integration for OpenGL-dependent applications.
+  # nixGL.packages = nixgl.packages; # using this makes a slow build of a lot of stuff :-/ use import + inherit
+  nixGL.packages = import nixgl { inherit pkgs; };
+  nixGL.defaultWrapper = "mesa";
+  nixGL.installScripts = [ "mesa" ];
+
   # ---------------
   # === Modules ===
   # ---------------
@@ -38,8 +45,6 @@ in
     # flake = "/path/to/your/flake";
   };
 
-  programs.fd.enable = true;
-
   # ----------------
   # === Packages ===
   # ----------------
@@ -52,6 +57,7 @@ in
     lesspipe
     nvimpager
     fasd
+    fd
     fzf
     gitFull
     git-extras
@@ -63,12 +69,12 @@ in
     duf
     eza
     bat
-    #bat-extras.prettybat
-    #bat-extras.batwatch
-    #bat-extras.batpipe
-    #bat-extras.batman
-    #bat-extras.batgrep
-    #bat-extras.batdiff
+    bat-extras.batdiff
+    bat-extras.batgrep
+    bat-extras.batman
+    bat-extras.batpipe
+    bat-extras.batwatch
+    bat-extras.prettybat
     diffr
     delta
     ripgrep
@@ -84,7 +90,6 @@ in
     #fd # added in programs
     gitleaks
     pre-commit
-    neovim
     chafa
     exiftool
     csvkit
@@ -102,6 +107,7 @@ in
     btop
     jq
     neofetch
+    pdftk
     warp-terminal
     waveterm
 
@@ -122,7 +128,6 @@ in
     #aws-sso-cli
 
     # === Graphical ===
-    alacritty # nixGL
     activitywatch
     blanket
     copyq # install with yay => any issues?
@@ -134,6 +139,7 @@ in
     workrave
 
     # == TODO Must be in Linux!
+    (config.lib.nixGL.wrap alacritty)
     caffeine-ng
     emote
     gimp
@@ -141,7 +147,8 @@ in
     yad
 
     # == TODO Move to localPackages
-    calibre # nixGL
+    # calibre # nixGL
+    (config.lib.nixGL.wrap calibre)
     #postman
     remmina
     #slack
@@ -154,6 +161,6 @@ in
 
     # macOS specific
 
-  ]) ++ localPackages;
+  ] else []) ++ localPackages;
 }
 
