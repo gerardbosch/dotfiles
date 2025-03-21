@@ -6,4 +6,7 @@
 *.iml
 .vscode
 
+home/.config/home-manager/flake.lock
+
 home/.config/mc/ini
+
