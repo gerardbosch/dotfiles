@@ -30,7 +30,8 @@ if command -v brew &>/dev/null; then
 
   prependToFpath "${brewPrefix}/share/zsh/site-functions"
 
-  # Other stuff that requires sourcing instead...
-  source "${brewPrefix}/opt/git-extras/share/git-extras/git-extras-completion.zsh"
+  # git-extras are Git subcommands (e.g. git count), so they need to be explicitly sourced
+  #source "${brewPrefix}/opt/git-extras/share/git-extras/git-extras-completion.zsh"
+  source "${HOME}/.nix-profile/share/zsh/site-functions/_git_extras"
 fi
 
