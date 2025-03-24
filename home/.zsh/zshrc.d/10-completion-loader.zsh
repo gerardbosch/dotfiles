@@ -16,6 +16,10 @@ prependToFpath() {
 
 prependToFpath "${HOME}/.zsh/zshrc.d/completion"
 
+# --- HomeSHick ---------------------------------------------------
+
+prependToFpath "${HOME}/.homesick/repos/homeshick/completions"
+
 # --- Nix-installed packages --------------------------------------
 
 prependToFpath \
