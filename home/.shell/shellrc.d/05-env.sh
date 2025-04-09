@@ -34,6 +34,12 @@ export HOMEBREW_GIT_PATH=/home/gerard/.nix-profile/bin/git
 #  Avoid polluting homedir
 export SONARLINT_USER_HOME="${XDG_CACHE_HOME}/sonarlint"
 
+# === Ruby gems ===
+export GEM_HOME="${HOME}/.local/share/gem"
+export BUNDLE_USER_CACHE="${XDG_CACHE_HOME}/bundle"
+export BUNDLE_USER_CONFIG="${XDG_CONFIG_HOME}/bundle/config"
+export BUNDLE_USER_PLUGIN="${XDG_DATA_HOME}/bundle"
+
 # I come up with this as GraphicsMagick installed with Nix was complaining about delegates.mgk not found and did not work.
 # Brew installation works fine out of the box BTW.
 # See https://superuser.com/a/452657/684037
