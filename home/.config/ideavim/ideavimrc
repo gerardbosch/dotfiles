@@ -41,6 +41,9 @@ nnoremap u :action $Undo<CR>
 " select
 nnoremap <C-A> gg<S-v>G
 
+" visual block selection (multi-cursor)
+nmap <leader>v <C-V>
+
 " -- GOTO - https://gist.github.com/plateauu/2850b551c934f4168fa4f6b56e8fb087
 nnoremap gj :action MethodDown<cr>
 nnoremap gk :action MethodUp<cr>
