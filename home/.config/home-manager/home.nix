@@ -9,6 +9,16 @@ let
     if builtins.pathExists ./local-packages.nix
     then import ./local-packages.nix
     else [];
+
+  # Utility function to pin a package version (tag/commit)
+  # Needs the integrity hash sha256, use my `sd nix commit-hash-sha256`
+  pin = tag: integritySha256: import (pkgs.fetchFromGitHub {
+    owner = "nixos";
+    repo = "nixpkgs";
+    rev = tag;
+    sha256 = integritySha256;
+  }) { system = builtins.currentSystem; };
+
 in
 {
   # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -110,22 +120,47 @@ in
     pdftk
     warp-terminal
     waveterm
+    docker-compose
+
+    # -- CloudFlare wrangler ---------------------------------------------------
+    #(pin "wrangler@4.4.0" "sha256-+VRNw/n2jsAm90Jv9gkFBYHfj+tuEhLwW1KZx9xTfUo=").wrangler # CloudFlare workers CLI
+    
+    # pin wrangler
+    # (import (pkgs.fetchFromGitHub {
+    #   owner = "cloudflare";
+    #   repo = "workers-sdk";
+    #   rev = "wrangler@4.4.0"; # e.g. commit with wrangler 3.79.0
+    #   sha256 = "sha256-+VRNw/n2jsAm90Jv9gkFBYHfj+tuEhLwW1KZx9xTfUo=";
+    # }) { system = builtins.currentSystem; }).wrangler
+
+    # (pkgs.wrangler.override {
+    #   dontCheckForBrokenSymlinks = true;
+    # })
+
+    # TODO
+    #wrangler
+
+    # TODO Broken package, temp workaround until fixed
+    (pkgs.wrangler.overrideAttrs (oldAttrs: {
+      dontCheckForBrokenSymlinks = true;
+    }))
+    # --------------------------------------------------------------------------
 
     #github:ceedubs/unison-nix#packages.x86_64-linux.ucm
     #nodePackages.localtunnel
 
-    #docker-compose
     #yarn
     #pipx
     #nushell
     #scala-cli
     #vdhcoapp
-    #go
     #ammonite
 
     # -- Other
     #awscli2
     #aws-sso-cli
+    go   # required-by: hugo
+    #jekyll # gave errors: Use `nix-shell -p bundler`
 
     # === Graphical ===
     activitywatch
