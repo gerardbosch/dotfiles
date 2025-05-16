@@ -14,3 +14,11 @@ for newPath in ${exportPaths[@]}; do
   [ -d "$newPath" ] && export PATH="${newPath}:${PATH}"
 done
 
+# !DOES NOT WORK
+# Export PATH to environment.d for systemd:
+#
+#echo "PATH=${PATH}" > "${HOME}/.config/environment.d/05-user-path.conf"
+
+# Export/dump user PATH so that systemd units can read it with `EnvironmentFile=/path/to/file` (see user kmonad.service)
+echo "PATH=${PATH}" > "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/user.path"
+
