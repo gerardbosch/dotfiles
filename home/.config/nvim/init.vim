@@ -197,6 +197,7 @@ Plug 'junegunn/vim-easy-align'                      " :EasyAlign to align text b
 Plug 'neoclide/coc.nvim', {'branch': 'release'}     " Completion engine
 Plug 'jiangmiao/auto-pairs'
 Plug 'kmonad/kmonad-vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Used for Kotlin (lua config below)
 
 " Syntax highlight
 Plug 'tridactyl/vim-tridactyl'
@@ -226,6 +227,9 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Initialize plugin system
 call plug#end()
+
+" Tree-Sitter config (used for Kotlin)
+lua require('treesitter')
 
 " colorscheme synthwave84
 " colorscheme monokai
