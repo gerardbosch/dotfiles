@@ -29,7 +29,7 @@ RobSis/zsh-reentry-hook     # just reentry recreated dirs
 ## === Place near end section below ===
 
 unixorn/fzf-zsh-plugin@main # Place near end as can use other env vars previously set. !Explicitly specify default branch: https://github.com/zsh-users/antigen/issues/717
-wfxr/forgit                 # interactive Git !place it after fzf plugin
+wfxr/forgit@main                 # interactive Git !place it after fzf plugin
 Aloxaf/fzf-tab              # the order or loading may break it, see the README
 
 EOBUNDLES
