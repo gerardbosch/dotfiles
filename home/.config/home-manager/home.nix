@@ -55,6 +55,8 @@ in
     # flake = "/path/to/your/flake";
   };
 
+  programs.command-not-found.enable = true;
+
   # ----------------
   # === Packages ===
   # ----------------
@@ -71,6 +73,7 @@ in
     fzf
     gitFull
     git-extras
+    git-review
     ranger
     cloc
     hugo
@@ -93,7 +96,7 @@ in
     tree
     cowsay
     jumpapp
-    ksnip
+    kmonad
     ffmpeg
     tealdeer
     gh
@@ -118,13 +121,13 @@ in
     jq
     neofetch
     pdftk
-    warp-terminal
+    #warp-terminal
     waveterm
     docker-compose
 
     # -- CloudFlare wrangler ---------------------------------------------------
     #(pin "wrangler@4.4.0" "sha256-+VRNw/n2jsAm90Jv9gkFBYHfj+tuEhLwW1KZx9xTfUo=").wrangler # CloudFlare workers CLI
-    
+
     # pin wrangler
     # (import (pkgs.fetchFromGitHub {
     #   owner = "cloudflare";
@@ -157,8 +160,6 @@ in
     #ammonite
 
     # -- Other
-    #awscli2
-    #aws-sso-cli
     go   # required-by: hugo
     #jekyll # gave errors: Use `nix-shell -p bundler`
 
@@ -167,6 +168,7 @@ in
     blanket
     copyq # install with yay => any issues?
     firefox
+    jetbrains-toolbox
     ksnip
     obsidian
     vlc
@@ -179,14 +181,23 @@ in
     emote
     gimp
     livecaptions
+    #(config.lib.nixGL.wrap ulauncher) # problems, install with yay
     yad
 
     # == TODO Move to localPackages
-    # calibre # nixGL
+    bruno # local git-based postman replacement
     (config.lib.nixGL.wrap calibre)
-    #postman
+    postman
     remmina
-    #slack
+    slack
+
+    # == TODO Enterprise: Create a group (or similar thing) for enterprise or `enterprise-aws`, `enterprise-essential`, enterprise-foo
+    #     that can be enabled somehow with a local file with the groups to enable/install =)
+    #     think on which groups could exist for specific apps like aws
+    awscli2
+    #aws-sso-cli
+    kubectl # krew plugin manager not included
+    kubelogin-oidc
 
   ] ++ (if isLinux then [
 
