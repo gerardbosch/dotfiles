@@ -123,7 +123,6 @@ in
     pdftk
     #warp-terminal
     waveterm
-    docker-compose
 
     # -- CloudFlare wrangler ---------------------------------------------------
     #(pin "wrangler@4.4.0" "sha256-+VRNw/n2jsAm90Jv9gkFBYHfj+tuEhLwW1KZx9xTfUo=").wrangler # CloudFlare workers CLI
@@ -143,10 +142,10 @@ in
     # TODO
     #wrangler
 
-    # TODO Broken package, temp workaround until fixed
-    (pkgs.wrangler.overrideAttrs (oldAttrs: {
-      dontCheckForBrokenSymlinks = true;
-    }))
+    # TODO Broken package, this is a temporary workaround until fixed
+    # (pkgs.wrangler.overrideAttrs (oldAttrs: {
+    #   dontCheckForBrokenSymlinks = true;
+    # }))
     # --------------------------------------------------------------------------
 
     #github:ceedubs/unison-nix#packages.x86_64-linux.ucm
