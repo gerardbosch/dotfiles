@@ -330,8 +330,8 @@
 )
 
 (defalias
-  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad")
-  edcfg (cmd-button "code $HOME/.config/kmonad/mi-keyboard.kbd &")
+  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad@laptop-ansi-104-keys.kbd")
+  edcfg (cmd-button "code $HOME/.config/kmonad/laptop-ansi-104-keys.kbd &")
 )
 
 ;; -------------------------------------------------------------------------------------------

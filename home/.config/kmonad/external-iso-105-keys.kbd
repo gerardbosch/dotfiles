@@ -1,0 +1,348 @@
+;;
+;; See quick ref at: https://github.com/kmonad/kmonad/blob/master/doc/quick-reference.md
+;; Read the full tutorial at: https://github.com/kmonad/kmonad/blob/master/keymap/tutorial.kbd
+;;
+;; Characters that need to be backslash-escaped: \ ( ) _   e.g. '\\'
+;;
+;; HOW the "chords" are emited:
+;; ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+;;               `tap-next`  emits either the key or the chord, but no timeout here, so the key only becomes a
+;;                             modifier if a 2nd key is pressed.
+;;               `tap-hold`  emits ONLY AFTER the timeout (not useful for regular mod keys). If the key is released
+;;                             before timeout expiration, the key along with any subsequent keys are emited.
+;;          `tap-hold-next`  emits AS SOON AS a 2nd key is pressed. The timeout tells when the key becomes a modifier
+;;                             if no 2nd key is pressed yet.
+;;       `tap-next-release`  ...
+;;  `tap-hold-next-release`  ...
+;;
+;; NOTE: `tap-hold-next` and `tap-hold-next-release` accept the option `:timeout-button b` for a fallback hold button
+;;   after timeout, which allows a fallback to emit a repeating button.
+;;
+;; NOTE: The most *comfortable* to use seems to be `tap-hold-next-release`.
+;; NOTE 2024-11-14: `tap-hold` and  `tap-hold-overlap` are new (possibly better) options. See here:
+;;   https://github.com/kmonad/kmonad/pull/916/files#diff-885489a200014c02066b8081c6acbea03a7f907a6c0df4f951657ad196fb72c6
+;; _____________________________________________________________________________________________________________________
+;;
+;; https://github.com/kmonad/kmonad/issues/237#issuecomment-840661222
+;;
+;; Just think about it: a tap-next-hold-release is actually just the following logic:
+;;
+;;   - notice my trigger being pressed
+;;   - either
+;;      - timeout -> do hold thing
+;;      - notice my trigger being released -> do tap thing
+;;      - notice something else being pressed
+;;         - notice my trigger being released -> do tap thing
+;;         - notice the something else being released -> do hold thing
+;;
+;; ☝  (personal note): Hypotesis - The 3 last lines above could explain why using `tab` as a dual tab/mod key makes
+;;     `alt-tab` to work so bad: When `alt` is released before `tab` (something very common when quickly switching
+;;     windows) it accounts for the last line (something else released), hence "do hold thing", which enables the
+;;     tab-triggered layer, instead of emiting a tab. Solutions: (a) Obvious one: Do not modify tab behaviour and use
+;;     another key, e.g. `q`, for that purpose; (b) Non-obvious: Find if there is any function `tap-...` that plays well
+;;     with this; (c) Alt: Try using specific hot-key software like shkd or similar to achieve this.
+;; _____________________________________________________________________________________________________________________
+;;
+;; NOTES ABOUT THIS CONFIG:
+;; ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+;; - Most of `cmd-button` commands are my own scripts and mainly wrappers around other commands.
+;;   The idea behind is that they can be implemented differently -if necessary- for each platform (Linux/MacOS/Win),
+;;   without afecting KMonad configuration -making KMonad config agnostic of platform-specific commands/tools. For
+;;   example, desktop management is done with different tools in Linux vs. MacOS, e.g. `wmctl` vs `yabai`.
+;;
+;;   Those scripts (as well as this KMonad config) are part of my dotfiles; they are placed in my PATH, and are
+;;   accessible for KMonad to run them. Under Linux, KMonad is started by systemd in user mode. KMonad can access user
+;;   PATH after desktop login (couldn't find another way to load it, see detail below).
+;;
+;;   Relevant/related configs:
+;;     - https://github.com/gerardbosch/dotfiles/tree/main/_shallow-symlinks/bin/keyboard-triggers
+;;     - https://github.com/gerardbosch/dotfiles-linux/blob/main/home/.config/systemd/user/kmonad.service
+;;     - https://github.com/gerardbosch/dotfiles-linux/blob/main/home/.config/autostart/kmonad.desktop
+;;     - https://github.com/gerardbosch/dotfiles/blob/main/home/.shell/shellrc.d/05-env.sh
+;;
+
+(defcfg
+
+  fallthrough true
+  allow-cmd true
+
+  ;; Linux
+  input  (device-file "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.1-event-kbd")
+  output (uinput-sink
+          "My KMonad keyboard"                           ;; name of the created keyboard
+          ;; setxkbmap -option compose:menu              ;; option already defined in my custom keyboard map
+          ;; Additional, environment-specific, information. Autorepeat: <delay> [rate-per-second]
+          "sleep 0.2; xset r rate 160 90")
+  cmp-seq cmp     ;; compose button (in mi-keyboard, it is the context-menu button: fn-rctl)
+  cmp-seq-delay 5 ;; tutorial recommendation: 5ms delay between each compose-key sequence press
+
+  ;; Windows
+  ;;input  (low-level-hook)
+  ;;output (send-event-sink)
+
+  ;; MacOS
+  ;;input  (iokit-name "my-keyboard-product-string")
+  ;;output (kext)
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc           home
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret            end
+  caps a    s    d    f    g    h    j    k    l    ;    '         \              pgup
+  lsft z    x    c    v    b    n    m    ,    .    /         rsft           up   pgdn
+  lctl      lmet lalt           spc            ralt rctl                left down rght
+)
+
+
+;; TODO combo s l => caps (not impl yet: https://github.com/kmonad/kmonad/issues/157)
+;; TODO IDEAS: combo a ; => vim-like leader key? e.g. write stuff like `smi` for smiley emoji. Think in more interesting stuff like complex launchers like open FF in the URL to create a project's issue
+
+
+;; ---------------------------
+;; === BASE layer (qwerty) ===
+;; ---------------------------
+
+;; TODO Switching keys like `/` and `-` is probably better done by XKB, as doing it here applies to all languages.
+;;  Although that's tempting, as it would work OOB for any platform, it would imply re-learning to type some symbols in
+;;  Catalan :-/ If I can get used to US-intl keyboard and/or compose key to type Catalan/Spanish, then it's fine! Ö·ó
+(deflayer qwerty
+  caps    _     _        _       _     _        _      _    _     _     _     _        _    _
+  _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
+  _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
+  @escHyp @aCtl @sSft    _       @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
+  _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
+  _             _        _                      @spSft            _     _                        _     _      _
+)
+
+(defalias
+  ;; --- New button definitions
+  hyp (around rctl (around ralt rsft))
+
+  ;; --- Home row mod keys (control/shift/hyper)
+  escHyp (tap-hold-next-release 250 esc @hyp)
+  quotHyp (tap-hold-next-release 250 ' @hyp)
+  aCtl (tap-hold-next-release 250 a ctl)
+  ;Ctl (tap-hold-next-release 250 ; ctl)
+  sSft (tap-hold-next-release 200 s sft)
+  lSft (tap-hold-next-release 200 l sft :timeout-button l)
+  spSft (tap-hold-next-release 350 spc sft :timeout-button spc)
+
+  ;; --- Layer triggers
+  zKmn (tap-hold-next-release 250 z (layer-toggle kmonad-mgmt))
+  fEdt (tap-hold-next-release 250 f (layer-toggle edition))
+  kSym (tap-hold-next-release 250 k (layer-toggle symbols) :timeout-button k)
+  pLau (tap-hold-next-release 250 p (layer-toggle launcher))
+  vNum (tap-hold-next-release 250 v (layer-toggle numpad))
+
+  ;;tbWsp (tap-hold-next 250 tab (layer-toggle workspace)) ;; Disabled, using `q` instead: See the problems in the intro
+  qWsp    (tap-hold-next-release 250 q (layer-toggle workspace))
+  wFolWin (tap-hold-next-release 250 w (layer-toggle window-workspace-follow))
+  3mvWin  (tap-hold-next-release 250 3 (layer-toggle window-workspace-mv))
+
+  ;; --- Misc
+  ;;[caps (multi-tap 170 [ caps) ;; Really unconfortable as delays emiting single [ a lot
+)
+
+;; -------------------------
+;; === (f) Edition layer ===
+;; -------------------------
+
+;; The edition layer is inspired by capslock.vonng.com
+
+(deflayer edition ;; f
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _
+  _    _    _    _    _    _        _    _    _     _     _    _    _    _              _
+  _    _    _    _    _    _        _    pgup home  end   pgdn @wb  @wf  _              _
+  _    _    _    sft  _    _        left down up    rght  ret  _         _              _
+  _    _    _    _    _    _        @dlw bspc @supc @supw _    _                   _    _
+  _         _    _                  caps            _     _                   _    _    _
+)
+
+(defalias
+  wb C-left    ;; jump word backward
+  wf C-rght    ;; jump word forward
+  dlw C-bspc   ;; delete word backward
+  supc del     ;; supress char forward
+  supw C-del   ;; supress word forward
+)
+
+;; -------------------------
+;; === (k) Symbols layer ===
+;; -------------------------
+
+(deflayer symbols ;; k
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    \(   \)   _        _    _    _    _    _    _         _              _
+  _    _    _    _    _    _        _    _    _    _    _    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
+)
+
+;; ---------------------------
+;; === (q) Workspace layer ===
+;; ---------------------------
+
+;; Jump to a specific workspace!
+;;
+;; I use 5 workspaces/desktops to organise windows by topics. They're virtually organized in a grid like the following:
+;;
+;;   U | I
+;;   J | K | L
+;;
+;; where `U` is the first workspace, `I` the second, and so on. I could eventually extend the "grid" with adjacent keys.
+
+(deflayer workspace ;; q
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @u   @i   _    _    _    _    _              _
+  _    _    _    _    _    _        _     @j   @k   @l   _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @/   _                   _    _
+  _         _    _                  @prev           _    _                   _    _    _
+)
+
+(defalias
+  ;;folWin (layer-toggle window-workspace-follow) ;; TODO REVIEW replaced by `w` key on base layer, test usability
+
+  ;; TODO Any command or window manager that allows to switch to recently used workspace? Can xdotool can help? Looking
+  ;;  for something like MacOS `yabai -m space --focus recent` that works in Linux...
+  prev (cmd-button "")
+
+  u (cmd-button "workspace-focus u")
+  i (cmd-button "workspace-focus i")
+  j (cmd-button "workspace-focus j")
+  k (cmd-button "workspace-focus k")
+  l (cmd-button "workspace-focus l")
+  ;; TODO Focus 2nd monitor: find command to do so, see if xdotool can help instead wmctrl
+  / (cmd-button "")
+)
+
+;; ---------------------------------------------------
+;; === (w) Window-workspace layer (move following) ===
+;; ---------------------------------------------------
+
+;; Move windows around workspaces: Send a window to the specified workspace (not follow the window).
+
+(deflayer window-workspace-follow ;; w
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @mu  @mi  _    _    _    _    _              _
+  _    _    _    _    _    _        _     @mj  @mk  @ml  _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @m/  _                   _    _
+  _         _    _                  _               _    _                   _    _    _
+)
+
+(defalias
+  mu (cmd-button "window-workspace-follow u")
+  mi (cmd-button "window-workspace-follow i")
+  mj (cmd-button "window-workspace-follow j")
+  mk (cmd-button "window-workspace-follow k")
+  ml (cmd-button "window-workspace-follow l")
+  ;; TODO Move window to 2nd monitor: find command or window manager to do so, see if xdotool can help instead wmctrl
+  m/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Following current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
+)
+
+;; ----------------------------------------------
+;; === (3) Window-workspace layer (move only) ===
+;; ----------------------------------------------
+
+;; Follow windows around workspaces: Send a window to the specified workspace and follow the window.
+
+(deflayer window-workspace-mv ;; 3
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _
+  _    _    _    _    _    _        _     _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _     @fu  @fi  _    _    _    _    _              _
+  _    _    _    _    _    _        _     @fj  @fk  @fl  _    _         _              _
+  _    _    _    _    _    _        _     _    _    _    @f/  _                   _    _
+  _         _    _                  _               _    _                   _    _    _
+)
+
+(defalias
+  fu (cmd-button "window-workspace-mv u")
+  fi (cmd-button "window-workspace-mv i")
+  fj (cmd-button "window-workspace-mv j")
+  fk (cmd-button "window-workspace-mv k")
+  fl (cmd-button "window-workspace-mv l")
+  ;; TODO Move window to 2nd monitor: find command or window manager to do so, see if xdotool can help instead wmctrl
+  f/ (cmd-button "notify-desktop \'KMonad\' \'Mock: Moving current window to monitor 2\' ~/bin/notify-desktop-img/kmonad-k.svg")
+)
+
+;; --------------------------
+;; === (p) Launcher layer ===
+;; --------------------------
+
+;; Focus or `l`aunch apps (fol).
+
+(deflayer launcher ;; p
+  @rec _     _    _    _    _        _    _    _    _    _    _    _    _
+  _    @play _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _     @whp _    @ter @lTer    _    _    _    _    _    _    _    _              _
+  _    _     @scr _    @fil _        _    _    _    _    _    _         _              _
+  _    @sla  @tel @cod _    _        @obs _    _    _    _    _                   _    _
+  _          _    _                  _              _    _                   _    _    _
+)
+
+(defalias
+  ;; This is implemented with custom scripts. They work as an interface that can be implemented differently by every OS:
+  ;;   - run-detach: detaches long living processes from kmonad proc
+  ;;   - fol: "focus or launch" (also detaches de process)
+  ;;   - folm: "focus or launch (minimizing)" (also detaches de process)
+  ;;
+  tel  (cmd-button "folm telegram-desktop")
+  rec  (cmd-button "run-detach screen-rec") ;; toggle rec
+  lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}") ;; l = launch
+  ter  (cmd-button "fol gnome-terminal")
+  ;; scr  (cmd-button "run-detach ksnip --rectarea & disown")
+  scr  (cmd-button "nohup ksnip --rectarea & disown")
+  fil  (cmd-button "file-manager")
+  cod  (cmd-button "run-detach code")
+  obs  (cmd-button "folm obsidian")
+  play (cmd-button "media-play-pause") ;; media conntrol buttons
+  sla  (cmd-button "folm slack")
+  whp  (cmd-button "folm-whatsapp")
+)
+
+;; --------------------
+;; === Numpad layer ===
+;; --------------------
+
+(deflayer numpad ;; v
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    *    _    -    /    _    _              _
+  _    _    _    _    _    _        _    7    8    9    +    \(   \)   _              _
+  _    _    _    _    _    _        _    4    5    6    ret  _         _              _
+  _    _    _    _    _    _        0    1    2    3    .    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
+)
+
+;; -------------------------------
+;; === KMonad management layer ===
+;; -------------------------------
+
+(deflayer kmonad-mgmt ;; z
+  _    _    _    _      _      _        _    _    _    _    _    _    _    _
+  _    _    _    _      _      _        _    _    _    _    _    _    _    _              _
+  _    _    _    @edcfg @rdcfg _        _    _    _    _    _    _    _    _              _
+  _    _    _    _      _      _        _    _    _    _    _    _         _              _
+  _    _    _    _      _      _        _    _    _    _    _    _                   _    _
+  _         _    _                      _              _    _                   _    _    _
+)
+
+(defalias
+  rdcfg (cmd-button "notify-desktop 'KMonad restart' 'Reloading config...' ~/bin/notify-desktop-img/kmonad-k.svg ; systemctl --user restart kmonad@external-iso-105-keys.kbd")
+  edcfg (cmd-button "code $HOME/.config/kmonad/external-iso-105-keys.kbd &")
+)
+
+;; -------------------------------------------------------------------------------------------
+;; --vvv-- Template to copy below --vvv--
+;; -------------------------------------------------------------------------------------------
+
+(deflayer default ;;
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _        _    _    _    _    _    _         _              _
+  _    _    _    _    _    _        _    _    _    _    _    _                   _    _
+  _         _    _                  _              _    _                   _    _    _
+)
