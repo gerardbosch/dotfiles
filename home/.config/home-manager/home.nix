@@ -166,9 +166,9 @@ in
     # === Graphical ===
     activitywatch
     blanket
-    copyq # install with yay => any issues?
+    copyq
     firefox
-    jetbrains-toolbox
+    #jetbrains-toolbox # 2025-07 It's failing: no xdg .desktop/launcher, no IDE updates,...
     ksnip
     obsidian
     vlc
