@@ -119,6 +119,7 @@ in
     direnv
     btop
     jq
+    jwt-cli
     neofetch
     pdftk
     #warp-terminal
