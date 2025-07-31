@@ -1,7 +1,7 @@
 [core]
   eol = lf
   autocrlf = input
-  hooksPath = ~/.config/git/hooks
+  hooksPath = /home/gerard/.config/git/hooks
 
 ; Define it in config-local file (untracked by dotfiles)
 [user]
