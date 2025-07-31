@@ -86,6 +86,7 @@ localPackages =
     ripgrep-all
     shellcheck
     tealdeer
+    tmux
     tree
     xan # Rust cli to process csv files
     #vdhcoapp
@@ -164,6 +165,7 @@ localPackages =
     postman
     remmina
     #(config.lib.nixGL.wrap ulauncher) # problems, install with yay
+    xdotool
     yad
   ];
 
