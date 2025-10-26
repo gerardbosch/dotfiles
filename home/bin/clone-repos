@@ -1,0 +1,26 @@
+#!/bin/env bash
+
+# Check if the base path parameter is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <git-base-path>"
+  echo "Example: $0 git@github.com:ORGANIZATION"
+  exit 1
+fi
+
+basePath="$1"
+reposFilePath="_REPOS"
+
+# Check if the file exists
+if [ ! -f "$reposFilePath" ]; then
+  echo "Error: File $reposFilePath not found in current directory."
+  exit 2
+fi
+
+while read -r repo; do
+  echo "Cloning $repo..."
+  git clone "$basePath/$repo.git"
+  echo
+  echo '***************************************************'
+  echo
+done < "$reposFilePath"
+
