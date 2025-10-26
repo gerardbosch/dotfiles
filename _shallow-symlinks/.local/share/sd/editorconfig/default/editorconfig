@@ -14,7 +14,7 @@ max_line_length = 120
 
 [*.md]
 trim_trailing_whitespace = false
-max_line_length = 100
+max_line_length = 0
 
 [*.{yml, yaml}]
 indent_size = 2
@@ -22,6 +22,15 @@ indent_size = 2
 insert_final_newline = true
 
 [*.java]
-# supported by IntelliJ
-continuation_indent_size = 4
+ij_continuation_indent_size = 4
+ij_java_names_count_to_use_import_on_demand = 999
+ij_java_class_count_to_use_import_on_demand = 999
+
+[*.{kt,kts}]
+# Disable wildcard imports entirely
+ij_kotlin_name_count_to_use_star_import = 999
+ij_kotlin_name_count_to_use_star_import_for_members = 999
+
+# Allows enabling wildcard import on specific packages
+ij_kotlin_packages_to_use_import_on_demand = unset
 
