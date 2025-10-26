@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+if [ -z "$1" ]; then
+  bin=$(basename "$0")
+  echo -e "Usage:\n  $bin <youtube-url> [language]"
+  exit 1
+fi
+
+set -u
+
+API_KEY=$(<~/cert/supadata-api-key.txt)
+YOUTUBE_URL="$1"
+LANGUAGE="${2:-}"
+
+if [ -n "$LANGUAGE" ]; then
+  LANG_ARG="&lang=$LANGUAGE"
+else
+  LANG_ARG=""
+fi
+
+# Unnecessary videoId, URL is fine
+# extract the video ID from the URL
+# VIDEO_ID=$(echo "$YOUTUBE_URL" | sed -n 's#.*v=\([^&]*\).*#\1#p')
+# if [ -z "$VIDEO_ID" ]; then
+#   VIDEO_ID=$(echo "$YOUTUBE_URL" | sed -n 's#.*/\([^/?&]*\).*#\1#p')
+# fi
+# if [ -z "$VIDEO_ID" ]; then
+#   echo "Could not extract video ID from URL"
+#   exit 2
+# fi
+
+curl "https://api.supadata.ai/v1/youtube/transcript?url=$YOUTUBE_URL&text=true$LANG_ARG" -H "x-api-key: $API_KEY" \
+  | jq -r '.content'
