@@ -68,6 +68,13 @@ alias gl='git l'    # `lg` alias is defined in .gitconfig
 alias gll='git lg'  # `lg` alias is defined in .gitconfig
 alias gst='git status'
 
+## Docker
+alias docker-cleanup='docker system prune -f && docker builder prune -f'
+alias dps='docker ps'
+alias cup='docker compose up ; docker compose down --remove-orphans ; docker ps'
+alias cupd='docker compose up -d ; docker compose down --remove-orphans ; docker ps'
+alias cdo='docker compose down --remove-orphans ; docker ps'
+
 ## jshell with vavr loaded and imports in place :) ##
 alias vavr='jshell --class-path "$(cs fetch -p io.vavr:vavr:0.10.3)" --startup ~/.jshell/vavr-imports.jsh'
 
