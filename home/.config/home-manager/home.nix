@@ -125,7 +125,7 @@ localPackages =
     firefox
     gimp
     #jetbrains-toolbox # 2025-07 It's failing: no xdg .desktop/launcher, no IDE updates,...
-    ksnip
+    #ksnip # 2025-08 Not so stable, somethimes does not reveal. Install with distro pkg man
     obsidian
     slack
     vlc
@@ -134,7 +134,10 @@ localPackages =
 
   devtoolsPackages = with pkgs; [
     #ammonite
+    apacheKafka
     bruno # local git-based postman replacement
+    claude-code
+    codex
     jwt-cli
     #nodePackages.localtunnel
     #nushell
