@@ -20,5 +20,6 @@ done
 #echo "PATH=${PATH}" > "${HOME}/.config/environment.d/05-user-path.conf"
 
 # Export/dump user PATH so that systemd units can read it with `EnvironmentFile=/path/to/file` (see user kmonad.service)
-umask 0077 && echo "PATH=${PATH}" > "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/user.path"
+# Non-sensitivie, jut make it 0600 via umask (subshell) for /run/user hygiene-paranoia 🤣
+(umask 0077 && echo "PATH=${PATH}" > "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/user.path")
 
