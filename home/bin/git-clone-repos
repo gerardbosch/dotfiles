@@ -4,6 +4,7 @@
 if [ -z "$1" ]; then
   echo "Usage: $0 <git-base-path>"
   echo "Example: $0 git@github.com:ORGANIZATION"
+  echo "  *Add the repos in _REPOS file"
   exit 1
 fi
 
