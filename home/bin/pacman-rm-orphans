@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+pacman -Rns $(pacman -Qdtq) 2>/dev/null || echo 'Already clean! No orphans to remove.'
+
