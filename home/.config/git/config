@@ -20,9 +20,6 @@
   lg1 = log --pretty=oneline
   cl = clone --recurse-submodules
   in = init
-  # Cleanup already **fully** merged branches (git branch -d).
-  #  - Only works when using merge commits (not squash)
-  brcleanup = !git branch --merged | egrep -v '(^\\*|^\\s*master$|^\\s*develop$|^\\s*dev$)' | xargs -n1 -r git branch -d
   submodule-pull = submodule update --init --remote
   submodule-update-rec = submodule update --init --recursive
   # Starts an interactive rebase of all the commits you haven't pushed yet. Handy for collapsing a bunch of work-in-progress snapshots into logical commits before pushing, without having to worry about accidentally squashing a commit someone else has already referred to.

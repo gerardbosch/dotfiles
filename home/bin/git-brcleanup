@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo -e "${YELLOW}=== Git Branch Cleanup (Squash Merge Safe) ===${NC}"
+echo ""
+
+# Fetch and prune remote tracking
+echo "Fetching and pruning remote tracking..."
+git fetch -p
+
+# Get branches with "gone" status
+branches_to_delete=$(git branch -vv | awk '/: gone]/{print $1}')
+
+echo ""
+echo -e "${YELLOW}Branches to delete:${NC}"
+
+if [ -z "$branches_to_delete" ]; then
+  echo "No branches to delete."
+  exit 0
+fi
+
+# Display branches that will be deleted
+echo "$branches_to_delete" | nl
+echo ""
+
+# Show details for each branch
+echo -e "${YELLOW}Details:${NC}"
+
+while IFS= read -r branch; do
+  # Get last commit on this branch
+  last_commit=$(git log -1 --format="%h - %s" "$branch" 2>/dev/null)
+  echo "  $branch: $last_commit"
+done <<< "$branches_to_delete"
+
+echo ""
+echo -e "${RED}WARNING: These branches will be permanently deleted${NC}"
+read -p "Delete these branches? [y/N] " -n 1 -r
+echo ""
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "$branches_to_delete" | xargs -r git branch -Df
+  echo -e "${GREEN}✓ Cleanup complete${NC}"
+else
+  echo -e "${YELLOW}Cleanup cancelled${NC}"
+fi
+
