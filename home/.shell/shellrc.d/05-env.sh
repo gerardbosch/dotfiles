@@ -15,8 +15,9 @@ export EDITOR=vim
 # Ultimately, lesspipe.sh (if present) will still honor your own lessfilter if found in your PATH, leading to the
 # following execution: lessfilter-fzf > lesspipe.sh > lessfilter.
 export LESSOPEN='| lessfilter-fzf %s'   # a pre-processor to increase less capabilities (shell plugin)
+export LESS='-Ri' # R=ANSI colors (fzf/lesspipe recommend), i=smartcase, N=line, S=no-wrap, X=no-clear
+export PAGER=nvimpager # alternative to `less`
 
-export PAGER=less
 export CASTLES="$HOME/.homesick/repos"
 export SD_ROOT="$HOME/.local/share/sd"
 
