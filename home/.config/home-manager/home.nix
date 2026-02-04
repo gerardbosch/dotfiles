@@ -76,7 +76,8 @@ localPackages =
     neofetch
     neovim
     # nh # Nix Helper CLI # Added in programs
-    nodejs
+    nnn
+    nodejs_24
     nvimpager
     pdftk
     pre-commit
@@ -144,10 +145,11 @@ localPackages =
     #scala-cli
     #pipx
     #postman
+    gemini-cli-bin
     go   # required-by: hugo
     #github:ceedubs/unison-nix#packages.x86_64-linux.ucm
     vscode
-    #warp-terminal
+    warp-terminal
     waveterm
     #yarn
   ];
@@ -155,6 +157,8 @@ localPackages =
   enterprisePackages = with pkgs; [
     awscli2
     #aws-sso-cli
+    cloudlens
+    k9s
     kubectl # krew plugin manager not included
     kubelogin-oidc
     slack
