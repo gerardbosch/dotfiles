@@ -70,11 +70,15 @@ alias gst='git status'
 
 ## Docker & Compose
 alias docker-cleanup='docker system prune -f && docker builder prune -f'
+alias docker-stop-all='docker stop $(docker ps -q)'
 alias dps='docker ps'
 alias cup='docker compose up ; docker compose down --remove-orphans ; docker ps'
 alias cupd='docker compose up -d ; docker compose down --remove-orphans ; docker ps'
 alias cdo='docker compose down --remove-orphans ; docker ps'
 alias clogs='docker compose logs -f' # e.g. clogs app
+
+## Github
+alias ghrun='gh workflow run $(gh workflow list | grep "LBC CI" | awk "{print \$NF}") --ref $(git branch --show-current)'
 
 ## jshell with vavr loaded and imports in place :) ##
 alias vavr='jshell --class-path "$(cs fetch -p io.vavr:vavr:0.10.3)" --startup ~/.jshell/vavr-imports.jsh'
