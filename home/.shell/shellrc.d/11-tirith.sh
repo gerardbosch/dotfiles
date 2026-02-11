@@ -1,2 +1,2 @@
-command -v tirith && eval "$(tirith init)"
+command -v tirith >/dev/null && eval "$(tirith init --shell zsh)"
 
