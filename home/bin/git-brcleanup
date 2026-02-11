@@ -39,7 +39,7 @@ done <<< "$branches_to_delete"
 
 echo ""
 echo -e "${RED}WARNING: These branches will be permanently deleted${NC}"
-read -p "Delete these branches? [y/N] " -n 1 -r
+read -p "Delete these branches? [y/N] " -r -n1 # -n1: eager execution, single keystroke (no enter to send, more risky)
 echo ""
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
