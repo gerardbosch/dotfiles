@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Extract Gerrit configuration from git remote
+GERRIT_REMOTE=$(git remote get-url origin 2>/dev/null)
+
+if [ -z "$GERRIT_REMOTE" ]; then
+    echo "Error: Could not find git remote 'origin'"
+    exit 1
+fi
+
+GERRIT_USER=$(echo "$GERRIT_REMOTE" | sed -n 's|ssh://\([^@]*\)@.*|\1|p')
+GERRIT_HOST=$(echo "$GERRIT_REMOTE" | sed -n 's|ssh://[^@]*@\([^:]*\):.*|\1|p')
+GERRIT_PORT=$(echo "$GERRIT_REMOTE" | sed -n 's|ssh://[^@]*@[^:]*:\([0-9]*\)/.*|\1|p')
+
+if [ -z "$GERRIT_USER" ] || [ -z "$GERRIT_HOST" ] || [ -z "$GERRIT_PORT" ]; then
+    echo "Error: Could not parse Gerrit configuration from remote URL"
+    exit 1
+fi
+
+# Get all open review numbers directly from Gerrit
+OPEN_REVIEWS=$(ssh -p "$GERRIT_PORT" "$GERRIT_USER@$GERRIT_HOST" gerrit query --format=JSON "owner:self status:open" | \
+    jq -r 'select(.type != "stats") | .number // empty')
+
+# Get all local review branches and extract change numbers
+LOCAL_REVIEWS=$(git branch | grep "review/" | sed 's/[* ]//g' | sed 's/review\///' | sort -n)
+
+# Find reviews that are checked out locally but not in open reviews
+STALE_REVIEWS=()
+
+for review in $LOCAL_REVIEWS; do
+    if ! echo "$OPEN_REVIEWS" | grep -q "^${review}$"; then
+        STALE_REVIEWS+=("$review")
+    fi
+done
+
+# Display header
+echo "========================================"
+echo "Local Stale Reviews (Merged or Abandoned)"
+echo "========================================"
+echo ""
+
+if [ ${#STALE_REVIEWS[@]} -eq 0 ]; then
+    echo "No stale reviews found."
+    echo ""
+    exit 0
+fi
+
+# Build a single query with OR conditions for all stale reviews
+QUERY=""
+for review in "${STALE_REVIEWS[@]}"; do
+    if [ -z "$QUERY" ]; then
+        QUERY="change:$review"
+    else
+        QUERY="$QUERY OR change:$review"
+    fi
+done
+
+# Make a single SSH call to fetch all stale reviews
+ssh -p "$GERRIT_PORT" "$GERRIT_USER@$GERRIT_HOST" gerrit query --format=JSON "($QUERY)" | \
+jq -r 'select(.type != "stats") | "\(.number) - [\(.status)] \(.subject)"' | \
+sort -n
+
+echo ""
+echo "Found ${#STALE_REVIEWS[@]} stale review branch(es)."
+echo ""
+
+# Ask user if they want to delete the branches
+read -p "Would you like to delete these local branches? (y/N): " -n 1 -r
+echo ""
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "Deleting stale branches..."
+    echo ""
+
+    for review in "${STALE_REVIEWS[@]}"; do
+        BRANCH_NAME="review/$review"
+        if git branch -D "$BRANCH_NAME" 2>/dev/null; then
+            echo "✓ Deleted $BRANCH_NAME"
+        else
+            echo "✗ Failed to delete $BRANCH_NAME"
+        fi
+    done
+
+    echo ""
+    echo "Done!"
+else
+    echo "No branches deleted."
+fi
+
+echo ""
