@@ -87,6 +87,7 @@ localPackages =
     ripgrep-all
     shellcheck
     tealdeer
+    #tirith # assess adoption, project reputation, #developers, etc.
     tmux
     tree
     xan # Rust cli to process csv files
@@ -131,6 +132,7 @@ localPackages =
     slack
     vlc
     workrave
+    xournalpp # PDF notes editor
   ];
 
   devtoolsPackages = with pkgs; [
