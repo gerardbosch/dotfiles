@@ -53,6 +53,7 @@ localPackages =
     exiftool
     eza
     fasd
+    fastfetch
     fd
     ffmpeg
     fzf
@@ -73,16 +74,17 @@ localPackages =
     mdcat
     mediainfo
     ncdu
-    neofetch
     neovim
     # nh # Nix Helper CLI # Added in programs
     nnn
     nodejs_24
     nvimpager
+    pandoc
     pdftk
     pre-commit
     ranger
     rclone
+    restic
     ripgrep
     ripgrep-all
     shellcheck
