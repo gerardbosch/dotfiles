@@ -70,7 +70,7 @@ alias gst='git status'
 
 ## Docker & Compose
 alias docker-cleanup='docker system prune -f && docker builder prune -f'
-alias docker-stop-all='docker stop $(docker ps -q)'
+alias docker-stop-all='docker stop $(docker ps -q) && docker ps'
 alias dps='docker ps'
 alias cup='docker compose up ; docker compose down --remove-orphans ; docker ps'
 alias cupd='docker compose up -d ; docker compose down --remove-orphans ; docker ps'
