@@ -38,8 +38,10 @@ alias print_colors_shell='for i in {0..255}; do print -Pn "%${i}F${(l:3::0:)i}%f
 #alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
 alias mnt="mount | awk '$1 ~ /\/dev/ { print $1,$3; }' | column -t | sort"
 
+# Nix/home-manager
 # Shorthand for 'vi nix': home-manager
 alias vin='vim ~/.config/home-manager/home.nix'
+alias home-manager-noupdate='home-manager switch --impure --option tarball-ttl 9999999999' # install packages without upgrading everything
 
 #
 # --- Misc ---
