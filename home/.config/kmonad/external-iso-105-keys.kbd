@@ -291,8 +291,8 @@
   ;;
   tel  (cmd-button "folm org.telegram.desktop") ;; from Flatpak
   rec  (cmd-button "run-detach screen-rec") ;; toggle rec
-  lTer (cmd-button "run-detach gnome-terminal --working-directory ${HOME}") ;; l = launch
-  ter  (cmd-button "fol gnome-terminal")
+  lTer (cmd-button "run-detach kgx --working-directory ${HOME}") ;; l = launch ; Gnome terminal
+  ter  (cmd-button "fol kgx") ;; Gnome terminal
   ;; scr  (cmd-button "run-detach ksnip --rectarea & disown")
   scr  (cmd-button "nohup ksnip --rectarea & disown")
   fil  (cmd-button "file-manager")
