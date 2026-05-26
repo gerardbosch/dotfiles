@@ -109,7 +109,7 @@
 (deflayer qwerty
   caps    _     _        _       _     _        _      _    _     _     _     _        _    _
   _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
-  _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
+  _       @qWsp @wFolWin @eAlt   _     _        _      _    @iAlt _     @pLau _        _    ret               _
   @escHyp @aCtl @sSft    @dEdt       _ _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
   _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
   _             _        _                      @spSft            _     _                        _     _      _
@@ -127,6 +127,10 @@
   sSft (tap-hold-next-release 200 s sft)
   lSft (tap-hold-next-release 200 l sft :timeout-button l)
   spSft (tap-hold-next-release 350 spc sft :timeout-button spc)
+
+  ;; --- Alt-tab helpers
+  eAlt (tap-hold-next-release 200 e lalt)
+  iAlt (tap-hold-next-release 200 i lalt)
 
   ;; --- Layer triggers
   zKmn (tap-hold-next-release 250 z (layer-toggle kmonad-mgmt))
