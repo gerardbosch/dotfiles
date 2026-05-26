@@ -110,7 +110,7 @@
   caps    _     _        _       _     _        _      _    _     _     _     _        _    _
   _       _     _        @3mvWin _     _        _      _    _     _     _     /        _    _                 _
   _       @qWsp @wFolWin _       _     _        _      _    _     _     @pLau _        _    ret               _
-  @escHyp @aCtl @sSft    _       @fEdt _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
+  @escHyp @aCtl @sSft    @dEdt       _ _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
   _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
   _             _        _                      @spSft            _     _                        _     _      _
 )
@@ -130,7 +130,7 @@
 
   ;; --- Layer triggers
   zKmn (tap-hold-next-release 250 z (layer-toggle kmonad-mgmt))
-  fEdt (tap-hold-next-release 250 f (layer-toggle edition))
+  dEdt (tap-hold-next-release 250 d (layer-toggle edition))
   kSym (tap-hold-next-release 250 k (layer-toggle symbols) :timeout-button k)
   pLau (tap-hold-next-release 250 p (layer-toggle launcher))
   vNum (tap-hold-next-release 250 v (layer-toggle numpad))
@@ -145,12 +145,12 @@
 )
 
 ;; -------------------------
-;; === (f) Edition layer ===
+;; === (d) Edition layer ===
 ;; -------------------------
 
 ;; The edition layer is inspired by capslock.vonng.com
 
-(deflayer edition ;; f
+(deflayer edition ;; d
   _    _    _    _    _    _        _    _    _     _     _    _    _    _
   _    _    _    _    _    _        _    _    _     _     _    _    _    _              _
   _    _    _    _    _    _        _    pgup home  end   pgdn @wb  @wf  _              _
