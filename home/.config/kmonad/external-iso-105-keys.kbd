@@ -112,7 +112,7 @@
   _       @qWsp @wFolWin @eAlt   _     _        _      _    @iAlt _     @pLau _        _    ret               _
   @escHyp @aCtl @sSft    @dEdt       _ _        _      _    @kSym @lSft @;Ctl @quotHyp      \                 _
   _       @zKmn _        _       @vNum _        _      _    _     _     -     _                        _      _
-  _             _        _                      @spSft            _     _                        _     _      _
+  _             _        XX                     @spSft            _     _                        _     _      _
 )
 
 (defalias
