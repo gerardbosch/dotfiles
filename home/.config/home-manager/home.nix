@@ -46,6 +46,7 @@ localPackages =
     cowsay
     csvkit
     delta
+    dig
     diffr
     direnv
     dos2unix
@@ -53,7 +54,7 @@ localPackages =
     exiftool
     eza
     fasd
-    fastfetch
+    fastfetch # neofetch replacement
     fd
     ffmpeg
     fzf
@@ -87,6 +88,7 @@ localPackages =
     restic
     ripgrep
     ripgrep-all
+    rtk
     shellcheck
     tealdeer
     #tirith # assess adoption, project reputation, #developers, etc.
@@ -140,9 +142,11 @@ localPackages =
   devtoolsPackages = with pkgs; [
     #ammonite
     apacheKafka
+    bazelisk # Bazel wrapper (build tool)
     bruno # local git-based postman replacement
     claude-code
     codex
+    jdt-language-server # Java LSP
     jwt-cli
     #nodePackages.localtunnel
     #nushell
