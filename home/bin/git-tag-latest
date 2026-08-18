@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+git tag | grep $(basename $(pwd)) | sort -V | tail -1
+
