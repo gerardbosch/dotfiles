@@ -53,7 +53,6 @@ localPackages =
     duf
     exiftool
     eza
-    fasd
     fastfetch # neofetch replacement
     fd
     ffmpeg
