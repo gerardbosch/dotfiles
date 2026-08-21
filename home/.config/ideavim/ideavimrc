@@ -9,10 +9,11 @@ set incsearch
 set ignorecase smartcase
 
 set scrolloff=5
-set startofline=off " without selecting new line
+"set startofline=off " without selecting new line ## Was causing an error
 
 set ideajoin
-set ideaput
+"set ideaput " ## Don't know what it is but it fails
+set clipboard+=ideaput
 set idearefactormode=select " {keep, select, visual}
 
 " Don't use Ex mode, use Q for formatting.
