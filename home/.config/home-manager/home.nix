@@ -63,6 +63,7 @@ localPackages =
     git-review
     gitFull
     gitleaks
+    grpcurl
     hugo
     #jekyll # gave errors: Use `nix-shell -p bundler`
     jq
