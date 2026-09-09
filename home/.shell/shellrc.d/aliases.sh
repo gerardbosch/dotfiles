@@ -66,8 +66,8 @@ alias ij='idea . &disown'
 alias cg='cd $(git rev-parse --show-toplevel)' # cd to the Git root dir
 # copy-branch (cpb) Copy git branch name to clipboard alias (plattform independent)
 alias cpb='git rev-parse --abbrev-ref HEAD | pbcopy'
-alias gl='git l'    # `lg` alias is defined in .gitconfig
-alias gll='git lg'  # `lg` alias is defined in .gitconfig
+alias gl='git lg | head' # `lg` alias is defined in .gitconfig
+alias gll='git lg'       # `lg` alias is defined in .gitconfig
 alias gst='git status'
 
 ## Docker & Compose

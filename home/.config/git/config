@@ -16,8 +16,8 @@
   br = branch
   ci = commit
   st = status
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  l  = ! git lg | head
+  # log commits only under the current path (-- .)
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -- .
   lg1 = log --pretty=oneline
   cl = clone --recurse-submodules
   in = init
