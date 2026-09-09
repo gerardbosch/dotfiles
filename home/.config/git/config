@@ -9,6 +9,7 @@
  name = 
 
 [alias]
+  aliases = "!git config --list --show-origin | grep 'alias\\.' | sed 's/^file://'"
   co = checkout
   # checkout default branch
   codefault = !git checkout $(git branch --remotes | awk -F/ '/HEAD/ {print $NF}')
