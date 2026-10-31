@@ -158,7 +158,7 @@ localPackages =
     #github:ceedubs/unison-nix#packages.x86_64-linux.ucm
     vscode
     warp-terminal
-    waveterm
+    #waveterm
     #yarn
   ];
 
